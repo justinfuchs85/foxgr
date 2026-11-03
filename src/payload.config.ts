@@ -48,6 +48,8 @@ export default buildConfig({
   globals: [Homepage],
   editor: lexicalEditor(),
   db: postgresAdapter({
+    // Own schema so this site can share a Supabase project with other apps.
+    schemaName: process.env.DATABASE_SCHEMA || 'foxgr',
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },

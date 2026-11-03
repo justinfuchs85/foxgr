@@ -12,7 +12,7 @@
     "generate:types": "NODE_OPTIONS=--no-deprecation payload generate:types",
     "payload": "NODE_OPTIONS=--no-deprecation payload",
     "typecheck": "tsc --noEmit",
-    "ci": "NODE_OPTIONS=--no-deprecation payload migrate && pnpm build",
+    "ci": "NODE_OPTIONS=--no-deprecation payload migrate && NODE_OPTIONS=--no-deprecation payload run seed/seed.ts && pnpm build",
     "migrate": "NODE_OPTIONS=--no-deprecation payload migrate",
     "migrate:create": "NODE_OPTIONS=--no-deprecation payload migrate:create"
   },

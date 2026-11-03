@@ -30,18 +30,15 @@ Then open http://localhost:3000/admin. The first visit asks you to create the fi
 ## Deploying (Vercel + Supabase)
 
 1. **Supabase**
-   - Create a project.
-   - Copy the **Transaction pooler** connection string to `DATABASE_URL`.
-   - Create a **public** Storage bucket called `media`.
+   - Use a project (it can be shared: tables live in their own `foxgr` schema).
+   - Create a `foxgr` login role that owns a `foxgr` schema, and put its **Transaction pooler** connection string in `DATABASE_URL` (user `foxgr.<project-ref>`).
+   - Create a private Storage bucket called `foxgr-media`.
    - Generate S3 access keys under Storage → S3 Connection.
 2. **Vercel**
    - Import the repo.
    - Add every variable from `.env.example`. Set `NEXT_PUBLIC_SITE_URL` to the real domain, and fill in all the `S3_*` values; without them, uploads go to Vercel's ephemeral disk and vanish.
-   - The build command is already set in `vercel.json` (`pnpm ci`). It runs migrations, then `next build`.
-3. **Seed once** against the production database:
-   ```sh
-   DATABASE_URL=... PAYLOAD_SECRET=... S3_...=... pnpm seed
-   ```
+   - The build command is already set in `vercel.json` (`pnpm ci`). It runs migrations, seeds an empty database, then runs `next build`.
+3. **Seeding is automatic.** The build runs migrations, then the seed, which only loads content when the homepage is empty. Later deploys skip it.
 
 ## Changing the schema
 
