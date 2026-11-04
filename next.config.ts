@@ -21,6 +21,21 @@ const nextConfig: NextConfig = {
   // that the bundler turns into always-throwing stubs, which breaks serving uploaded
   // media. Load them from node_modules at runtime instead.
   serverExternalPackages: ['@payloadcms/transformer-sharp', 'sharp', 'file-type'],
+  // GA4 and Privacy-Focused Analytics merged into one practice area (Nov 2026).
+  async redirects() {
+    return [
+      {
+        source: '/what-we-do/google-analytics-4-consulting',
+        destination: '/what-we-do/analytics-measurement',
+        permanent: true,
+      },
+      {
+        source: '/what-we-do/privacy-focused-marketing-analytics',
+        destination: '/what-we-do/analytics-measurement',
+        permanent: true,
+      },
+    ]
+  },
   images: {
     // Media is served from Payload's own /api/media routes (or the storage bucket
     // through them), so no remote patterns are needed.

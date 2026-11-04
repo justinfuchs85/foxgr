@@ -359,35 +359,169 @@
         "heading": "Build the strategy behind the work.",
         "body": "Tell us where your digital program feels fragmented, unclear, or harder to run than it should be.",
         "buttonLabel": "Start a strategy conversation"
-      }
+      },
+      "featured": true
     },
     {
       "order": 2,
-      "slug": "google-analytics-4-consulting",
-      "title": "Google Analytics 4 Consulting",
-      "navigationLabel": "Google Analytics 4",
-      "eyebrow": "Measurement / Implementation / Adoption",
-      "heroSummary": "Turn GA4 from a source of uncertainty into a measurement system your team trusts, understands, and uses to make decisions.",
+      "slug": "marketing-operations-governance",
+      "title": "Marketing Operations & Governance",
+      "navigationLabel": "Operations & Governance",
+      "eyebrow": "People / Process / Governance",
+      "featured": true,
+      "heroSummary": "Design the team structure, workflows and governance that let marketing scale across brands and business units, without everything routing through one overworked person.",
       "problem": {
-        "heading": "A technically valid setup is not the same as useful analytics.",
-        "body": "GA4 often arrives with duplicated events, unclear conversions, broken governance, and reports no one confidently uses. We connect implementation decisions to the questions your organization actually needs analytics to answer."
+        "heading": "Most marketing teams aren’t short on talent. They’re short on a system.",
+        "body": "As marketing grows across brands, regions and business units, the work fragments. Every team builds its own tools, definitions and approvals, and leaders spend their time reconciling instead of deciding. We design the operating model that pulls it back together, without forcing every team into the same mold."
       },
       "capabilities": [
         {
-          "title": "GA4 audits",
-          "body": "Review configuration, event design, conversions, data quality, governance, and reporting against your real measurement needs."
+          "title": "Operating model design",
+          "body": "Centralized, federated or hub-and-spoke: define what the center owns, what each team owns, and how decisions move between them."
         },
         {
-          "title": "Implementation planning",
-          "body": "Create an actionable measurement plan for GA4 and Google Tag Manager, including naming, ownership, and testing."
+          "title": "Workflow and intake",
+          "body": "Map how work actually flows today, remove the friction, and stand up intake and prioritization that teams will really use."
         },
         {
-          "title": "Reporting systems",
-          "body": "Design focused reports and Looker Studio dashboards that make performance understandable to the people using them."
+          "title": "Web, social and platform governance",
+          "body": "Standards for who can publish, launch, buy and access what, across every site, account and platform the organization runs."
         },
         {
-          "title": "Training and adoption",
-          "body": "Help marketers and leaders understand the platform, interpret data responsibly, and use it in recurring decisions."
+          "title": "Change management and enablement",
+          "body": "Training, playbooks and rollout plans that help new ways of working stick once the engagement ends."
+        }
+      ],
+      "approach": {
+        "heading": "Start with how the work really happens.",
+        "body": "We build on the team you have, not an org chart from a slide deck.",
+        "steps": [
+          {
+            "title": "Observe",
+            "body": "Interview teams and stakeholders, and trace how requests, approvals and launches move today."
+          },
+          {
+            "title": "Design",
+            "body": "Define roles, decision rights, standards and the workflows that connect them."
+          },
+          {
+            "title": "Pilot",
+            "body": "Prove the model with one team or brand before asking everyone to change."
+          },
+          {
+            "title": "Scale",
+            "body": "Roll out with training, documentation and a governance rhythm that keeps it current."
+          }
+        ]
+      },
+      "outcomes": [
+        "Clear ownership and decision rights across teams",
+        "Fewer one-off tools and duplicate processes",
+        "Governance that reduces platform and access risk",
+        "A model that scales as brands and teams are added"
+      ],
+      "cta": {
+        "heading": "Build the system behind the team.",
+        "body": "Tell us how your marketing organization is structured today and where it’s starting to strain.",
+        "buttonLabel": "Talk about your operating model"
+      }
+    },
+    {
+      "order": 3,
+      "slug": "marketing-technology-strategy",
+      "title": "Marketing Technology Strategy",
+      "navigationLabel": "Marketing Technology",
+      "eyebrow": "Stack / Selection / Implementation",
+      "featured": true,
+      "heroSummary": "Choose, implement and govern the platforms your marketing runs on, so the stack serves the strategy instead of the other way around.",
+      "problem": {
+        "heading": "More platforms rarely means more capability.",
+        "body": "Stacks grow one urgent purchase at a time. Before long the CRM, CMS, analytics, consent and ad tools overlap, integrations are fragile, and nobody can say what each license is for. We help teams decide what they need, select it on evidence, and implement it with the people who’ll use it."
+      },
+      "capabilities": [
+        {
+          "title": "Stack assessment",
+          "body": "Inventory what you own, what it costs, how it connects and how much of it is actually used."
+        },
+        {
+          "title": "Platform selection",
+          "body": "Requirements, evaluation criteria and vendor scoring for CRM, CMS, marketing automation, consent and analytics platforms."
+        },
+        {
+          "title": "Implementation leadership",
+          "body": "Translate business needs into technical requirements, and keep vendors, IT and marketing aligned through launch."
+        },
+        {
+          "title": "Vendor and license management",
+          "body": "Consolidate overlapping tools and find the contract structure that fits how your organization buys."
+        }
+      ],
+      "approach": {
+        "heading": "Decisions first, demos second.",
+        "body": "The right platform depends on your operating model, your team’s skills and what you need to measure, not on the best demo.",
+        "steps": [
+          {
+            "title": "Inventory",
+            "body": "Document the current stack, its costs, integrations and owners."
+          },
+          {
+            "title": "Define",
+            "body": "Agree on requirements and evaluation criteria with marketing, IT and the business."
+          },
+          {
+            "title": "Select",
+            "body": "Run a structured evaluation and build the business case."
+          },
+          {
+            "title": "Implement",
+            "body": "Lead requirements, integration planning and adoption through launch."
+          }
+        ]
+      },
+      "outcomes": [
+        "A stack that maps to clear business needs",
+        "Platform decisions backed by documented criteria",
+        "Cleaner integrations and fewer overlapping licenses",
+        "Implementations that teams actually adopt"
+      ],
+      "cta": {
+        "heading": "Make the stack earn its keep.",
+        "body": "Whether you’re replacing one platform or untangling the whole stack, we can help you find the next sensible step.",
+        "buttonLabel": "Talk about your stack"
+      }
+    },
+    {
+      "order": 4,
+      "slug": "analytics-measurement",
+      "title": "Analytics & Measurement",
+      "navigationLabel": "Analytics & Measurement",
+      "eyebrow": "Measurement / Privacy / Reporting",
+      "featured": true,
+      "heroSummary": "Build a measurement system your team trusts, understands and uses, with privacy and consent designed in from the start.",
+      "problem": {
+        "heading": "A technically valid setup is not the same as useful analytics.",
+        "body": "GA4 often arrives with duplicated events, unclear conversions and reports no one confidently uses, while consent rules and browser changes keep shrinking what you can track. We connect each measurement decision to a question the organization actually needs answered, and design it to stay useful with less invasive tracking."
+      },
+      "capabilities": [
+        {
+          "title": "KPI frameworks",
+          "body": "Connect business goals to the metrics, events and conversions that show progress, with one agreed definition per KPI."
+        },
+        {
+          "title": "GA4 and tag management",
+          "body": "Audit, plan and implement GA4 and Google Tag Manager, with naming, ownership and testing documented."
+        },
+        {
+          "title": "Privacy-first measurement",
+          "body": "Consent-aware implementation and platform evaluation (Google Analytics, Piwik PRO, Matomo and others) matched to your risk profile."
+        },
+        {
+          "title": "Reporting and dashboards",
+          "body": "Focused Looker Studio and Power BI reporting that makes performance understandable to the people using it."
+        },
+        {
+          "title": "AI-assisted reporting",
+          "body": "Automate the recurring data wrangling so analysts spend their time on interpretation, not copy and paste."
         }
       ],
       "approach": {
@@ -413,82 +547,19 @@
         ]
       },
       "outcomes": [
-        "A documented and governed measurement plan",
+        "A documented, governed measurement plan",
         "Cleaner event and conversion data",
-        "Reports aligned to real stakeholder questions",
-        "Greater confidence and adoption across the marketing team"
+        "Reporting that holds up with less invasive tracking",
+        "Greater confidence and adoption across the team"
       ],
       "cta": {
-        "heading": "Make GA4 useful again.",
-        "body": "Whether you need an audit, a cleaner implementation, or help operationalizing analytics, we can clarify the next step.",
-        "buttonLabel": "Talk about your GA4 setup"
+        "heading": "Make your analytics useful again.",
+        "body": "Whether you need an audit, a cleaner implementation or a privacy-first approach, we can clarify the next step.",
+        "buttonLabel": "Talk about your measurement"
       }
     },
     {
-      "order": 3,
-      "slug": "privacy-focused-marketing-analytics",
-      "title": "Privacy-Focused Marketing Analytics",
-      "navigationLabel": "Privacy-Focused Analytics",
-      "eyebrow": "Privacy / Measurement / Governance",
-      "heroSummary": "Build a useful marketing measurement program without treating privacy, consent, and data governance as afterthoughts.",
-      "problem": {
-        "heading": "Better privacy should lead to better measurement decisions.",
-        "body": "Regulation, browser changes, consent requirements, and sensitive customer data are reshaping analytics. We help teams determine what should be measured, what should not, and which platforms and governance practices fit their risk profile."
-      },
-      "capabilities": [
-        {
-          "title": "Platform evaluation",
-          "body": "Compare Google Analytics, Piwik PRO, Matomo, and other approaches against privacy, security, reporting, and operational needs."
-        },
-        {
-          "title": "Measurement governance",
-          "body": "Define standards for data collection, retention, access, documentation, and ongoing decision-making."
-        },
-        {
-          "title": "Consent-aware implementation",
-          "body": "Align analytics architecture with consent requirements and the practical realities of your website and marketing stack."
-        },
-        {
-          "title": "Privacy-first reporting",
-          "body": "Design reporting that remains useful even when individual-level tracking is limited or inappropriate."
-        }
-      ],
-      "approach": {
-        "heading": "Start with risk, value, and proportionality.",
-        "body": "There is no universal privacy stack. The right answer depends on your customers, markets, data sensitivity, and the decisions analytics must support.",
-        "steps": [
-          {
-            "title": "Frame",
-            "body": "Document business questions, regulatory context, data sensitivity, and organizational risk tolerance."
-          },
-          {
-            "title": "Evaluate",
-            "body": "Assess the current stack and compare viable platforms and implementation patterns."
-          },
-          {
-            "title": "Design",
-            "body": "Create a measurement architecture and governance model that balances insight with restraint."
-          },
-          {
-            "title": "Enable",
-            "body": "Support implementation, documentation, training, and ongoing stewardship."
-          }
-        ]
-      },
-      "outcomes": [
-        "A defensible measurement strategy aligned to privacy requirements",
-        "Clear platform selection criteria",
-        "Documented ownership and data governance",
-        "Reporting that remains useful with less invasive tracking"
-      ],
-      "cta": {
-        "heading": "Measure responsibly—and meaningfully.",
-        "body": "We can help you evaluate the tradeoffs and design a privacy-focused analytics program that fits your organization.",
-        "buttonLabel": "Discuss privacy-focused analytics"
-      }
-    },
-    {
-      "order": 4,
+      "order": 5,
       "slug": "on-demand-digital-consulting",
       "title": "On-Demand Digital Consulting",
       "navigationLabel": "On-Demand Consulting",
@@ -544,10 +615,11 @@
         "heading": "Bring the hard question.",
         "body": "If a focused conversation would help you move forward, book an on-demand consulting session.",
         "buttonLabel": "Book a focused session"
-      }
+      },
+      "featured": false
     },
     {
-      "order": 5,
+      "order": 6,
       "slug": "content-strategy-partnership",
       "title": "Content Strategy Partnership for Developers",
       "navigationLabel": "For Developers",

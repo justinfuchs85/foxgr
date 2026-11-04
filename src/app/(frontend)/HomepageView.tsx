@@ -69,7 +69,9 @@ const Container = ({ children, className = '' }: { children: React.ReactNode; cl
 
 const serif = 'font-serif font-medium tracking-[-0.03em]'
 
-export function Header({ servicePages = [] }: { servicePages?: ServiceNavItem[] }) {
+export function Header({ servicePages: allPages = [] }: { servicePages?: ServiceNavItem[] }) {
+  // The menu lists the practice areas; other pages stay reachable from the footer and links.
+  const servicePages = allPages.filter((page) => page.featured !== false)
   return (
     <header className="absolute inset-x-0 top-0 z-50 border-b border-white/12 text-white">
       <div className="mx-auto flex h-24 max-w-[1200px] items-center justify-between gap-6 px-5 md:px-8">
@@ -232,39 +234,38 @@ function ServicesSection({ block, content }: { block: Services; content: Homepag
   if (!cards.length) return null
 
   return (
-    <section
-      id="services"
-      className={`border-t border-[#0a2939]/10 bg-white ${spacing(block.spacing)}`}
-    >
+    <section id="services" className={`border-t border-[#0a2939]/10 bg-white ${spacing(block.spacing)}`}>
       <Container>
         <Label>{block.label}</Label>
         <h2 className={`mb-14 max-w-3xl ${serif} text-5xl leading-[1.02] md:text-[56px]`}>{block.heading}</h2>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {cards.map((card) => (
+        <div className="grid gap-6 md:grid-cols-2">
+          {cards.map((card, index) => (
             <Link
-              className="group flex min-h-[260px] flex-col gap-4 border border-[#0a2939]/15 p-8 transition hover:border-[#0a2939]/40 hover:bg-[#f8f5ee]"
+              className="group flex min-h-[300px] flex-col gap-4 border border-[#0a2939]/15 p-8 transition hover:border-[#0a2939]/40 hover:bg-[#f8f5ee] md:p-10"
               href={`/what-we-do/${card.slug}`}
               key={card.slug}
             >
-              <h3 className="font-serif text-[32px] leading-[1.05] font-semibold">{card.navigationLabel}</h3>
-              <p className="flex-grow text-base leading-[1.6] text-[#49636e]">{card.heroSummary}</p>
-              <span className="flex items-center gap-2 text-sm font-bold text-[#b74730]">
-                Learn more <Arrow className="size-4 transition group-hover:translate-x-1" />
+              <span className="font-serif text-[28px] text-[#b74730]">{String(index + 1).padStart(2, '0')}</span>
+              <h3 className="font-serif text-[34px] leading-[1.05] font-semibold">{card.navigationLabel}</h3>
+              <p className="text-base leading-[1.6] text-[#49636e]">{card.heroSummary}</p>
+              {!!card.capabilities?.length && (
+                <ul className="flex flex-grow flex-wrap content-start gap-2 pt-2">
+                  {card.capabilities.slice(0, 4).map((capability) => (
+                    <li
+                      className="border border-[#0a2939]/15 px-3 py-1.5 text-xs text-[#31505e]"
+                      key={capability.id ?? capability.title}
+                    >
+                      {capability.title}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <span className="flex items-center gap-2 pt-2 text-sm font-bold text-[#b74730]">
+                Explore {card.navigationLabel.toLowerCase()}{' '}
+                <Arrow className="size-4 transition group-hover:translate-x-1" />
               </span>
             </Link>
           ))}
-          <Link
-            className="group flex min-h-[260px] flex-col gap-4 bg-[#0a2939] p-8 text-white transition hover:bg-[#071d29]"
-            href="/#contact"
-          >
-            <h3 className="font-serif text-[32px] leading-[1.05] font-semibold">Not sure which fits?</h3>
-            <p className="flex-grow text-base leading-[1.6] text-white/75">
-              Tell us where things feel stuck. We’ll point you to the right starting place.
-            </p>
-            <span className="flex items-center gap-2 text-sm font-bold text-[#ff7657]">
-              Start a conversation <Arrow className="size-4 transition group-hover:translate-x-1" />
-            </span>
-          </Link>
         </div>
       </Container>
     </section>
@@ -513,6 +514,12 @@ export function Footer() {
           <Image alt="Fox Consulting Group" className="object-contain" fill sizes="56px" src="/brand/fox-logo-white.webp" />
         </Link>
         <div className="flex flex-wrap gap-6">
+          <Link className="hover:text-white" href="/what-we-do/on-demand-digital-consulting">
+            On-demand sessions
+          </Link>
+          <Link className="hover:text-white" href="/what-we-do/content-strategy-partnership">
+            For agencies and dev partners
+          </Link>
           <a className="hover:text-white" href="https://www.linkedin.com/company/fox-digital-consulting-group">
             LinkedIn
           </a>

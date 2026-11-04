@@ -5,6 +5,7 @@ import * as migration_20261104_174500_homepage_redesign_content from './20261104
 import * as migration_20261104_183628_about_engagements_featured from './20261104_183628_about_engagements_featured';
 import * as migration_20261104_183700_credibility_content from './20261104_183700_credibility_content';
 import * as migration_20261104_190000_remove_aptiv from './20261104_190000_remove_aptiv';
+import * as migration_20261104_191000_practice_areas from './20261104_191000_practice_areas';
 
 export const migrations = [
   {
@@ -41,5 +42,10 @@ export const migrations = [
     up: migration_20261104_190000_remove_aptiv.up,
     down: migration_20261104_190000_remove_aptiv.down,
     name: '20261104_190000_remove_aptiv',
+  },
+  {
+    up: migration_20261104_191000_practice_areas.up,
+    down: migration_20261104_191000_practice_areas.down,
+    name: '20261104_191000_practice_areas',
   },
 ];
