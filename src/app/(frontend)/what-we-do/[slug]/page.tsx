@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Footer, Header } from '../../HomepageView'
+import { Arrow, Container, Label, serif } from '../../ui'
 import { getServicePageBySlug, getServicePageNavigation } from '@/lib/service-pages'
 
 type PageProps = {
@@ -10,17 +10,6 @@ type PageProps = {
 }
 
 export const revalidate = 3600
-
-const Arrow = ({ className = '' }: { className?: string }) => (
-  <svg aria-hidden="true" className={className} fill="none" viewBox="0 0 24 24">
-    <path
-      d="M5 12h14M13 6l6 6-6 6"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeWidth="1.8"
-    />
-  </svg>
-)
 
 export async function generateStaticParams() {
   // Tolerate a missing/empty database at build time; pages render on demand instead.
@@ -61,203 +50,166 @@ export default async function ServicePage({ params }: PageProps) {
 
   if (!service) notFound()
 
-  const currentIndex = navigation.findIndex((item) => item.slug === service.slug)
-  const nextService = navigation[(currentIndex + 1) % navigation.length]
-  const number = String(Math.max(currentIndex + 1, 1)).padStart(2, '0')
+  // "Next" walks the practice areas; a page outside them (On-Demand, For Developers) points to the first.
+  const practiceAreas = navigation.filter((item) => item.featured !== false)
+  const position = practiceAreas.findIndex((item) => item.slug === service.slug)
+  const nextService = practiceAreas.length
+    ? practiceAreas[(position + 1) % practiceAreas.length]
+    : undefined
+  const showNext = nextService && nextService.slug !== service.slug
 
   return (
     <main className="overflow-hidden bg-[#f4efe5] text-[#0a2939]">
       <Header servicePages={navigation} />
 
-      <section className="relative min-h-[780px] overflow-hidden bg-[#0a2939] pt-44 text-white md:pt-52">
-        <div className="hero-grid pointer-events-none absolute inset-0 opacity-45" />
-        <div className="absolute right-[-8rem] bottom-[-10rem] size-[34rem] border border-white/15 bg-[#ff7657]" />
-        <div className="absolute right-[20%] bottom-0 hidden h-[32rem] w-px bg-white/15 lg:block" />
-        <div className="absolute right-0 bottom-[15rem] hidden h-px w-[34rem] bg-white/15 lg:block" />
-
-        <div className="relative mx-auto max-w-[1440px] px-5 md:px-10 lg:px-16">
-          <div className="grid gap-14 lg:grid-cols-[1.45fr_0.55fr] lg:items-end">
-            <div>
-              <p className="mb-8 flex items-center gap-3 text-xs font-bold tracking-[0.2em] text-[#ff967e] uppercase">
-                <span className="h-px w-10 bg-current" />
-                {service.eyebrow}
-              </p>
-              <h1 className="max-w-5xl font-serif text-[clamp(4.2rem,9vw,8.5rem)] leading-[0.86] tracking-[-0.055em]">
-                {service.title}
-              </h1>
-            </div>
-            <div className="relative z-10 border-t border-white/25 pt-6 lg:mb-4">
-              <p className="text-lg leading-8 text-white/70">{service.heroSummary}</p>
-              <a
-                className="mt-8 inline-flex items-center gap-4 border border-white/35 px-5 py-3 text-sm font-bold transition hover:border-[#ff7657] hover:bg-[#ff7657] hover:text-[#0a2939]"
-                href="#capabilities"
-              >
-                Explore the work <Arrow className="size-4" />
-              </a>
-            </div>
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-[#0a2939] pt-24 text-white">
+        <div
+          aria-hidden="true"
+          className="absolute -right-32 -bottom-40 hidden size-[26rem] bg-[#ff7657]/90 xl:block"
+        />
+        <Container className="relative pt-20 pb-28 md:pt-28 md:pb-32">
+          <p className="mb-8 text-[13px] text-white/60">
+            <Link className="hover:text-white" href="/#services">
+              What we do
+            </Link>
+            <span aria-hidden="true" className="mx-2">
+              /
+            </span>
+            <span className="text-white/85">{service.navigationLabel}</span>
+          </p>
+          <Label inverse>{service.eyebrow}</Label>
+          <h1 className={`max-w-3xl ${serif} text-[clamp(3rem,7vw,5.5rem)] leading-[0.95] tracking-[-0.04em]`}>
+            {service.title}
+          </h1>
+          <p className="mt-10 max-w-[620px] text-lg leading-[1.6] text-white/80 md:text-xl">{service.heroSummary}</p>
+          <div className="mt-10 flex flex-wrap items-center gap-6">
+            <a
+              className="inline-flex min-h-11 items-center bg-white px-7 py-4 font-bold text-[#0a2939] transition hover:bg-[#ff7657]"
+              href="#contact"
+            >
+              Start a conversation
+            </a>
+            <a
+              className="font-medium text-white underline underline-offset-[6px] transition hover:text-[#ff8b70]"
+              href="#capabilities"
+            >
+              See how we help
+            </a>
           </div>
-        </div>
-
-        <div className="absolute inset-x-0 bottom-0 border-t border-white/15">
-          <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-6 md:px-10 lg:px-16">
-            <p className="text-[11px] tracking-[0.18em] text-white/50 uppercase">
-              What we do / {service.navigationLabel}
-            </p>
-            <p className="font-serif text-5xl text-[#ff8467]">{number}</p>
-          </div>
-        </div>
+        </Container>
       </section>
 
-      <section className="px-5 py-24 md:px-10 md:py-36 lg:px-16">
-        <div className="mx-auto grid max-w-[1440px] gap-16 lg:grid-cols-[0.55fr_1.45fr]">
-          <div>
-            <p className="section-label">The challenge</p>
-            <div className="relative mt-10 hidden h-64 max-w-xs border border-[#0a2939]/20 bg-[#dce8e3] lg:block">
-              <div className="absolute top-0 right-0 h-20 w-px bg-[#0a2939]/20" />
-              <div className="absolute top-20 right-0 h-px w-20 bg-[#0a2939]/20" />
-              <Image
-                alt="The Fox Consultant"
-                className="object-contain object-bottom"
-                fill
-                sizes="320px"
-                src="/brand/fox-consultant.webp"
-              />
-            </div>
+      {/* The challenge */}
+      <section className="py-24 md:py-32">
+        <Container className="flex flex-wrap items-start gap-x-16 gap-y-10">
+          <div className="min-w-0 flex-[1_1_440px]">
+            <Label>The challenge</Label>
+            <h2 className={`${serif} text-5xl leading-none md:text-[56px]`}>{service.problem.heading}</h2>
           </div>
-          <div>
-            <h2 className="max-w-4xl font-serif text-5xl leading-[0.98] tracking-[-0.04em] md:text-7xl">
-              {service.problem.heading}
-            </h2>
-            <p className="mt-10 max-w-3xl border-t border-[#0a2939]/20 pt-8 text-lg leading-8 text-[#49636e] md:text-xl">
-              {service.problem.body}
-            </p>
-          </div>
-        </div>
+          <p className="min-w-0 flex-[1_1_400px] text-lg leading-[1.7] text-[#31505e] md:pt-[52px]">
+            {service.problem.body}
+          </p>
+        </Container>
       </section>
 
-      <section
-        id="capabilities"
-        className="border-y border-[#0a2939]/15 bg-[#f8f5ee] px-5 py-24 md:px-10 md:py-36 lg:px-16"
-      >
-        <div className="mx-auto max-w-[1440px]">
-          <div className="mb-14 grid gap-8 lg:grid-cols-[0.55fr_1.45fr]">
-            <p className="section-label">How we can help</p>
-            <h2 className="max-w-4xl font-serif text-5xl leading-none tracking-[-0.04em] md:text-7xl">
-              Connected expertise, applied where it matters.
+      {/* How we can help */}
+      {!!service.capabilities?.length && (
+        <section id="capabilities" className="border-t border-[#0a2939]/10 bg-white py-24 md:py-32">
+          <Container>
+            <Label>How we can help</Label>
+            <h2 className={`mb-14 max-w-3xl ${serif} text-5xl leading-[1.02] md:text-[56px]`}>
+              Where the work focuses.
             </h2>
-          </div>
-          <div className="grid border-t border-l border-[#0a2939]/15 md:grid-cols-2">
-            {service.capabilities?.map((capability, index) => (
-              <article
-                className="min-h-80 border-r border-b border-[#0a2939]/15 p-7 md:p-10"
-                key={capability.id ?? capability.title}
-              >
-                <p className="text-xs font-bold tracking-[0.18em] text-[#b74730] uppercase">
-                  {String(index + 1).padStart(2, '0')}
-                </p>
-                <h3 className="mt-14 max-w-md font-serif text-4xl leading-none tracking-[-0.03em]">
-                  {capability.title}
-                </h3>
-                <p className="mt-6 max-w-lg text-base leading-7 text-[#58707a]">{capability.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#092433] px-5 py-24 text-white md:px-10 md:py-36 lg:px-16">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="grid gap-12 lg:grid-cols-[0.65fr_1.35fr]">
-            <div>
-              <p className="section-label text-[#ff8b70]">How we work</p>
-              <p className="mt-8 max-w-md text-base leading-7 text-white/60">{service.approach.body}</p>
-            </div>
-            <h2 className="max-w-4xl font-serif text-5xl leading-none tracking-[-0.04em] md:text-7xl">
-              {service.approach.heading}
-            </h2>
-          </div>
-
-          {!!service.approach.steps?.length && (
-            <div className="mt-16 divide-y divide-white/15 border-y border-white/15">
-              {service.approach.steps.map((step, index) => (
+            <div className="grid gap-6 md:grid-cols-2">
+              {service.capabilities.map((capability) => (
                 <article
-                  className="grid gap-6 py-9 md:grid-cols-[0.25fr_0.7fr_1fr] md:items-start"
-                  key={step.id ?? step.title}
+                  className="flex flex-col gap-4 border border-[#0a2939]/15 p-8 md:p-10"
+                  key={capability.id ?? capability.title}
                 >
-                  <p className="font-serif text-3xl text-[#ff8b70]">
-                    {String(index + 1).padStart(2, '0')}
-                  </p>
-                  <h3 className="font-serif text-3xl tracking-[-0.02em]">{step.title}</h3>
-                  <p className="max-w-2xl text-base leading-7 text-white/60">{step.body}</p>
+                  <h3 className="font-serif text-[30px] leading-[1.05] font-semibold">{capability.title}</h3>
+                  <p className="text-base leading-[1.6] text-[#49636e]">{capability.body}</p>
                 </article>
               ))}
             </div>
+          </Container>
+        </section>
+      )}
+
+      {/* How we work */}
+      <section className="bg-[#0a2939] py-24 text-white md:py-32">
+        <Container>
+          <Label inverse>How we work</Label>
+          <h2 className={`max-w-3xl ${serif} text-5xl leading-[1.02] md:text-[56px]`}>{service.approach.heading}</h2>
+          <p className="mt-5 max-w-[620px] text-lg leading-[1.65] text-white/75">{service.approach.body}</p>
+          {!!service.approach.steps?.length && (
+            <ol className="mt-16 flex flex-wrap gap-8">
+              {service.approach.steps.map((step, index) => (
+                <li
+                  className="flex min-w-0 flex-[1_1_220px] flex-col gap-3 border-t-2 border-[#ff7657] pt-6"
+                  key={step.id ?? step.title}
+                >
+                  <span className="font-serif text-[28px] text-[#ff8b70]">{String(index + 1).padStart(2, '0')}</span>
+                  <h3 className="text-xl font-bold">{step.title}</h3>
+                  <p className="text-[15px] leading-[1.6] text-white/75">{step.body}</p>
+                </li>
+              ))}
+            </ol>
           )}
-        </div>
+        </Container>
       </section>
 
-      <section className="bg-[#ff7657] px-5 py-24 md:px-10 md:py-32 lg:px-16">
-        <div className="mx-auto grid max-w-[1440px] gap-12 lg:grid-cols-[0.55fr_1.45fr]">
-          <p className="section-label">What changes</p>
-          <div>
-            <h2 className="font-serif text-5xl leading-none tracking-[-0.04em] md:text-7xl">
-              A stronger foundation for what comes next.
-            </h2>
-            {!!service.outcomes?.length && (
-              <ul className="mt-12 grid border-t border-[#0a2939]/20 md:grid-cols-2">
-                {service.outcomes.map((outcome, index) => (
-                  <li
-                    className="grid min-h-36 grid-cols-[2.5rem_1fr] items-start border-r border-b border-[#0a2939]/20 py-6 pr-6 text-base leading-7"
-                    key={outcome.id ?? outcome.text}
-                  >
-                    <span className="text-xs font-bold">0{index + 1}</span>
-                    {outcome.text}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden bg-[#0a2939] px-5 py-24 text-white md:px-10 md:py-36 lg:px-16">
-        <div className="hero-grid pointer-events-none absolute inset-0 opacity-30" />
-        <div className="absolute -right-32 -bottom-52 size-[32rem] border border-white/20 bg-[#ff7657]" />
-        <div className="relative mx-auto max-w-[1440px]">
-          <p className="section-label text-[#ff8b70]">Ready when you are</p>
-          <div className="mt-10 grid gap-12 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
-            <h2 className="max-w-5xl font-serif text-6xl leading-[0.9] tracking-[-0.05em] md:text-8xl">
-              {service.cta.heading}
-            </h2>
-            <div>
-              <p className="mb-8 text-lg leading-8 text-white/65">{service.cta.body}</p>
-              <a
-                className="inline-flex items-center gap-5 border border-white bg-white px-7 py-4 font-bold text-[#0a2939] transition hover:border-[#ff7657] hover:bg-[#ff7657]"
-                href="mailto:hello@foxgr.com"
-              >
-                {service.cta.buttonLabel} <Arrow className="size-5" />
-              </a>
+      {/* What changes */}
+      {!!service.outcomes?.length && (
+        <section className="py-24 md:py-32">
+          <Container className="flex flex-wrap items-start gap-x-16 gap-y-10">
+            <div className="min-w-0 flex-[1_1_360px]">
+              <Label>What changes</Label>
+              <h2 className={`${serif} text-5xl leading-[1.02] md:text-[56px]`}>What you’re left with.</h2>
             </div>
-          </div>
-        </div>
+            <ul className="grid min-w-0 flex-[1_1_480px] gap-x-8 sm:grid-cols-2">
+              {service.outcomes.map((outcome) => (
+                <li
+                  className="flex gap-4 border-t border-[#0a2939]/20 py-6 text-lg leading-[1.5]"
+                  key={outcome.id ?? outcome.text}
+                >
+                  <span aria-hidden="true" className="mt-2.5 block h-0.5 w-4 shrink-0 bg-[#ff7657]" />
+                  {outcome.text}
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+      )}
+
+      {/* CTA */}
+      <section id="contact" className="relative overflow-hidden bg-[#0a2939] py-24 text-white md:py-32">
+        <div aria-hidden="true" className="absolute -top-60 -left-36 size-72 bg-[#ff7657]/90 md:size-[20rem]" />
+        <Container className="relative flex flex-col items-start gap-8">
+          <h2 className={`max-w-4xl ${serif} text-6xl leading-[0.92] tracking-[-0.04em] md:text-8xl`}>
+            {service.cta.heading}
+          </h2>
+          <p className="max-w-[560px] text-lg leading-[1.65] text-white/75 md:text-[19px]">{service.cta.body}</p>
+          <a
+            className="inline-flex min-h-11 items-center gap-4 bg-white px-7 py-4 text-[17px] font-bold text-[#0a2939] transition hover:bg-[#ff7657]"
+            href="mailto:hello@foxgr.com"
+          >
+            {service.cta.buttonLabel} <Arrow className="size-5" />
+          </a>
+        </Container>
       </section>
 
-      {nextService && (
-        <Link
-          className="group block border-b border-[#0a2939]/15 bg-[#dce8e3] px-5 py-12 transition hover:bg-[#f8f5ee] md:px-10 lg:px-16"
-          href={`/what-we-do/${nextService.slug}`}
-        >
-          <div className="mx-auto flex max-w-[1440px] items-end justify-between gap-8">
+      {showNext && (
+        <Link className="group block bg-white transition hover:bg-[#f8f5ee]" href={`/what-we-do/${nextService.slug}`}>
+          <Container className="flex items-center justify-between gap-8 py-12">
             <div>
-              <p className="section-label text-[#58707a]">Next service</p>
-              <p className="mt-3 font-serif text-4xl tracking-[-0.03em] md:text-6xl">
-                {nextService.navigationLabel}
-              </p>
+              <p className="text-[13px] font-bold tracking-[0.18em] text-[#49636e] uppercase">Next practice area</p>
+              <p className={`mt-3 ${serif} text-4xl md:text-5xl`}>{nextService.navigationLabel}</p>
             </div>
-            <span className="grid size-16 place-items-center border border-[#0a2939]/25 transition group-hover:bg-[#ff7657]">
+            <span className="grid size-14 shrink-0 place-items-center border border-[#0a2939]/25 transition group-hover:bg-[#ff7657]">
               <Arrow className="size-6 transition group-hover:translate-x-1" />
             </span>
-          </div>
+          </Container>
         </Link>
       )}
 
