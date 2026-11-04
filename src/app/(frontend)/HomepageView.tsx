@@ -17,6 +17,7 @@ import type {
 } from '@/payload-types'
 import type { HomepageContent } from '@/lib/homepage-content'
 import type { ServiceNavItem } from '@/lib/service-pages'
+import { AnimatedStats } from './AnimatedStats'
 
 const Arrow = ({ className = '' }: { className?: string }) => (
   <svg aria-hidden="true" className={className} fill="none" viewBox="0 0 24 24">
@@ -231,19 +232,7 @@ function HeroSection({ block, guide }: { block: Hero; guide?: Media | null }) {
 
       {!!block.stats?.length && (
         <div className="absolute inset-x-0 bottom-0 border-t border-white/15 bg-[#0a2939]/65 backdrop-blur-sm">
-          <div className="mx-auto grid max-w-[1440px] grid-cols-2 px-5 md:grid-cols-4 md:px-10 lg:px-16">
-            {block.stats.map((stat, index) => (
-              <div
-                className="py-6 pr-4 pl-4 first:pl-0 md:py-8 md:pl-8"
-                key={stat.id ?? `${stat.label}-${index}`}
-              >
-                <p className="font-serif text-3xl text-[#ff8467] md:text-4xl">{stat.value}</p>
-                <p className="mt-1 text-[11px] leading-4 tracking-[0.12em] text-white/55 uppercase">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
+          <AnimatedStats stats={block.stats} />
         </div>
       )}
     </section>

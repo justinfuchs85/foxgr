@@ -44,6 +44,51 @@
   mask-image: linear-gradient(to bottom, black, transparent 90%);
 }
 
+/* Hero stats: rise in one after another while the numbers count.
+   Only hidden when JS is running (the `js` class is set before first paint),
+   so no-JS visitors and crawlers always see the real values. */
+.stat-rule {
+  display: block;
+  width: 2rem;
+  height: 1px;
+  margin-bottom: 0.75rem;
+  background: #ff7657;
+  transform-origin: left;
+}
+
+.js .stats .stat {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.js .stats .stat-rule {
+  transform: scaleX(0);
+}
+
+.stats[data-reveal="in"] .stat {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--i) * 140ms + 150ms);
+}
+
+.stats[data-reveal="in"] .stat-rule {
+  transform: scaleX(1);
+  transition: transform 1100ms cubic-bezier(0.65, 0, 0.35, 1);
+  transition-delay: calc(var(--i) * 140ms + 350ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .stats .stat,
+  .js .stats .stat-rule {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .skip-link {
   position: fixed;
   top: 8px;

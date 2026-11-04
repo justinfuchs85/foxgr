@@ -29,7 +29,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Marks JS as available before first paint, so reveal animations can
+            start hidden without hiding content from no-JS visitors. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+      </head>
       <body
         className={`${sans.variable} ${serif.variable} min-h-screen bg-white text-zinc-950 antialiased`}
       >
