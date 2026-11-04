@@ -18,7 +18,13 @@ const serif = Cormorant_Garamond({
 
 const title = 'Fox Consulting Group'
 const description = 'Strategy, analytics, and operations consulting for modern marketing teams.'
-const gaId = process.env.NEXT_PUBLIC_GA_ID
+// Google Tag Manager loads when NEXT_PUBLIC_GTM_ID is set (GTM-XXXXXXX). GA4 and any other
+// tags are managed inside the container. The direct GA4 tag below is only a fallback for
+// a site with no container, so the two never double-count.
+const gtmId = /^GTM-[A-Z0-9]+$/.test(process.env.NEXT_PUBLIC_GTM_ID ?? '')
+  ? (process.env.NEXT_PUBLIC_GTM_ID as string)
+  : null
+const gaId = gtmId ? null : process.env.NEXT_PUBLIC_GA_ID
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
@@ -34,10 +40,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Marks JS as available before first paint, so reveal animations can
             start hidden without hiding content from no-JS visitors. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {gtmId && (
+          <Script id="gtm" strategy="afterInteractive">
+            {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',${JSON.stringify(gtmId)});`}
+          </Script>
+        )}
       </head>
       <body
         className={`${sans.variable} ${serif.variable} min-h-screen bg-white text-zinc-950 antialiased`}
       >
+        {gtmId && (
+          <noscript>
+            <iframe
+              height="0"
+              src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+              style={{ display: 'none', visibility: 'hidden' }}
+              title="Google Tag Manager"
+              width="0"
+            />
+          </noscript>
+        )}
         <SmoothScroll />
         <a className="skip-link" href="#root">
           Skip to content
