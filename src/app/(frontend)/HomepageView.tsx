@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type {
   About,
+  Engagements,
   Approach,
   CaseStudies,
   Cta,
@@ -227,7 +228,7 @@ function IntroSection({ block }: { block: Intro }) {
 }
 
 function ServicesSection({ block, content }: { block: Services; content: HomepageContent }) {
-  const cards = content.servicePages
+  const cards = content.servicePages.filter((card) => card.featured !== false)
   if (!cards.length) return null
 
   return (
@@ -359,23 +360,83 @@ function AboutSection({ block }: { block: About }) {
 
   return (
     <section id="about" className={spacing(block.spacing)}>
-      <Container className="flex flex-wrap items-center gap-x-16 gap-y-10">
-        <div className="relative flex h-[340px] min-w-0 flex-[0_1_340px] items-end justify-center bg-[#dce8e3]">
-          <div className="relative h-[267px] w-[300px]">
-            <Image
-              alt={image?.alt ?? 'The Fox Consultant illustration'}
-              className="object-contain object-bottom"
-              fill
-              sizes="300px"
-              src={src}
-            />
+      <Container className="flex flex-wrap items-start gap-x-16 gap-y-10">
+        <figure className="min-w-0 flex-[0_1_340px]">
+          <div className="relative flex h-[340px] items-end justify-center bg-[#dce8e3]">
+            <div className="relative h-[267px] w-[300px]">
+              <Image
+                alt={image?.alt ?? 'The Fox Consultant illustration'}
+                className="object-contain object-bottom"
+                fill
+                sizes="300px"
+                src={src}
+              />
+            </div>
           </div>
-        </div>
+          {block.personName && (
+            <figcaption className="mt-4 border-t border-[#0a2939]/20 pt-4">
+              <p className="font-bold">{block.personName}</p>
+              {block.personTitle && <p className="text-sm text-[#49636e]">{block.personTitle}, Fox Consulting Group</p>}
+              {block.linkedinUrl && (
+                <a className="mt-2 inline-flex min-h-11 items-center text-sm font-bold text-[#b74730] underline underline-offset-4" href={block.linkedinUrl}>
+                  LinkedIn
+                </a>
+              )}
+            </figcaption>
+          )}
+        </figure>
         <div className="min-w-0 flex-[1_1_480px]">
           <Label>{block.label}</Label>
           <h2 className={`mb-6 ${serif} text-[44px] leading-[1.04] md:text-[52px]`}>{block.heading}</h2>
           <p className="mb-10 max-w-[560px] text-lg leading-[1.7] whitespace-pre-line text-[#31505e]">{block.body}</p>
           {!!block.stats?.length && <AnimatedStats stats={block.stats} tone="light" />}
+        </div>
+      </Container>
+    </section>
+  )
+}
+
+function EngagementsSection({ block }: { block: Engagements }) {
+  if (!block.offers?.length) return null
+
+  return (
+    <section id="engage" className={`border-t border-[#0a2939]/10 bg-white ${spacing(block.spacing)}`}>
+      <Container>
+        <Label>{block.label}</Label>
+        <h2 className={`max-w-3xl ${serif} text-5xl leading-[1.02] md:text-[56px]`}>{block.heading}</h2>
+        {block.body && <p className="mt-5 max-w-[620px] text-lg leading-[1.65] text-[#49636e]">{block.body}</p>}
+        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          {block.offers.map((offer) => (
+            <article
+              className={`flex flex-col gap-4 p-8 ${
+                offer.highlight ? 'bg-[#0a2939] text-white' : 'border border-[#0a2939]/15'
+              }`}
+              key={offer.id ?? offer.name}
+            >
+              {offer.highlight && (
+                <p className="text-xs font-bold tracking-[0.14em] text-[#ff8b70] uppercase">Most engagements start here</p>
+              )}
+              <h3 className="font-serif text-[32px] leading-[1.05] font-semibold">{offer.name}</h3>
+              {(offer.duration || offer.pricing) && (
+                <p className={`text-sm font-bold ${offer.highlight ? 'text-white/80' : 'text-[#31505e]'}`}>
+                  {[offer.duration, offer.pricing].filter(Boolean).join(' · ')}
+                </p>
+              )}
+              <p className={`flex-grow text-base leading-[1.6] ${offer.highlight ? 'text-white/75' : 'text-[#49636e]'}`}>
+                {offer.description}
+              </p>
+              {offer.linkLabel && offer.linkHref && (
+                <Link
+                  className={`group flex min-h-11 items-center gap-2 text-sm font-bold ${
+                    offer.highlight ? 'text-[#ff7657]' : 'text-[#b74730]'
+                  }`}
+                  href={offer.linkHref}
+                >
+                  {offer.linkLabel} <Arrow className="size-4 transition group-hover:translate-x-1" />
+                </Link>
+              )}
+            </article>
+          ))}
         </div>
       </Container>
     </section>
@@ -500,6 +561,8 @@ export function HomepageView({
               return <ApproachSection block={block} key={key} />
             case 'about':
               return <AboutSection block={block} key={key} />
+            case 'engagements':
+              return <EngagementsSection block={block} key={key} />
             case 'cta':
               return <CtaSection block={block} key={key} />
             case 'imageBreak':

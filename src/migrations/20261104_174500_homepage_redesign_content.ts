@@ -1,3 +1,4 @@
+import { sql } from '@payloadcms/db-postgres'
 import type { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-postgres'
 
 /**
@@ -17,7 +18,19 @@ type Section = Record<string, unknown> & { blockType: string; id?: string | null
 const swap = (current: unknown, original: string, next: string | null) =>
   current === original ? next : current
 
-export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
+
+// Checked with plain SQL so a fresh database (no homepage yet) never reaches
+// the ORM, whose queries assume the newest schema.
+const hasHomepageContent = async (db: MigrateUpArgs['db'], payload: MigrateUpArgs['payload']) => {
+  const schema = (payload.db as unknown as { schemaName?: string }).schemaName || 'public'
+  const result = await db.execute(
+    sql`select exists(select 1 from ${sql.identifier(schema)}."homepage_blocks_cta") as present`,
+  )
+  return Boolean((result as unknown as { rows: { present: boolean }[] }).rows[0]?.present)
+}
+
+export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
+  if (!(await hasHomepageContent(db, payload))) return
   const homepage = await payload.findGlobal({ slug: 'homepage', depth: 0, overrideAccess: true, req })
   const sections = (homepage.sections ?? []) as unknown as Section[]
   if (!sections.length) return

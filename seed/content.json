@@ -104,20 +104,56 @@
         "blockType": "about",
         "label": "Who we are",
         "heading": "Look for the system behind the symptom.",
-        "body": "Fox Consulting Group is a senior-led practice. You work directly with the people doing the work: no hand-offs, no junior bench, and nothing pulled off a shelf.",
+        "body": "Fox Consulting Group is led by Justin Fuchs, who has spent nearly 20 years on the infrastructure side of marketing: strategy, analytics, platforms and the operating models that hold them together. Since 2016 the practice has delivered 30+ engagements for organizations including Aptiv, Altair, Corewell Health, Gordon Food Service and Allstate Identity Protection, and most clients have stayed five years or more.\n\nMost recently, Justin built a hub-and-spoke analytics function across 13 business units at a public manufacturer, taking reporting from months to days. He’s as comfortable presenting a roadmap to a segment president as he is debugging the tag manager himself. You work with him directly, with a small bench of trusted specialists when the work calls for it.",
         "image": "@media:foxConsultant",
         "stats": [
           {
-            "value": "15+",
-            "label": "years advising digital teams"
+            "value": "30+",
+            "label": "engagements delivered"
           },
           {
-            "value": "1:1",
-            "label": "senior consultant access"
+            "value": "80%",
+            "label": "of work from repeat clients and referrals"
           },
           {
-            "value": "0",
-            "label": "off-the-shelf playbooks"
+            "value": "7",
+            "label": "years with our longest client"
+          }
+        ],
+        "spacing": "standard",
+        "personName": "Justin Fuchs",
+        "personTitle": "Founder"
+      },
+      {
+        "blockType": "engagements",
+        "label": "Working together",
+        "heading": "Most engagements start with a diagnostic.",
+        "body": "A defined scope and a fixed fee, agreed up front, so it can be approved without a long procurement cycle. From there, most clients keep us on as an advisor.",
+        "offers": [
+          {
+            "name": "Operating model diagnostic",
+            "duration": "4–6 weeks",
+            "pricing": "Fixed fee",
+            "description": "A measurement and operating-model assessment for one business unit or your central team. You leave with a governance model, a KPI dictionary and a sequenced roadmap your team can own.",
+            "linkLabel": "Start a conversation",
+            "linkHref": "/#contact",
+            "highlight": true
+          },
+          {
+            "name": "Advisory retainer",
+            "duration": "6-month terms",
+            "pricing": "Monthly, capped hours",
+            "description": "A senior partner in your steering meetings: reviewing what your team and agencies build, and holding the standards line across business units.",
+            "highlight": false
+          },
+          {
+            "name": "Focused session",
+            "duration": "One decision",
+            "pricing": "Per session",
+            "description": "Pressure-test a plan, a platform choice or a measurement question before you commit to it.",
+            "linkLabel": "How sessions work",
+            "linkHref": "/what-we-do/on-demand-digital-consulting",
+            "highlight": false
           }
         ],
         "spacing": "standard"
@@ -206,6 +242,18 @@
     }
   ],
   "caseStudies": [
+    {
+      "order": 0,
+      "title": "Seven years as a global digital strategy partner",
+      "client": "Aptiv",
+      "category": "Digital strategy and MarTech",
+      "result": "Served as Aptiv’s digital strategy, analytics and MarTech partner across its global web properties for seven years, including content and channel strategy for two spinoffs and multiple acquisitions.",
+      "metric": {
+        "value": "7",
+        "label": "years as anchor partner"
+      },
+      "methodology": []
+    },
     {
       "order": 1,
       "title": "From spreadsheet reporting to a shared source of truth",
@@ -571,7 +619,8 @@
         "heading": "Add content strategy without adding overhead.",
         "body": "Tell us how your team works and where content challenges tend to appear. We’ll shape a partnership around it.",
         "buttonLabel": "Explore a development partnership"
-      }
+      },
+      "featured": false
     }
   ]
 }

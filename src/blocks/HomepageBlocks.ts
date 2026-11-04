@@ -238,7 +238,19 @@ export const AboutBlock: Block = {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
-      admin: { description: 'Shown in the panel beside the text (the Fox works best).' },
+      admin: { description: 'Shown in the panel beside the text: a headshot, or the Fox.' },
+    },
+    {
+      type: 'row',
+      fields: [
+        { name: 'personName', type: 'text', admin: { description: 'Shown under the image.' } },
+        { name: 'personTitle', type: 'text' },
+      ],
+    },
+    {
+      name: 'linkedinUrl',
+      type: 'text',
+      admin: { description: 'Optional. Adds a LinkedIn link under the name.' },
     },
     {
       name: 'stats',
@@ -248,6 +260,46 @@ export const AboutBlock: Block = {
       fields: [
         { name: 'value', type: 'text', required: true },
         { name: 'label', type: 'text', required: true },
+      ],
+    },
+    ...sectionOptions(),
+  ],
+}
+
+export const EngagementsBlock: Block = {
+  slug: 'engagements',
+  labels: { singular: 'How Engagements Start', plural: 'How Engagements Start' },
+  fields: [
+    { name: 'label', type: 'text', required: true, defaultValue: 'Working together' },
+    { name: 'heading', type: 'text', required: true },
+    { name: 'body', type: 'textarea' },
+    {
+      name: 'offers',
+      type: 'array',
+      minRows: 1,
+      maxRows: 4,
+      fields: [
+        { name: 'name', type: 'text', required: true },
+        {
+          type: 'row',
+          fields: [
+            { name: 'duration', type: 'text', admin: { description: 'e.g. 4–6 weeks' } },
+            { name: 'pricing', type: 'text', admin: { description: 'e.g. Fixed fee, or From $40K' } },
+          ],
+        },
+        { name: 'description', type: 'textarea', required: true },
+        {
+          type: 'row',
+          fields: [
+            { name: 'linkLabel', type: 'text' },
+            { name: 'linkHref', type: 'text' },
+          ],
+        },
+        {
+          name: 'highlight',
+          type: 'checkbox',
+          admin: { description: 'Feature this offer (navy card, “Most engagements start here”).' },
+        },
       ],
     },
     ...sectionOptions(),
@@ -264,5 +316,6 @@ export const homepageBlocks = [
   InsightsBlock,
   ApproachBlock,
   AboutBlock,
+  EngagementsBlock,
   CtaBlock,
 ]

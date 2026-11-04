@@ -112,5 +112,12 @@ export const ServicePages: CollectionConfig = {
       defaultValue: 0,
       admin: { position: 'sidebar' },
     },
+    {
+      name: 'featured',
+      type: 'checkbox',
+      defaultValue: true,
+      label: 'Show on the homepage',
+      admin: { position: 'sidebar', description: 'Unchecked pages stay in the nav but get no homepage card.' },
+    },
   ],
 }

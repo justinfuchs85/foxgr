@@ -428,6 +428,10 @@ export interface ServicePage {
     buttonLabel: string;
   };
   order?: number | null;
+  /**
+   * Unchecked pages stay in the nav but get no homepage card.
+   */
+  featured?: boolean | null;
   createdBy?: {
     relationTo: 'admins';
     value: number | Admin;
@@ -782,6 +786,7 @@ export interface ServicePagesSelect<T extends boolean = true> {
         buttonLabel?: T;
       };
   order?: T;
+  featured?: T;
   createdBy?: T;
   updatedBy?: T;
   updatedAt?: T;
@@ -855,7 +860,9 @@ export interface Homepage {
   /**
    * Drag sections to reorder them. Each section exposes only design-safe layout options.
    */
-  sections: (Hero | Intro | ImageBreak | Services | CaseStudies | Testimonial1 | Insights | Approach | About | Cta)[];
+  sections: (
+    Hero | Intro | ImageBreak | Services | CaseStudies | Testimonial1 | Insights | Approach | About | Engagements | Cta
+  )[];
   createdBy?: {
     relationTo: 'admins';
     value: number | Admin;
@@ -1035,9 +1042,18 @@ export interface About {
   heading: string;
   body: string;
   /**
-   * Shown in the panel beside the text (the Fox works best).
+   * Shown in the panel beside the text: a headshot, or the Fox.
    */
   image?: (number | null) | Media;
+  /**
+   * Shown under the image.
+   */
+  personName?: string | null;
+  personTitle?: string | null;
+  /**
+   * Optional. Adds a LinkedIn link under the name.
+   */
+  linkedinUrl?: string | null;
   /**
    * Numbers count up when they scroll into view. A 0 counts down.
    */
@@ -1055,6 +1071,43 @@ export interface About {
   id?: string | null;
   blockName?: string | null;
   blockType: 'about';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Engagements".
+ */
+export interface Engagements {
+  label: string;
+  heading: string;
+  body?: string | null;
+  offers?:
+    | {
+        name: string;
+        /**
+         * e.g. 4–6 weeks
+         */
+        duration?: string | null;
+        /**
+         * e.g. Fixed fee, or From $40K
+         */
+        pricing?: string | null;
+        description: string;
+        linkLabel?: string | null;
+        linkHref?: string | null;
+        /**
+         * Feature this offer (navy card, “Most engagements start here”).
+         */
+        highlight?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Controls the vertical breathing room around this section.
+   */
+  spacing?: ('compact' | 'standard' | 'generous') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'engagements';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1194,11 +1247,36 @@ export interface HomepageSelect<T extends boolean = true> {
               heading?: T;
               body?: T;
               image?: T;
+              personName?: T;
+              personTitle?: T;
+              linkedinUrl?: T;
               stats?:
                 | T
                 | {
                     value?: T;
                     label?: T;
+                    id?: T;
+                  };
+              spacing?: T;
+              id?: T;
+              blockName?: T;
+            };
+        engagements?:
+          | T
+          | {
+              label?: T;
+              heading?: T;
+              body?: T;
+              offers?:
+                | T
+                | {
+                    name?: T;
+                    duration?: T;
+                    pricing?: T;
+                    description?: T;
+                    linkLabel?: T;
+                    linkHref?: T;
+                    highlight?: T;
                     id?: T;
                   };
               spacing?: T;

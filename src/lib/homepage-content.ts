@@ -4,7 +4,7 @@ import type { ServiceNavItem } from '@/lib/service-pages'
 import { HOMEPAGE_TAG } from '@/hooks/revalidateHomepage'
 import { getPayloadClient } from '@/lib/payload'
 
-export type ServiceCard = ServiceNavItem & { heroSummary: string }
+export type ServiceCard = ServiceNavItem & { heroSummary: string; featured?: boolean | null }
 
 export type HomepageContent = {
   homepage: Homepage
@@ -31,7 +31,7 @@ export const getHomepageContent = unstable_cache(
           limit: 20,
           overrideAccess: false,
           sort: 'order',
-          select: { navigationLabel: true, slug: true, heroSummary: true },
+          select: { navigationLabel: true, slug: true, heroSummary: true, featured: true },
         }),
       ])
 
@@ -44,6 +44,6 @@ export const getHomepageContent = unstable_cache(
       servicePages: servicePages.docs,
     }
   },
-  ['homepage-content-v3'],
+  ['homepage-content-v4'],
   { tags: [HOMEPAGE_TAG] },
 )

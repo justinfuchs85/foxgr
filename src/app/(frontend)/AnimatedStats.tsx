@@ -64,7 +64,7 @@ const tones = {
     label: 'mt-1 text-[11px] leading-4 tracking-[0.12em] text-white/55 uppercase',
   },
   light: {
-    list: 'flex flex-wrap gap-x-12 gap-y-8',
+    list: 'grid max-w-[620px] grid-cols-1 gap-8 sm:grid-cols-3',
     item: '',
     value: 'font-serif text-5xl leading-none text-[#0a2939] tabular-nums',
     label: 'mt-2 text-xs tracking-[0.1em] text-[#49636e] uppercase',
