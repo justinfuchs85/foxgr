@@ -1,60 +1,70 @@
 {
   "_source": "Exported 2026-11-02 from https://skip-dude-14777241.figma.site Payload REST API (Figma Make file xv4xg5Je0ZhT9yQIPytCAV)",
   "media": [
-    { "key": "foxConsultant", "alt": "The illustrated Fox Consultant character", "filename": "fox-consultant-original.webp", "width": 329, "height": 293 },
-    { "key": "foxMountains", "alt": "Layered blue mountain landscape", "filename": "fox-mountains-original.webp", "width": 2500, "height": 1156 },
-    { "key": "cmsArtifact", "alt": "Engineering CMS evaluation and replatforming project artifact", "filename": "cms-replatforming-artifact-original.jpg", "width": 2500, "height": 1668 },
-    { "key": "foodserviceArtifact", "alt": "Foodservice ecommerce analytics dashboard project artifact", "filename": "foodservice-analytics-artifact-original.jpg", "width": 2400, "height": 3600 }
+    {
+      "key": "foxConsultant",
+      "alt": "The illustrated Fox Consultant character",
+      "filename": "fox-consultant-original.webp",
+      "width": 329,
+      "height": 293
+    },
+    {
+      "key": "foxMountains",
+      "alt": "Layered blue mountain landscape",
+      "filename": "fox-mountains-original.webp",
+      "width": 2500,
+      "height": 1156
+    },
+    {
+      "key": "cmsArtifact",
+      "alt": "Engineering CMS evaluation and replatforming project artifact",
+      "filename": "cms-replatforming-artifact-original.jpg",
+      "width": 2500,
+      "height": 1668
+    },
+    {
+      "key": "foodserviceArtifact",
+      "alt": "Foodservice ecommerce analytics dashboard project artifact",
+      "filename": "foodservice-analytics-artifact-original.jpg",
+      "width": 2400,
+      "height": 3600
+    }
   ],
   "homepage": {
     "sections": [
       {
         "blockType": "hero",
-        "eyebrow": "Field note 01 / Marketing infrastructure",
         "heading": "Better marketing management.",
         "accent": "People. Process. Technology.",
-        "body": "Marketing leaders no longer have to go it alone. We help managers, directors, and C-level leaders build resilient foundations for team structure, governance, workflow, technology management, and strategy development.",
-        "buttonLabel": "Review the operating system",
-        "buttonHref": "#services",
-        "stats": [
-          { "value": "15+", "label": "years advising digital teams" },
-          { "value": "3", "label": "connected operating layers" },
-          { "value": "1:1", "label": "senior consultant access" },
-          { "value": "0", "label": "off-the-shelf playbooks" }
-        ]
+        "body": "Marketing leaders no longer have to go it alone. We help managers, directors, and C-level leaders build resilient foundations for team structure, governance, workflow, technology, and strategy.",
+        "buttonLabel": "See what we do",
+        "buttonHref": "#services"
       },
       {
         "blockType": "intro",
-        "label": "Field note 02 / Start below the surface",
+        "label": "The problem",
         "heading": "You can’t campaign your way out of poor infrastructure.",
         "columns": [
-          { "body": "Even talented marketers underperform when departmental processes are clunky, burdensome, or disconnected from the work they are meant to support." },
-          { "body": "We shore up wasted effort, ineffective workflows, disconnected teams, and the general ‘muck’ in the marketing gears—then help leaders put a better operating model in place." }
+          {
+            "body": "Even talented marketers underperform when departmental processes are clunky, burdensome, or disconnected from the work they are meant to support."
+          },
+          {
+            "body": "We clear out the wasted effort, the ineffective workflows, the disconnected teams and the general muck in the marketing gears, then help leaders put a better operating model in place."
+          }
         ],
-        "characterImage": "@media:foxConsultant",
-        "characterTitle": "A note from the Fox",
-        "characterCaption": "Look for the system behind the symptom.",
         "spacing": "standard"
       },
       {
-        "blockType": "imageBreak",
-        "image": "@media:foxMountains",
-        "label": "Orientation point",
-        "heading": "See the whole marketing landscape.",
-        "overlay": "navy"
-      },
-      {
         "blockType": "services",
-        "label": "Field note 03 / The operating system",
-        "heading": "We work across the infrastructure behind marketing output.",
+        "label": "What we do",
+        "heading": "We work on the infrastructure behind marketing output.",
         "theme": "navy",
         "spacing": "standard"
       },
       {
         "blockType": "caseStudies",
-        "label": "Field note 04 / Evidence from the work",
-        "heading": "Selected consulting engagements",
-        "body": "The deliverable is never just a recommendation. It is a working system—a measurement plan, decision framework, dashboard, roadmap, or playbook a team can keep using.",
+        "label": "Selected work",
+        "heading": "The deliverable is a working system, not a slide.",
         "limit": 2,
         "spacing": "standard"
       },
@@ -66,17 +76,57 @@
         "spacing": "compact"
       },
       {
-        "blockType": "insights",
-        "label": "Field note 05 / From the notebook",
-        "heading": "Notes on running modern marketing programs",
-        "limit": 3,
+        "blockType": "approach",
+        "label": "How we work",
+        "heading": "From diagnosis to a roadmap your team owns.",
+        "body": "Collaborative, evidence-led, and designed to leave your team more capable, not dependent on a consultant.",
+        "steps": [
+          {
+            "title": "Discover",
+            "body": "Align on business priorities, stakeholder expectations, audiences, and the realities of the current program."
+          },
+          {
+            "title": "Assess",
+            "body": "Audit activity, workflows, technology, and measurement to locate friction and opportunity."
+          },
+          {
+            "title": "Design",
+            "body": "Translate findings into a connected strategy, operating principles, and sequenced recommendations."
+          },
+          {
+            "title": "Activate",
+            "body": "Support rollout, decisions, and adoption so the roadmap becomes a working system."
+          }
+        ],
+        "spacing": "standard"
+      },
+      {
+        "blockType": "about",
+        "label": "Who we are",
+        "heading": "Look for the system behind the symptom.",
+        "body": "Fox Consulting Group is a senior-led practice. You work directly with the people doing the work: no hand-offs, no junior bench, and nothing pulled off a shelf.",
+        "image": "@media:foxConsultant",
+        "stats": [
+          {
+            "value": "15+",
+            "label": "years advising digital teams"
+          },
+          {
+            "value": "1:1",
+            "label": "senior consultant access"
+          },
+          {
+            "value": "0",
+            "label": "off-the-shelf playbooks"
+          }
+        ],
         "spacing": "standard"
       },
       {
         "blockType": "cta",
         "label": "Bring us the hard part",
         "heading": "Let’s talk through the problem.",
-        "body": "Tell us where the team, process, technology, or measurement system is getting in the way. We’ll help you identify the next useful move.",
+        "body": "Tell us where the team, process, technology, or measurement is getting in the way. We’ll help you find the next useful move.",
         "buttonLabel": "hello@foxgr.com",
         "buttonHref": "mailto:hello@foxgr.com",
         "spacing": "standard"
@@ -84,18 +134,76 @@
     ]
   },
   "services": [
-    { "order": 1, "title": "Digital strategy", "eyebrow": "01 / Direction", "summary": "Turn scattered channels and tactics into one practical roadmap tied to business outcomes.", "capabilities": ["Digital marketing roadmaps", "Channel strategy", "Marketing technology selection"] },
-    { "order": 2, "title": "Analytics & measurement", "eyebrow": "02 / Clarity", "summary": "Build a measurement foundation your team can trust, understand, and actually use.", "capabilities": ["GA4 implementation", "Privacy-first analytics", "Reporting systems"] },
-    { "order": 3, "title": "Marketing operations", "eyebrow": "03 / Momentum", "summary": "Remove the process friction that keeps strong teams from doing their best work.", "capabilities": ["Workflow design", "Team governance", "Training and workshops"] }
+    {
+      "order": 1,
+      "title": "Digital strategy",
+      "eyebrow": "01 / Direction",
+      "summary": "Turn scattered channels and tactics into one practical roadmap tied to business outcomes.",
+      "capabilities": [
+        "Digital marketing roadmaps",
+        "Channel strategy",
+        "Marketing technology selection"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Analytics & measurement",
+      "eyebrow": "02 / Clarity",
+      "summary": "Build a measurement foundation your team can trust, understand, and actually use.",
+      "capabilities": [
+        "GA4 implementation",
+        "Privacy-first analytics",
+        "Reporting systems"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Marketing operations",
+      "eyebrow": "03 / Momentum",
+      "summary": "Remove the process friction that keeps strong teams from doing their best work.",
+      "capabilities": [
+        "Workflow design",
+        "Team governance",
+        "Training and workshops"
+      ]
+    }
   ],
   "testimonials": [
-    { "order": 1, "quote": "Fox turned a complex set of operational challenges into manageable decisions our team could move on with confidence.", "attribution": "Senior Manager", "role": "Marketing Operations · Identity Protection" },
-    { "order": 2, "quote": "The playbook gave our team clear guidance for day-to-day execution while keeping every recommendation grounded in the larger strategy.", "attribution": "Communications Director", "role": "Engineering" }
+    {
+      "order": 1,
+      "quote": "Fox turned a complex set of operational challenges into manageable decisions our team could move on with confidence.",
+      "attribution": "Senior Manager",
+      "role": "Marketing Operations · Identity Protection"
+    },
+    {
+      "order": 2,
+      "quote": "The playbook gave our team clear guidance for day-to-day execution while keeping every recommendation grounded in the larger strategy.",
+      "attribution": "Communications Director",
+      "role": "Engineering"
+    }
   ],
   "insights": [
-    { "order": 1, "title": "Five questions to ask before a website redesign", "excerpt": "Pause before page layouts. These questions expose the strategy, governance, and measurement decisions that make a redesign worthwhile.", "publishedAt": "2025-02-18T12:00:00.000Z", "readingTime": "6 min read" },
-    { "order": 2, "title": "Your marketing team is working too hard", "excerpt": "Busy output is not the same as business impact. A better operating system gives your team room to focus on work that matters.", "publishedAt": "2025-01-22T12:00:00.000Z", "readingTime": "5 min read" },
-    { "order": 3, "title": "A practical case for value-driven marketing", "excerpt": "Move beyond dashboards for their own sake and connect every meaningful measure to a decision your team can act on.", "publishedAt": "2024-11-07T12:00:00.000Z", "readingTime": "7 min read" }
+    {
+      "order": 1,
+      "title": "Five questions to ask before a website redesign",
+      "excerpt": "Pause before page layouts. These questions expose the strategy, governance, and measurement decisions that make a redesign worthwhile.",
+      "publishedAt": "2025-02-18T12:00:00.000Z",
+      "readingTime": "6 min read"
+    },
+    {
+      "order": 2,
+      "title": "Your marketing team is working too hard",
+      "excerpt": "Busy output is not the same as business impact. A better operating system gives your team room to focus on work that matters.",
+      "publishedAt": "2025-01-22T12:00:00.000Z",
+      "readingTime": "5 min read"
+    },
+    {
+      "order": 3,
+      "title": "A practical case for value-driven marketing",
+      "excerpt": "Move beyond dashboards for their own sake and connect every meaningful measure to a decision your team can act on.",
+      "publishedAt": "2024-11-07T12:00:00.000Z",
+      "readingTime": "7 min read"
+    }
   ],
   "caseStudies": [
     {
@@ -104,13 +212,25 @@
       "client": "Healthcare marketing team",
       "category": "Analytics operations",
       "result": "Designed the operating model and campaign dashboards that gave a growing digital team one reliable view of performance.",
-      "metric": { "value": "1", "label": "unified measurement system" },
+      "metric": {
+        "value": "1",
+        "label": "unified measurement system"
+      },
       "artifact": "@media:foodserviceArtifact",
       "artifactCaption": "Analytics audit, measurement plan, and campaign dashboard system",
       "methodology": [
-        { "label": "Observe", "detail": "Audit the ecommerce journey and existing analytics implementation" },
-        { "label": "Map", "detail": "Connect business questions to events, conversions, and ownership" },
-        { "label": "Build", "detail": "Implement the measurement model and working dashboards" }
+        {
+          "label": "Observe",
+          "detail": "Audit the ecommerce journey and existing analytics implementation"
+        },
+        {
+          "label": "Map",
+          "detail": "Connect business questions to events, conversions, and ownership"
+        },
+        {
+          "label": "Build",
+          "detail": "Implement the measurement model and working dashboards"
+        }
       ]
     },
     {
@@ -119,13 +239,25 @@
       "client": "Engineering organization",
       "category": "Digital strategy",
       "result": "Translated an overloaded CMS decision into a focused evaluation framework, governance plan, and implementation roadmap.",
-      "metric": { "value": "3", "label": "decision stages simplified" },
+      "metric": {
+        "value": "3",
+        "label": "decision stages simplified"
+      },
       "artifact": "@media:cmsArtifact",
       "artifactCaption": "CMS evaluation framework, stakeholder criteria, and replatform roadmap",
       "methodology": [
-        { "label": "Frame", "detail": "Define requirements with marketing, engineering, and content owners" },
-        { "label": "Evaluate", "detail": "Score platform options against the organization’s real operating needs" },
-        { "label": "Sequence", "detail": "Turn the recommendation into a governed implementation roadmap" }
+        {
+          "label": "Frame",
+          "detail": "Define requirements with marketing, engineering, and content owners"
+        },
+        {
+          "label": "Evaluate",
+          "detail": "Score platform options against the organization’s real operating needs"
+        },
+        {
+          "label": "Sequence",
+          "detail": "Turn the recommendation into a governed implementation roadmap"
+        }
       ]
     }
   ],
@@ -137,21 +269,48 @@
       "navigationLabel": "Digital Strategy",
       "eyebrow": "Strategy / Systems / Direction",
       "heroSummary": "Build a unified digital program that connects business priorities to channels, technology, measurement, and the work your team does every day.",
-      "problem": { "heading": "Tactics move faster when the strategy underneath them is clear.", "body": "Most teams do not need more ideas. They need a shared view of where digital marketing creates value, which opportunities deserve attention, and how people, process, and technology should work together. We turn that ambiguity into a practical operating roadmap." },
+      "problem": {
+        "heading": "Tactics move faster when the strategy underneath them is clear.",
+        "body": "Most teams do not need more ideas. They need a shared view of where digital marketing creates value, which opportunities deserve attention, and how people, process, and technology should work together. We turn that ambiguity into a practical operating roadmap."
+      },
       "capabilities": [
-        { "title": "Digital marketing strategy", "body": "Define the role digital should play in business growth, then connect goals to channels, audiences, and measurable outcomes." },
-        { "title": "Channel planning", "body": "Evaluate the channels that matter, clarify what each should accomplish, and build playbooks teams can actually use." },
-        { "title": "Marketing technology strategy", "body": "Assess the current stack and create a structured path for selecting, implementing, and governing the right tools." },
-        { "title": "Leadership advisory", "body": "Give marketing leaders a senior thought partner for difficult decisions, competing priorities, and program design." }
+        {
+          "title": "Digital marketing strategy",
+          "body": "Define the role digital should play in business growth, then connect goals to channels, audiences, and measurable outcomes."
+        },
+        {
+          "title": "Channel planning",
+          "body": "Evaluate the channels that matter, clarify what each should accomplish, and build playbooks teams can actually use."
+        },
+        {
+          "title": "Marketing technology strategy",
+          "body": "Assess the current stack and create a structured path for selecting, implementing, and governing the right tools."
+        },
+        {
+          "title": "Leadership advisory",
+          "body": "Give marketing leaders a senior thought partner for difficult decisions, competing priorities, and program design."
+        }
       ],
       "approach": {
         "heading": "From diagnosis to a roadmap your team owns.",
         "body": "The work is collaborative, evidence-led, and designed to leave your team more capable—not dependent on a consultant.",
         "steps": [
-          { "title": "Discover", "body": "Align on business priorities, stakeholder expectations, audiences, and the realities of the current program." },
-          { "title": "Assess", "body": "Audit activity, capabilities, workflows, technology, and measurement to locate friction and opportunity." },
-          { "title": "Design", "body": "Translate findings into a connected strategy, operating principles, and sequenced recommendations." },
-          { "title": "Activate", "body": "Support rollout, decision-making, and team adoption so the roadmap becomes a working system." }
+          {
+            "title": "Discover",
+            "body": "Align on business priorities, stakeholder expectations, audiences, and the realities of the current program."
+          },
+          {
+            "title": "Assess",
+            "body": "Audit activity, capabilities, workflows, technology, and measurement to locate friction and opportunity."
+          },
+          {
+            "title": "Design",
+            "body": "Translate findings into a connected strategy, operating principles, and sequenced recommendations."
+          },
+          {
+            "title": "Activate",
+            "body": "Support rollout, decision-making, and team adoption so the roadmap becomes a working system."
+          }
         ]
       },
       "outcomes": [
@@ -160,7 +319,11 @@
         "Clear channel roles, ownership, and decision criteria",
         "A practical roadmap tied to people, process, and technology"
       ],
-      "cta": { "heading": "Build the strategy behind the work.", "body": "Tell us where your digital program feels fragmented, unclear, or harder to run than it should be.", "buttonLabel": "Start a strategy conversation" }
+      "cta": {
+        "heading": "Build the strategy behind the work.",
+        "body": "Tell us where your digital program feels fragmented, unclear, or harder to run than it should be.",
+        "buttonLabel": "Start a strategy conversation"
+      }
     },
     {
       "order": 2,
@@ -169,21 +332,48 @@
       "navigationLabel": "Google Analytics 4",
       "eyebrow": "Measurement / Implementation / Adoption",
       "heroSummary": "Turn GA4 from a source of uncertainty into a measurement system your team trusts, understands, and uses to make decisions.",
-      "problem": { "heading": "A technically valid setup is not the same as useful analytics.", "body": "GA4 often arrives with duplicated events, unclear conversions, broken governance, and reports no one confidently uses. We connect implementation decisions to the questions your organization actually needs analytics to answer." },
+      "problem": {
+        "heading": "A technically valid setup is not the same as useful analytics.",
+        "body": "GA4 often arrives with duplicated events, unclear conversions, broken governance, and reports no one confidently uses. We connect implementation decisions to the questions your organization actually needs analytics to answer."
+      },
       "capabilities": [
-        { "title": "GA4 audits", "body": "Review configuration, event design, conversions, data quality, governance, and reporting against your real measurement needs." },
-        { "title": "Implementation planning", "body": "Create an actionable measurement plan for GA4 and Google Tag Manager, including naming, ownership, and testing." },
-        { "title": "Reporting systems", "body": "Design focused reports and Looker Studio dashboards that make performance understandable to the people using them." },
-        { "title": "Training and adoption", "body": "Help marketers and leaders understand the platform, interpret data responsibly, and use it in recurring decisions." }
+        {
+          "title": "GA4 audits",
+          "body": "Review configuration, event design, conversions, data quality, governance, and reporting against your real measurement needs."
+        },
+        {
+          "title": "Implementation planning",
+          "body": "Create an actionable measurement plan for GA4 and Google Tag Manager, including naming, ownership, and testing."
+        },
+        {
+          "title": "Reporting systems",
+          "body": "Design focused reports and Looker Studio dashboards that make performance understandable to the people using them."
+        },
+        {
+          "title": "Training and adoption",
+          "body": "Help marketers and leaders understand the platform, interpret data responsibly, and use it in recurring decisions."
+        }
       ],
       "approach": {
         "heading": "Measure what matters, then make it usable.",
         "body": "We begin with decisions and business questions—not a generic event checklist.",
         "steps": [
-          { "title": "Define", "body": "Clarify the audiences, journeys, outcomes, and decisions the measurement system must support." },
-          { "title": "Audit", "body": "Inspect the current implementation and identify gaps, noise, risk, and unreliable reporting." },
-          { "title": "Implement", "body": "Configure, test, document, and govern a durable event and conversion framework." },
-          { "title": "Operationalize", "body": "Build reporting rhythms and train teams to turn analytics into action." }
+          {
+            "title": "Define",
+            "body": "Clarify the audiences, journeys, outcomes, and decisions the measurement system must support."
+          },
+          {
+            "title": "Audit",
+            "body": "Inspect the current implementation and identify gaps, noise, risk, and unreliable reporting."
+          },
+          {
+            "title": "Implement",
+            "body": "Configure, test, document, and govern a durable event and conversion framework."
+          },
+          {
+            "title": "Operationalize",
+            "body": "Build reporting rhythms and train teams to turn analytics into action."
+          }
         ]
       },
       "outcomes": [
@@ -192,7 +382,11 @@
         "Reports aligned to real stakeholder questions",
         "Greater confidence and adoption across the marketing team"
       ],
-      "cta": { "heading": "Make GA4 useful again.", "body": "Whether you need an audit, a cleaner implementation, or help operationalizing analytics, we can clarify the next step.", "buttonLabel": "Talk about your GA4 setup" }
+      "cta": {
+        "heading": "Make GA4 useful again.",
+        "body": "Whether you need an audit, a cleaner implementation, or help operationalizing analytics, we can clarify the next step.",
+        "buttonLabel": "Talk about your GA4 setup"
+      }
     },
     {
       "order": 3,
@@ -201,21 +395,48 @@
       "navigationLabel": "Privacy-Focused Analytics",
       "eyebrow": "Privacy / Measurement / Governance",
       "heroSummary": "Build a useful marketing measurement program without treating privacy, consent, and data governance as afterthoughts.",
-      "problem": { "heading": "Better privacy should lead to better measurement decisions.", "body": "Regulation, browser changes, consent requirements, and sensitive customer data are reshaping analytics. We help teams determine what should be measured, what should not, and which platforms and governance practices fit their risk profile." },
+      "problem": {
+        "heading": "Better privacy should lead to better measurement decisions.",
+        "body": "Regulation, browser changes, consent requirements, and sensitive customer data are reshaping analytics. We help teams determine what should be measured, what should not, and which platforms and governance practices fit their risk profile."
+      },
       "capabilities": [
-        { "title": "Platform evaluation", "body": "Compare Google Analytics, Piwik PRO, Matomo, and other approaches against privacy, security, reporting, and operational needs." },
-        { "title": "Measurement governance", "body": "Define standards for data collection, retention, access, documentation, and ongoing decision-making." },
-        { "title": "Consent-aware implementation", "body": "Align analytics architecture with consent requirements and the practical realities of your website and marketing stack." },
-        { "title": "Privacy-first reporting", "body": "Design reporting that remains useful even when individual-level tracking is limited or inappropriate." }
+        {
+          "title": "Platform evaluation",
+          "body": "Compare Google Analytics, Piwik PRO, Matomo, and other approaches against privacy, security, reporting, and operational needs."
+        },
+        {
+          "title": "Measurement governance",
+          "body": "Define standards for data collection, retention, access, documentation, and ongoing decision-making."
+        },
+        {
+          "title": "Consent-aware implementation",
+          "body": "Align analytics architecture with consent requirements and the practical realities of your website and marketing stack."
+        },
+        {
+          "title": "Privacy-first reporting",
+          "body": "Design reporting that remains useful even when individual-level tracking is limited or inappropriate."
+        }
       ],
       "approach": {
         "heading": "Start with risk, value, and proportionality.",
         "body": "There is no universal privacy stack. The right answer depends on your customers, markets, data sensitivity, and the decisions analytics must support.",
         "steps": [
-          { "title": "Frame", "body": "Document business questions, regulatory context, data sensitivity, and organizational risk tolerance." },
-          { "title": "Evaluate", "body": "Assess the current stack and compare viable platforms and implementation patterns." },
-          { "title": "Design", "body": "Create a measurement architecture and governance model that balances insight with restraint." },
-          { "title": "Enable", "body": "Support implementation, documentation, training, and ongoing stewardship." }
+          {
+            "title": "Frame",
+            "body": "Document business questions, regulatory context, data sensitivity, and organizational risk tolerance."
+          },
+          {
+            "title": "Evaluate",
+            "body": "Assess the current stack and compare viable platforms and implementation patterns."
+          },
+          {
+            "title": "Design",
+            "body": "Create a measurement architecture and governance model that balances insight with restraint."
+          },
+          {
+            "title": "Enable",
+            "body": "Support implementation, documentation, training, and ongoing stewardship."
+          }
         ]
       },
       "outcomes": [
@@ -224,7 +445,11 @@
         "Documented ownership and data governance",
         "Reporting that remains useful with less invasive tracking"
       ],
-      "cta": { "heading": "Measure responsibly—and meaningfully.", "body": "We can help you evaluate the tradeoffs and design a privacy-focused analytics program that fits your organization.", "buttonLabel": "Discuss privacy-focused analytics" }
+      "cta": {
+        "heading": "Measure responsibly—and meaningfully.",
+        "body": "We can help you evaluate the tradeoffs and design a privacy-focused analytics program that fits your organization.",
+        "buttonLabel": "Discuss privacy-focused analytics"
+      }
     },
     {
       "order": 4,
@@ -233,20 +458,44 @@
       "navigationLabel": "On-Demand Consulting",
       "eyebrow": "Focused / Senior / On Your Terms",
       "heroSummary": "Get experienced, objective guidance for a specific digital marketing decision—without committing to a full consulting engagement.",
-      "problem": { "heading": "Sometimes you need one clear conversation, not a twelve-week project.", "body": "Leaders regularly face decisions that are too important to make alone but too focused for a traditional engagement. On-demand sessions create space to pressure-test a plan, diagnose a problem, or find the next best move." },
+      "problem": {
+        "heading": "Sometimes you need one clear conversation, not a twelve-week project.",
+        "body": "Leaders regularly face decisions that are too important to make alone but too focused for a traditional engagement. On-demand sessions create space to pressure-test a plan, diagnose a problem, or find the next best move."
+      },
       "capabilities": [
-        { "title": "Strategy review", "body": "Bring a plan, roadmap, or recommendation and get direct, experienced feedback before you commit." },
-        { "title": "Analytics troubleshooting", "body": "Work through measurement questions, reporting gaps, platform choices, or implementation concerns." },
-        { "title": "Technology decisions", "body": "Clarify requirements, evaluation criteria, and tradeoffs before selecting or replacing marketing technology." },
-        { "title": "Leadership coaching", "body": "Use the session as a confidential thought partnership for organizational, team, or prioritization challenges." }
+        {
+          "title": "Strategy review",
+          "body": "Bring a plan, roadmap, or recommendation and get direct, experienced feedback before you commit."
+        },
+        {
+          "title": "Analytics troubleshooting",
+          "body": "Work through measurement questions, reporting gaps, platform choices, or implementation concerns."
+        },
+        {
+          "title": "Technology decisions",
+          "body": "Clarify requirements, evaluation criteria, and tradeoffs before selecting or replacing marketing technology."
+        },
+        {
+          "title": "Leadership coaching",
+          "body": "Use the session as a confidential thought partnership for organizational, team, or prioritization challenges."
+        }
       ],
       "approach": {
         "heading": "Focused preparation. Candid advice. A usable next step.",
         "body": "Each session is structured around one decision or challenge so the time produces a concrete outcome.",
         "steps": [
-          { "title": "Submit context", "body": "Share the question, relevant background, and any materials that will make the conversation productive." },
-          { "title": "Meet", "body": "Use the session to examine assumptions, alternatives, risks, and practical next steps." },
-          { "title": "Move", "body": "Leave with a concise summary of recommendations and a clearer path forward." }
+          {
+            "title": "Submit context",
+            "body": "Share the question, relevant background, and any materials that will make the conversation productive."
+          },
+          {
+            "title": "Meet",
+            "body": "Use the session to examine assumptions, alternatives, risks, and practical next steps."
+          },
+          {
+            "title": "Move",
+            "body": "Leave with a concise summary of recommendations and a clearer path forward."
+          }
         ]
       },
       "outcomes": [
@@ -255,7 +504,11 @@
         "No long-term engagement required",
         "Advice grounded in your actual context"
       ],
-      "cta": { "heading": "Bring the hard question.", "body": "If a focused conversation would help you move forward, book an on-demand consulting session.", "buttonLabel": "Book a focused session" }
+      "cta": {
+        "heading": "Bring the hard question.",
+        "body": "If a focused conversation would help you move forward, book an on-demand consulting session.",
+        "buttonLabel": "Book a focused session"
+      }
     },
     {
       "order": 5,
@@ -264,21 +517,48 @@
       "navigationLabel": "For Developers",
       "eyebrow": "Content / UX / Development Partnership",
       "heroSummary": "Give website projects the strategic content leadership they need—without asking a development team to become a content agency.",
-      "problem": { "heading": "Great builds still struggle when content strategy arrives too late.", "body": "Development partners are often asked to solve messaging, information architecture, governance, and migration questions that sit outside their core role. Fox joins the project as a complementary content strategy partner, keeping the build focused and the client supported." },
+      "problem": {
+        "heading": "Great builds still struggle when content strategy arrives too late.",
+        "body": "Development partners are often asked to solve messaging, information architecture, governance, and migration questions that sit outside their core role. Fox joins the project as a complementary content strategy partner, keeping the build focused and the client supported."
+      },
       "capabilities": [
-        { "title": "Content discovery", "body": "Clarify audiences, business objectives, stakeholder needs, and the role content must play in the new experience." },
-        { "title": "Information architecture", "body": "Shape navigation, page hierarchy, content models, and user pathways before templates harden." },
-        { "title": "Page-level content strategy", "body": "Define the purpose, priority, and content requirements for key page types and conversion journeys." },
-        { "title": "Governance and migration", "body": "Help clients decide what to keep, rewrite, retire, own, and maintain after launch." }
+        {
+          "title": "Content discovery",
+          "body": "Clarify audiences, business objectives, stakeholder needs, and the role content must play in the new experience."
+        },
+        {
+          "title": "Information architecture",
+          "body": "Shape navigation, page hierarchy, content models, and user pathways before templates harden."
+        },
+        {
+          "title": "Page-level content strategy",
+          "body": "Define the purpose, priority, and content requirements for key page types and conversion journeys."
+        },
+        {
+          "title": "Governance and migration",
+          "body": "Help clients decide what to keep, rewrite, retire, own, and maintain after launch."
+        }
       ],
       "approach": {
         "heading": "A flexible partner inside your delivery model.",
         "body": "We can work visibly alongside the client or quietly as an extension of your team, adapting to the project and relationship.",
         "steps": [
-          { "title": "Align", "body": "Define roles, scope, decision rights, project milestones, and where content strategy adds the most value." },
-          { "title": "Discover", "body": "Lead stakeholder and audience work that gives design and development a stronger foundation." },
-          { "title": "Structure", "body": "Translate findings into architecture, content models, page requirements, and migration priorities." },
-          { "title": "Support", "body": "Stay engaged through design, build, content production, QA, and launch decisions." }
+          {
+            "title": "Align",
+            "body": "Define roles, scope, decision rights, project milestones, and where content strategy adds the most value."
+          },
+          {
+            "title": "Discover",
+            "body": "Lead stakeholder and audience work that gives design and development a stronger foundation."
+          },
+          {
+            "title": "Structure",
+            "body": "Translate findings into architecture, content models, page requirements, and migration priorities."
+          },
+          {
+            "title": "Support",
+            "body": "Stay engaged through design, build, content production, QA, and launch decisions."
+          }
         ]
       },
       "outcomes": [
@@ -287,7 +567,11 @@
         "Better alignment between templates and real content needs",
         "A stronger client experience without expanding your core team"
       ],
-      "cta": { "heading": "Add content strategy without adding overhead.", "body": "Tell us how your team works and where content challenges tend to appear. We’ll shape a partnership around it.", "buttonLabel": "Explore a development partnership" }
+      "cta": {
+        "heading": "Add content strategy without adding overhead.",
+        "body": "Tell us how your team works and where content challenges tend to appear. We’ll shape a partnership around it.",
+        "buttonLabel": "Explore a development partnership"
+      }
     }
   ]
 }

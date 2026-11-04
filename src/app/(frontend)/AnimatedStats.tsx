@@ -56,7 +56,29 @@ function CountUp({ value, start, delay }: { value: string; start: boolean; delay
   return <>{display}</>
 }
 
-export function AnimatedStats({ stats }: { stats: Stat[] }) {
+const tones = {
+  dark: {
+    list: 'mx-auto grid max-w-[1440px] grid-cols-2 px-5 md:grid-cols-4 md:px-10 lg:px-16',
+    item: 'py-6 pr-4 pl-4 first:pl-0 md:py-8 md:pl-8',
+    value: 'font-serif text-3xl text-[#ff8467] tabular-nums md:text-4xl',
+    label: 'mt-1 text-[11px] leading-4 tracking-[0.12em] text-white/55 uppercase',
+  },
+  light: {
+    list: 'flex flex-wrap gap-x-12 gap-y-8',
+    item: '',
+    value: 'font-serif text-5xl leading-none text-[#0a2939] tabular-nums',
+    label: 'mt-2 text-xs tracking-[0.1em] text-[#49636e] uppercase',
+  },
+}
+
+export function AnimatedStats({
+  stats,
+  tone = 'dark',
+}: {
+  stats: Stat[]
+  tone?: keyof typeof tones
+}) {
+  const t = tones[tone]
   const ref = useRef<HTMLDivElement>(null)
   const [inView, setInView] = useState(false)
 
@@ -80,22 +102,22 @@ export function AnimatedStats({ stats }: { stats: Stat[] }) {
     <div
       ref={ref}
       data-reveal={inView ? 'in' : 'out'}
-      className="stats mx-auto grid max-w-[1440px] grid-cols-2 px-5 md:grid-cols-4 md:px-10 lg:px-16"
+      className={`stats ${t.list}`}
     >
       {stats.map((stat, index) => (
         <div
-          className="stat py-6 pr-4 pl-4 first:pl-0 md:py-8 md:pl-8"
+          className={`stat ${t.item}`}
           key={stat.id ?? `${stat.label}-${index}`}
           style={{ '--i': index } as React.CSSProperties}
         >
           <span aria-hidden="true" className="stat-rule" />
-          <p className="font-serif text-3xl text-[#ff8467] tabular-nums md:text-4xl">
+          <p className={t.value}>
             <span className="sr-only">{stat.value}</span>
             <span aria-hidden="true">
               <CountUp value={stat.value} start={inView} delay={320 + index * 140} />
             </span>
           </p>
-          <p className="mt-1 text-[11px] leading-4 tracking-[0.12em] text-white/55 uppercase">
+          <p className={t.label}>
             {stat.label}
           </p>
         </div>

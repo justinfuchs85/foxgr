@@ -855,7 +855,7 @@ export interface Homepage {
   /**
    * Drag sections to reorder them. Each section exposes only design-safe layout options.
    */
-  sections: (Hero | Intro | ImageBreak | Services | CaseStudies | Testimonial1 | Insights | Cta)[];
+  sections: (Hero | Intro | ImageBreak | Services | CaseStudies | Testimonial1 | Insights | Approach | About | Cta)[];
   createdBy?: {
     relationTo: 'admins';
     value: number | Admin;
@@ -872,13 +872,19 @@ export interface Homepage {
  * via the `definition` "Hero".
  */
 export interface Hero {
-  eyebrow: string;
+  /**
+   * Optional small line above the headline. Leave blank for a cleaner hero.
+   */
+  eyebrow?: string | null;
   heading: string;
   /**
    * The italic coral line beneath the main heading.
    */
   accent: string;
   body: string;
+  /**
+   * Secondary link beside the main “Start a conversation” button.
+   */
   buttonLabel: string;
   buttonHref: string;
   stats?:
@@ -999,6 +1005,59 @@ export interface Insights {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Approach".
+ */
+export interface Approach {
+  label: string;
+  heading: string;
+  body?: string | null;
+  steps?:
+    | {
+        title: string;
+        body: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Controls the vertical breathing room around this section.
+   */
+  spacing?: ('compact' | 'standard' | 'generous') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'approach';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "About".
+ */
+export interface About {
+  label: string;
+  heading: string;
+  body: string;
+  /**
+   * Shown in the panel beside the text (the Fox works best).
+   */
+  image?: (number | null) | Media;
+  /**
+   * Numbers count up when they scroll into view. A 0 counts down.
+   */
+  stats?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Controls the vertical breathing room around this section.
+   */
+  spacing?: ('compact' | 'standard' | 'generous') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'about';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Cta".
  */
 export interface Cta {
@@ -1107,6 +1166,41 @@ export interface HomepageSelect<T extends boolean = true> {
               label?: T;
               heading?: T;
               limit?: T;
+              spacing?: T;
+              id?: T;
+              blockName?: T;
+            };
+        approach?:
+          | T
+          | {
+              label?: T;
+              heading?: T;
+              body?: T;
+              steps?:
+                | T
+                | {
+                    title?: T;
+                    body?: T;
+                    id?: T;
+                  };
+              spacing?: T;
+              id?: T;
+              blockName?: T;
+            };
+        about?:
+          | T
+          | {
+              label?: T;
+              heading?: T;
+              body?: T;
+              image?: T;
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    id?: T;
+                  };
               spacing?: T;
               id?: T;
               blockName?: T;

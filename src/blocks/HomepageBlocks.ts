@@ -20,7 +20,11 @@ export const HeroBlock: Block = {
   slug: 'hero',
   labels: { singular: 'Hero', plural: 'Heroes' },
   fields: [
-    { name: 'eyebrow', type: 'text', required: true },
+    {
+      name: 'eyebrow',
+      type: 'text',
+      admin: { description: 'Optional small line above the headline. Leave blank for a cleaner hero.' },
+    },
     { name: 'heading', type: 'text', required: true },
     {
       name: 'accent',
@@ -32,15 +36,21 @@ export const HeroBlock: Block = {
     {
       type: 'row',
       fields: [
-        { name: 'buttonLabel', type: 'text', required: true },
+        {
+          name: 'buttonLabel',
+          type: 'text',
+          required: true,
+          admin: { description: 'Secondary link beside the main “Start a conversation” button.' },
+        },
         { name: 'buttonHref', type: 'text', required: true },
       ],
     },
     {
+      // Kept only so older content still loads; stats now live in the About section.
       name: 'stats',
       type: 'array',
       maxRows: 4,
-      minRows: 2,
+      admin: { hidden: true },
       fields: [
         { name: 'value', type: 'text', required: true },
         { name: 'label', type: 'text', required: true },
@@ -196,6 +206,54 @@ export const CtaBlock: Block = {
   ],
 }
 
+export const ApproachBlock: Block = {
+  slug: 'approach',
+  labels: { singular: 'How We Work', plural: 'How We Work' },
+  fields: [
+    { name: 'label', type: 'text', required: true, defaultValue: 'How we work' },
+    { name: 'heading', type: 'text', required: true },
+    { name: 'body', type: 'textarea' },
+    {
+      name: 'steps',
+      type: 'array',
+      minRows: 2,
+      maxRows: 6,
+      fields: [
+        { name: 'title', type: 'text', required: true },
+        { name: 'body', type: 'textarea', required: true },
+      ],
+    },
+    ...sectionOptions(),
+  ],
+}
+
+export const AboutBlock: Block = {
+  slug: 'about',
+  labels: { singular: 'Who We Are', plural: 'Who We Are' },
+  fields: [
+    { name: 'label', type: 'text', required: true, defaultValue: 'Who we are' },
+    { name: 'heading', type: 'text', required: true },
+    { name: 'body', type: 'textarea', required: true },
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      admin: { description: 'Shown in the panel beside the text (the Fox works best).' },
+    },
+    {
+      name: 'stats',
+      type: 'array',
+      maxRows: 4,
+      admin: { description: 'Numbers count up when they scroll into view. A 0 counts down.' },
+      fields: [
+        { name: 'value', type: 'text', required: true },
+        { name: 'label', type: 'text', required: true },
+      ],
+    },
+    ...sectionOptions(),
+  ],
+}
+
 export const homepageBlocks = [
   HeroBlock,
   IntroBlock,
@@ -204,5 +262,7 @@ export const homepageBlocks = [
   CaseStudiesBlock,
   TestimonialBlock,
   InsightsBlock,
+  ApproachBlock,
+  AboutBlock,
   CtaBlock,
 ]
