@@ -42,7 +42,7 @@ export function ServicePageView({
       <Header servicePages={navigation} />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-[#0a2939] pt-24 text-white">
+      <section data-track-location="hero" className="relative overflow-hidden bg-[#0a2939] pt-24 text-white">
         <div
           aria-hidden="true"
           className="absolute -right-32 -bottom-40 hidden size-[26rem] bg-[#ff7657]/90 xl:block"
@@ -179,7 +179,11 @@ export function ServicePageView({
       </section>
 
       {showNext && (
-        <Link className="group block bg-white transition hover:bg-[#f8f5ee]" href={`/what-we-do/${nextService.slug}`}>
+        <Link
+          className="group block bg-white transition hover:bg-[#f8f5ee]"
+          data-track-location="next_practice"
+          href={`/what-we-do/${nextService.slug}`}
+        >
           <Container className="flex items-center justify-between gap-8 py-12">
             <div>
               <p className="text-[13px] font-bold tracking-[0.18em] text-[#49636e] uppercase">Next practice area</p>

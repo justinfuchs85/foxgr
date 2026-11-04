@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import { SmoothScroll } from './SmoothScroll'
+import { Tracking } from './Tracking'
 import './styles.css'
 
 const sans = DM_Sans({
@@ -60,6 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </noscript>
         )}
         <SmoothScroll />
+        <Tracking />
         <a className="skip-link" href="#root">
           Skip to content
         </a>

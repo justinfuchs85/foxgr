@@ -152,7 +152,7 @@ export function Header({ servicePages: allPages = [] }: { servicePages?: Service
 
 function HeroSection({ block }: { block: Hero }) {
   return (
-    <section className="relative overflow-hidden bg-[#0a2939] pt-24 text-white">
+    <section data-track-location="hero" className="relative overflow-hidden bg-[#0a2939] pt-24 text-white">
       <div
         aria-hidden="true"
         className="absolute -right-32 -bottom-40 hidden size-72 bg-[#ff7657]/90 md:block md:size-[26rem]"
@@ -387,6 +387,7 @@ function EngagementsSection({ block }: { block: Engagements }) {
         <div className="mt-14 grid gap-6 lg:grid-cols-3">
           {block.offers.map((offer) => (
             <article
+              data-track-offer={offer.name}
               className={`flex flex-col gap-4 p-8 ${
                 offer.highlight ? 'bg-[#0a2939] text-white' : 'border border-[#0a2939]/15'
               }`}
