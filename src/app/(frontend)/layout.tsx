@@ -18,13 +18,11 @@ const serif = Cormorant_Garamond({
 
 const title = 'Fox Consulting Group'
 const description = 'Strategy, analytics, and operations consulting for modern marketing teams.'
-// Google Tag Manager loads when NEXT_PUBLIC_GTM_ID is set (GTM-XXXXXXX). GA4 and any other
-// tags are managed inside the container. The direct GA4 tag below is only a fallback for
-// a site with no container, so the two never double-count.
-// Fox Consulting Group's container. NEXT_PUBLIC_GTM_ID overrides it (e.g. a test container).
+// Google Tag Manager: Fox Consulting Group's container, overridable with NEXT_PUBLIC_GTM_ID
+// (e.g. a test container). GA4 and other tags are managed inside GTM; the direct GA4 tag
+// below is only a fallback when no container is set, so the two never double-count.
 const gtmCandidate = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-T2HW8Z'
 const gtmId = /^GTM-[A-Z0-9]+$/.test(gtmCandidate) ? gtmCandidate : null
-  : null
 const gaId = gtmId ? null : process.env.NEXT_PUBLIC_GA_ID
 
 export const metadata: Metadata = {
