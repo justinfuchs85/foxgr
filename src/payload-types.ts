@@ -430,6 +430,19 @@ export interface ServicePage {
    * Unchecked pages stay in the nav but get no homepage card.
    */
   featured?: boolean | null;
+  /**
+   * How this page appears in Google, AI answers and link previews. Leave blank to use the page title and summary.
+   */
+  meta?: {
+    /**
+     * Aim for 50–60 characters, with the main search phrase first.
+     */
+    title?: string | null;
+    /**
+     * Aim for 120–160 characters: who it is for and what they get.
+     */
+    description?: string | null;
+  };
   createdBy?: {
     relationTo: 'admins';
     value: number | Admin;
@@ -783,6 +796,12 @@ export interface ServicePagesSelect<T extends boolean = true> {
       };
   order?: T;
   featured?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
   createdBy?: T;
   updatedBy?: T;
   updatedAt?: T;
@@ -859,6 +878,19 @@ export interface Homepage {
   sections: (
     Hero | Intro | ImageBreak | Services | CaseStudies | Testimonial1 | Insights | Approach | About | Engagements | Cta
   )[];
+  /**
+   * How this page appears in Google, AI answers and link previews. Leave blank to use the page title and summary.
+   */
+  meta?: {
+    /**
+     * Aim for 50–60 characters, with the main search phrase first.
+     */
+    title?: string | null;
+    /**
+     * Aim for 120–160 characters: who it is for and what they get.
+     */
+    description?: string | null;
+  };
   createdBy?: {
     relationTo: 'admins';
     value: number | Admin;
@@ -1291,6 +1323,12 @@ export interface HomepageSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
       };
   createdBy?: T;
   updatedBy?: T;

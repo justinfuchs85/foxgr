@@ -6,6 +6,8 @@ import * as migration_20261104_183628_about_engagements_featured from './2026110
 import * as migration_20261104_183700_credibility_content from './20261104_183700_credibility_content';
 import * as migration_20261104_190000_remove_aptiv from './20261104_190000_remove_aptiv';
 import * as migration_20261104_191000_practice_areas from './20261104_191000_practice_areas';
+import * as migration_20261104_225546_seo_fields from './20261104_225546_seo_fields';
+import * as migration_20261104_225600_seo_defaults from './20261104_225600_seo_defaults';
 
 export const migrations = [
   {
@@ -31,7 +33,7 @@ export const migrations = [
   {
     up: migration_20261104_183628_about_engagements_featured.up,
     down: migration_20261104_183628_about_engagements_featured.down,
-    name: '20261104_183628_about_engagements_featured'
+    name: '20261104_183628_about_engagements_featured',
   },
   {
     up: migration_20261104_183700_credibility_content.up,
@@ -47,5 +49,15 @@ export const migrations = [
     up: migration_20261104_191000_practice_areas.up,
     down: migration_20261104_191000_practice_areas.down,
     name: '20261104_191000_practice_areas',
+  },
+  {
+    up: migration_20261104_225546_seo_fields.up,
+    down: migration_20261104_225546_seo_fields.down,
+    name: '20261104_225546_seo_fields'
+  },
+  {
+    up: migration_20261104_225600_seo_defaults.up,
+    down: migration_20261104_225600_seo_defaults.down,
+    name: '20261104_225600_seo_defaults',
   },
 ];

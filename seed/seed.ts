@@ -121,7 +121,7 @@ const valid = sections.filter((s) => !(s.blockType === 'imageBreak' && !s.image)
 await payload.updateGlobal({
   slug: 'homepage',
   // Block data is shaped by content.json; Payload validates it on write.
-  data: { sections: valid as never },
+  data: { sections: valid as never, meta: content.homepage.meta },
   overrideAccess: true,
 })
 log(`homepage built with ${valid.length} sections`)

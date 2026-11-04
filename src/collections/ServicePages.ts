@@ -1,3 +1,4 @@
+import { seoField } from '@/fields/seo'
 import type { CollectionConfig } from 'payload'
 import { isPayloadAdmin } from '@/access/isPayloadAdmin'
 import {
@@ -127,5 +128,6 @@ export const ServicePages: CollectionConfig = {
       label: 'Show on the homepage',
       admin: { position: 'sidebar', description: 'Unchecked pages stay in the nav but get no homepage card.' },
     },
+    seoField,
   ],
 }

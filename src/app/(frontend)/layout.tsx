@@ -4,6 +4,7 @@ import Script from 'next/script'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import { SmoothScroll } from './SmoothScroll'
 import { Tracking } from './Tracking'
+import { SITE } from '@/lib/site'
 import './styles.css'
 
 const sans = DM_Sans({
@@ -17,8 +18,6 @@ const serif = Cormorant_Garamond({
   weight: ['500', '600'],
 })
 
-const title = 'Fox Consulting Group'
-const description = 'Strategy, analytics, and operations consulting for modern marketing teams.'
 // Google Tag Manager: Fox Consulting Group's container, overridable with NEXT_PUBLIC_GTM_ID
 // (e.g. a test container). GA4 and other tags are managed inside GTM; the direct GA4 tag
 // below is only a fallback when no container is set, so the two never double-count.
@@ -27,10 +26,33 @@ const gtmId = /^GTM-[A-Z0-9]+$/.test(gtmCandidate) ? gtmCandidate : null
 const gaId = gtmId ? null : process.env.NEXT_PUBLIC_GA_ID
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
-  title,
-  description,
-  openGraph: { title, description },
+  metadataBase: new URL(SITE.url),
+  title: { default: SITE.defaultTitle, template: `%s | ${SITE.name}` },
+  description: SITE.description,
+  applicationName: SITE.name,
+  authors: [{ name: SITE.founder.name }],
+  creator: SITE.name,
+  publisher: SITE.name,
+  formatDetection: { email: false, telephone: false, address: false },
+  openGraph: {
+    type: 'website',
+    siteName: SITE.name,
+    locale: 'en_US',
+    title: SITE.defaultTitle,
+    description: SITE.description,
+    images: [{ url: '/brand/og-default.png', width: 1200, height: 630, alt: SITE.name }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: SITE.defaultTitle,
+    description: SITE.description,
+    images: ['/brand/og-default.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large', 'max-video-preview': -1 },
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

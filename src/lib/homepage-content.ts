@@ -47,6 +47,6 @@ export const getHomepageContent = unstable_cache(
       servicePages: servicePages.docs,
     }
   },
-  ['homepage-content-v6'],
+  ['homepage-content-v7'],
   { tags: [HOMEPAGE_TAG] },
 )

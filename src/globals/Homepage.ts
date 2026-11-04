@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload'
+import { seoField } from '@/fields/seo'
 import { homepageBlocks } from '@/blocks/HomepageBlocks'
 import { isPayloadAdmin } from '@/access/isPayloadAdmin'
 import { revalidateHomepageGlobal } from '@/hooks/revalidateHomepage'
@@ -39,5 +40,6 @@ export const Homepage: GlobalConfig = {
           'Drag sections to reorder them. Each section exposes only design-safe layout options.',
       },
     },
+    seoField,
   ],
 }

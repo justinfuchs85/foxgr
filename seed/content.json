@@ -167,7 +167,11 @@
         "buttonHref": "mailto:hello@foxgr.com",
         "spacing": "standard"
       }
-    ]
+    ],
+    "meta": {
+      "title": "Fox Consulting Group | Marketing Operations & Analytics Consulting",
+      "description": "Consulting for marketing leaders on digital strategy, marketing operations, MarTech and analytics. Based in Grand Rapids, MI. 30+ engagements since 2016."
+    }
   },
   "services": [
     {
@@ -360,7 +364,11 @@
         "body": "Tell us where your digital program feels fragmented, unclear, or harder to run than it should be.",
         "buttonLabel": "Start a strategy conversation"
       },
-      "featured": true
+      "featured": true,
+      "meta": {
+        "title": "Digital Strategy Consulting for Marketing Leaders",
+        "description": "Digital strategy consulting that connects business priorities to channels, technology and measurement, so marketing runs as one program instead of disconnected projects."
+      }
     },
     {
       "order": 2,
@@ -424,6 +432,10 @@
         "heading": "Build the system behind the team.",
         "body": "Tell us how your marketing organization is structured today and where it’s starting to strain.",
         "buttonLabel": "Talk about your operating model"
+      },
+      "meta": {
+        "title": "Marketing Operations & Governance Consulting",
+        "description": "Marketing operations consulting: team structure, workflows and governance that let marketing scale across brands and business units without everything routing through one person."
       }
     },
     {
@@ -488,6 +500,10 @@
         "heading": "Make the stack earn its keep.",
         "body": "Whether you’re replacing one platform or untangling the whole stack, we can help you find the next sensible step.",
         "buttonLabel": "Talk about your stack"
+      },
+      "meta": {
+        "title": "MarTech Strategy, Selection & Implementation",
+        "description": "Marketing technology consulting to choose, implement and govern your MarTech stack, so the platforms serve the strategy instead of the other way around."
       }
     },
     {
@@ -556,6 +572,10 @@
         "heading": "Make your analytics useful again.",
         "body": "Whether you need an audit, a cleaner implementation or a privacy-first approach, we can clarify the next step.",
         "buttonLabel": "Talk about your measurement"
+      },
+      "meta": {
+        "title": "Marketing Analytics & GA4 Measurement Consulting",
+        "description": "Marketing analytics consulting: KPI frameworks, GA4 and Google Tag Manager, privacy-first consent and dashboards your team trusts and actually uses."
       }
     },
     {
@@ -616,7 +636,11 @@
         "body": "If a focused conversation would help you move forward, book an on-demand consulting session.",
         "buttonLabel": "Book a focused session"
       },
-      "featured": false
+      "featured": false,
+      "meta": {
+        "title": "On-Demand Digital Marketing Consulting Sessions",
+        "description": "Senior, objective guidance for one digital marketing decision: pressure-test a plan, platform choice or measurement question without a full engagement."
+      }
     },
     {
       "order": 6,
@@ -680,7 +704,11 @@
         "body": "Tell us how your team works and where content challenges tend to appear. We’ll shape a partnership around it.",
         "buttonLabel": "Explore a development partnership"
       },
-      "featured": false
+      "featured": false,
+      "meta": {
+        "title": "Content Strategy Partner for Web Development Teams",
+        "description": "Content strategy and UX leadership for agencies and development teams, so website projects get the content they need without becoming a content agency."
+      }
     }
   ]
 }

@@ -164,7 +164,7 @@ function HeroSection({ block }: { block: Hero }) {
           </p>
         )}
         <h1 className={`max-w-4xl ${serif} text-[clamp(3.6rem,9vw,7rem)] leading-[0.9] tracking-[-0.04em]`}>
-          {block.heading}
+          {block.heading}{' '}
           <span className="mt-3 block text-[#ff7657] italic">{block.accent}</span>
         </h1>
         <p className="mt-12 max-w-[620px] text-lg leading-[1.6] text-white/80 md:text-xl">{block.body}</p>

@@ -2,6 +2,9 @@ import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { ServicePageView } from './ServicePageView'
+import { JsonLd } from '../../JsonLd'
+import { servicePageJsonLd } from '@/lib/structured-data'
+import { SITE, pageMetadata } from '@/lib/site'
 import {
   getServicePageBySlug,
   getServicePageDraft,
@@ -30,18 +33,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!service) return {}
 
-  return {
-    title: `${service.title} | Fox Consulting Group`,
-    description: service.heroSummary,
-    alternates: {
-      canonical: `/what-we-do/${service.slug}`,
-    },
-    openGraph: {
-      title: service.title,
-      description: service.heroSummary,
-      type: 'website',
-    },
-  }
+  const title = service.meta?.title || service.title
+  const description = service.meta?.description || service.heroSummary
+  const url = `/what-we-do/${service.slug}`
+  return { title, ...pageMetadata({ title: `${title} | ${SITE.name}`, description, path: url }) }
 }
 
 export default async function ServicePage({ params }: PageProps) {
@@ -56,11 +51,14 @@ export default async function ServicePage({ params }: PageProps) {
   if (!service) notFound()
 
   return (
-    <ServicePageView
+    <>
+      {!preview && <JsonLd data={servicePageJsonLd(service)} />}
+      <ServicePageView
       initialData={service}
       navigation={navigation}
       preview={preview}
       serverURL={process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'}
-    />
+      />
+    </>
   )
 }
