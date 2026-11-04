@@ -28,7 +28,7 @@ const stripIds = (value: unknown): unknown => {
 const OLD_ABOUT_BODY =
   'Fox Consulting Group is a senior-led practice. You work directly with the people doing the work: no hand-offs, no junior bench, and nothing pulled off a shelf.'
 
-export const ABOUT_BODY = `Fox Consulting Group is led by Justin Fuchs, who has spent nearly 20 years on the infrastructure side of marketing: strategy, analytics, platforms and the operating models that hold them together. Since 2016 the practice has delivered 30+ engagements for organizations including Aptiv, Altair, Corewell Health, Gordon Food Service and Allstate Identity Protection, and most clients have stayed five years or more.
+export const ABOUT_BODY = `Fox Consulting Group is led by Justin Fuchs, who has spent nearly 20 years on the infrastructure side of marketing: strategy, analytics, platforms and the operating models that hold them together. Since 2016 the practice has delivered 30+ engagements for organizations including Altair, Corewell Health, Gordon Food Service and Allstate Identity Protection, and most clients have stayed five years or more.
 
 Most recently, Justin built a hub-and-spoke analytics function across 13 business units at a public manufacturer, taking reporting from months to days. He’s as comfortable presenting a roadmap to a segment president as he is debugging the tag manager himself. You work with him directly, with a small bench of trusted specialists when the work calls for it.`
 
@@ -113,9 +113,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
     overrideAccess: true,
     req,
   })
-  if (!existing.docs.length) {
-    await payload.create({ collection: 'case-studies', data: APTIV_CASE_STUDY, overrideAccess: true, req })
-  }
+  // (Aptiv case study withdrawn: no permission to name them. See 20261104_190000_remove_aptiv.)
+  void existing
 
   // 2. "For Developers" off the homepage cards
   const dev = await payload.find({
