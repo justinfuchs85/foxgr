@@ -37,7 +37,7 @@ Then open http://localhost:3000/admin. The first visit asks you to create the fi
 2. **Vercel**
    - Import the repo.
    - Add every variable from `.env.example`. Set `NEXT_PUBLIC_SITE_URL` to the real domain, and fill in all the `S3_*` values; without them, uploads go to Vercel's ephemeral disk and vanish.
-   - The build command is already set in `vercel.json` (`pnpm ci`). It runs migrations, seeds an empty database, then runs `next build`.
+   - The build command is already set in `vercel.json` (`pnpm run deploy`). It runs migrations, seeds an empty database, then runs `next build`.
 3. **Seeding is automatic.** The build runs migrations, then the seed, which only loads content when the homepage is empty. Later deploys skip it.
 
 ## Changing the schema
