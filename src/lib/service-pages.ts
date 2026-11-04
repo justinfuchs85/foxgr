@@ -29,3 +29,17 @@ export async function getServicePageBySlug(slug: string) {
     { tags: [SERVICE_PAGES_TAG, `service-page:${slug}`] },
   )()
 }
+
+/** Latest draft of a page, uncached. Only called in draft mode, after an admin sign-in check. */
+export async function getServicePageDraft(slug: string) {
+  const payload = await getPayloadClient()
+  const result = await payload.find({
+    collection: 'service-pages',
+    where: { slug: { equals: slug } },
+    draft: true,
+    depth: 1,
+    limit: 1,
+    overrideAccess: true,
+  })
+  return result.docs[0] ?? null
+}

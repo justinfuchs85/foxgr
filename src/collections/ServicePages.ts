@@ -18,7 +18,15 @@ export const ServicePages: CollectionConfig = {
     defaultColumns: ['title', 'slug', 'order', '_status'],
     group: 'Website',
     description: 'The detail pages linked from the “What We Do” navigation.',
-    preview: (doc) => (doc?.slug ? `${previewURL}/what-we-do/${doc.slug}` : null),
+    // Both go through /next/preview, which checks the CMS sign-in before showing drafts.
+    livePreview: {
+      url: ({ data }) =>
+        `${previewURL}/next/preview?path=${encodeURIComponent(`/what-we-do/${data?.slug ?? ''}`)}`,
+    },
+    preview: (doc) =>
+      doc?.slug
+        ? `${previewURL}/next/preview?path=${encodeURIComponent(`/what-we-do/${doc.slug}`)}`
+        : null,
   },
   access: {
     create: isPayloadAdmin,
