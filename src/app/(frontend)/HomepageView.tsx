@@ -156,22 +156,28 @@ function HeroSection({ block }: { block: Hero }) {
     <section data-track-location="hero" className="relative overflow-hidden bg-[#0a2939] pt-24 text-white">
       <div
         aria-hidden="true"
-        className="absolute -right-32 -bottom-40 hidden size-72 bg-[#ff7657]/90 md:block md:size-[26rem]"
+        className="hero-square drift absolute -right-32 -bottom-40 hidden size-72 bg-[#ff7657]/90 md:block md:size-[26rem]"
       />
       <Container className="relative pt-24 pb-32 md:pt-32 md:pb-40">
         {block.eyebrow && (
-          <p className="mb-8 text-[13px] font-bold tracking-[0.18em] text-[#ff8b70] uppercase">
+          <p className="hero-fade mb-8 text-[13px] font-bold tracking-[0.18em] text-[#ff8b70] uppercase">
             {block.eyebrow}
           </p>
         )}
         <h1 className={`max-w-4xl ${serif} text-[clamp(3.6rem,9vw,7rem)] leading-[0.9] tracking-[-0.04em]`}>
-          {block.heading}{' '}
-          <span className="mt-3 block text-[#ff7657] italic">{block.accent}</span>
+          <span className="hero-line">
+            <span>{block.heading}</span>
+          </span>{' '}
+          <span className="hero-line mt-3 text-[#ff7657] italic" style={{ '--i': 1 } as React.CSSProperties}>
+            <span>{block.accent}</span>
+          </span>
         </h1>
-        <p className="mt-12 max-w-[620px] text-lg leading-[1.6] text-white/80 md:text-xl">{block.body}</p>
-        <div className="mt-10 flex flex-wrap items-center gap-6">
+        <p className="hero-fade mt-12 max-w-[620px] text-lg leading-[1.6] text-white/80 md:text-xl" style={{ '--i': 2 } as React.CSSProperties}>
+          {block.body}
+        </p>
+        <div className="hero-fade mt-10 flex flex-wrap items-center gap-6" style={{ '--i': 3 } as React.CSSProperties}>
           <Link
-            className="inline-flex min-h-11 items-center bg-white px-7 py-4 font-bold text-[#0a2939] transition hover:bg-[#ff7657]"
+            className="inline-flex min-h-11 items-center bg-white px-7 py-4 font-bold text-[#0a2939] transition hover:-translate-y-0.5 hover:bg-[#ff7657]"
             href="/#contact"
           >
             Start a conversation
@@ -192,12 +198,16 @@ function IntroSection({ block }: { block: Intro }) {
   return (
     <section className={spacing(block.spacing)}>
       <Container className="flex flex-wrap items-start gap-x-16 gap-y-10">
-        <div className="min-w-0 flex-[1_1_440px]">
+        <div className="min-w-0 flex-[1_1_440px]" data-reveal>
           <Label>{block.label}</Label>
           <h2 className={`${serif} text-5xl leading-none md:text-[64px]`}>{block.heading}</h2>
         </div>
         {!!block.columns?.length && (
-          <div className="flex min-w-0 flex-[1_1_400px] flex-col gap-5 text-lg leading-[1.7] text-[#31505e] md:pt-[52px]">
+          <div
+            className="flex min-w-0 flex-[1_1_400px] flex-col gap-5 text-lg leading-[1.7] text-[#31505e] md:pt-[52px]"
+            data-reveal
+            style={{ '--i': 1 } as React.CSSProperties}
+          >
             {block.columns.map((column, index) => (
               <p key={column.id ?? index}>{column.body}</p>
             ))}
@@ -215,14 +225,18 @@ function ServicesSection({ block, content }: { block: Services; content: Homepag
   return (
     <section id="services" className={`border-t border-[#0a2939]/10 bg-white ${spacing(block.spacing)}`}>
       <Container>
-        <Label>{block.label}</Label>
-        <h2 className={`mb-14 max-w-3xl ${serif} text-5xl leading-[1.02] md:text-[56px]`}>{block.heading}</h2>
+        <div data-reveal>
+          <Label>{block.label}</Label>
+          <h2 className={`mb-14 max-w-3xl ${serif} text-5xl leading-[1.02] md:text-[56px]`}>{block.heading}</h2>
+        </div>
         <div className="grid gap-6 md:grid-cols-2">
           {cards.map((card, index) => (
             <Link
-              className="group flex min-h-[300px] flex-col gap-4 border border-[#0a2939]/15 p-8 transition hover:border-[#0a2939]/40 hover:bg-[#f8f5ee] md:p-10"
+              className="service-card group flex min-h-[300px] flex-col gap-4 border border-[#0a2939]/15 p-8 transition hover:border-[#0a2939]/40 hover:bg-[#f8f5ee] md:p-10"
+              data-reveal
               href={`/what-we-do/${card.slug}`}
               key={card.slug}
+              style={{ '--i': index % 2 } as React.CSSProperties}
             >
               <span className="font-serif text-[28px] text-[#b74730]">{String(index + 1).padStart(2, '0')}</span>
               <h3 className="font-serif text-[34px] leading-[1.05] font-semibold">{card.navigationLabel}</h3>
@@ -258,17 +272,24 @@ function CaseStudiesSection({ block, content }: { block: CaseStudies; content: H
   return (
     <section id="work" className="pt-24 md:pt-32">
       <Container>
-        <Label>{block.label}</Label>
-        <h2 className={`max-w-3xl ${serif} text-5xl leading-[1.02] md:text-[56px]`}>{block.heading}</h2>
-        {block.body && <p className="mt-6 max-w-2xl text-lg leading-[1.65] text-[#49636e]">{block.body}</p>}
+        <div data-reveal>
+          <Label>{block.label}</Label>
+          <h2 className={`max-w-3xl ${serif} text-5xl leading-[1.02] md:text-[56px]`}>{block.heading}</h2>
+          {block.body && <p className="mt-6 max-w-2xl text-lg leading-[1.65] text-[#49636e]">{block.body}</p>}
+        </div>
         <div className="mt-14 grid gap-8 md:grid-cols-2">
-          {studies.map((study) => (
-            <article className="flex flex-col gap-5" key={study.id}>
+          {studies.map((study, index) => (
+            <article
+              className="group flex flex-col gap-5"
+              data-reveal
+              key={study.id}
+              style={{ '--i': index } as React.CSSProperties}
+            >
               {isMedia(study.artifact) && study.artifact.url ? (
                 <div className="relative h-[300px] overflow-hidden bg-[#dce8e3]">
                   <Image
                     alt={study.artifact.alt}
-                    className="object-cover"
+                    className="object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
                     fill
                     sizes="(min-width: 768px) 50vw, 100vw"
                     src={study.artifact.url}
@@ -298,7 +319,7 @@ function TestimonialSection({ block }: { block: Testimonial1 }) {
   return (
     <section className="pt-16 pb-24 md:pt-[72px] md:pb-32">
       <Container>
-        <figure className={`flex flex-col gap-6 px-8 py-12 md:px-16 md:py-14 ${block.theme === 'blue' ? 'bg-[#dce8e3]' : 'bg-[#ff7657]'}`}>
+        <figure data-reveal className={`flex flex-col gap-6 px-8 py-12 md:px-16 md:py-14 ${block.theme === 'blue' ? 'bg-[#dce8e3]' : 'bg-[#ff7657]'}`}>
           <blockquote className={`${serif} text-3xl leading-[1.12] tracking-[-0.02em] md:text-[44px]`}>
             “{testimonial.quote}”
           </blockquote>
@@ -315,13 +336,20 @@ function ApproachSection({ block }: { block: Approach }) {
   return (
     <section id="approach" className={`bg-[#0a2939] text-white ${spacing(block.spacing)}`}>
       <Container>
-        <Label inverse>{block.label}</Label>
-        <h2 className={`max-w-3xl ${serif} text-5xl leading-[1.02] md:text-[56px]`}>{block.heading}</h2>
-        {block.body && <p className="mt-5 max-w-[620px] text-lg leading-[1.65] text-white/75">{block.body}</p>}
+        <div data-reveal>
+          <Label inverse>{block.label}</Label>
+          <h2 className={`max-w-3xl ${serif} text-5xl leading-[1.02] md:text-[56px]`}>{block.heading}</h2>
+          {block.body && <p className="mt-5 max-w-[620px] text-lg leading-[1.65] text-white/75">{block.body}</p>}
+        </div>
         {!!block.steps?.length && (
           <ol className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {block.steps.map((step, index) => (
-              <li className="flex flex-col gap-3 border-t-2 border-[#ff7657] pt-6" key={step.id ?? step.title}>
+              <li
+                className="step flex flex-col gap-3 pt-6"
+                data-reveal
+                key={step.id ?? step.title}
+                style={{ '--i': index } as React.CSSProperties}
+              >
                 <span className="font-serif text-[28px] text-[#ff8b70]">{String(index + 1).padStart(2, '0')}</span>
                 <h3 className="text-xl font-bold">{step.title}</h3>
                 <p className="text-[15px] leading-[1.6] text-white/75">{step.body}</p>
@@ -341,7 +369,7 @@ function AboutSection({ block }: { block: About }) {
   return (
     <section id="about" className={spacing(block.spacing)}>
       <Container className="flex flex-wrap items-start gap-x-16 gap-y-10">
-        <figure className="min-w-0 flex-[0_1_340px]">
+        <figure className="min-w-0 flex-[0_1_340px]" data-reveal>
           <div className="relative flex h-[340px] items-end justify-center bg-[#dce8e3]">
             <div className="relative h-[267px] w-[300px]">
               <Image
@@ -365,7 +393,7 @@ function AboutSection({ block }: { block: About }) {
             </figcaption>
           )}
         </figure>
-        <div className="min-w-0 flex-[1_1_480px]">
+        <div className="min-w-0 flex-[1_1_480px]" data-reveal style={{ '--i': 1 } as React.CSSProperties}>
           <Label>{block.label}</Label>
           <h2 className={`mb-6 ${serif} text-[44px] leading-[1.04] md:text-[52px]`}>{block.heading}</h2>
           <p className="mb-10 max-w-[560px] text-lg leading-[1.7] whitespace-pre-line text-[#31505e]">{block.body}</p>
@@ -382,14 +410,18 @@ function EngagementsSection({ block }: { block: Engagements }) {
   return (
     <section id="engage" className={`border-t border-[#0a2939]/10 bg-white ${spacing(block.spacing)}`}>
       <Container>
-        <Label>{block.label}</Label>
-        <h2 className={`max-w-3xl ${serif} text-5xl leading-[1.02] md:text-[56px]`}>{block.heading}</h2>
-        {block.body && <p className="mt-5 max-w-[620px] text-lg leading-[1.65] text-[#49636e]">{block.body}</p>}
+        <div data-reveal>
+          <Label>{block.label}</Label>
+          <h2 className={`max-w-3xl ${serif} text-5xl leading-[1.02] md:text-[56px]`}>{block.heading}</h2>
+          {block.body && <p className="mt-5 max-w-[620px] text-lg leading-[1.65] text-[#49636e]">{block.body}</p>}
+        </div>
         <div className="mt-14 grid gap-6 lg:grid-cols-3">
-          {block.offers.map((offer) => (
+          {block.offers.map((offer, index) => (
             <article
+              data-reveal
               data-track-offer={offer.name}
-              className={`flex flex-col gap-4 p-8 ${
+              style={{ '--i': index } as React.CSSProperties}
+              className={`offer-card flex flex-col gap-4 p-8 ${
                 offer.highlight ? 'bg-[#0a2939] text-white' : 'border border-[#0a2939]/15'
               }`}
               key={offer.id ?? offer.name}
@@ -427,15 +459,19 @@ function EngagementsSection({ block }: { block: Engagements }) {
 function CtaSection({ block }: { block: Cta }) {
   return (
     <section id="contact" className={`relative overflow-hidden bg-[#0a2939] text-white ${spacing(block.spacing)}`}>
-      <div aria-hidden="true" className="absolute -top-60 -left-36 size-72 bg-[#ff7657]/90 md:size-[20rem]" />
+      <div aria-hidden="true" className="drift drift-down absolute -top-60 -left-36 size-72 bg-[#ff7657]/90 md:size-[20rem]" />
       <Container className="relative flex flex-col items-start gap-8">
-        <h2 className={`max-w-4xl ${serif} text-6xl leading-[0.92] tracking-[-0.04em] md:text-8xl`}>{block.heading}</h2>
-        <p className="max-w-[560px] text-lg leading-[1.65] text-white/75 md:text-[19px]">{block.body}</p>
+        <h2 data-reveal className={`max-w-4xl ${serif} text-6xl leading-[0.92] tracking-[-0.04em] md:text-8xl`}>{block.heading}</h2>
+        <p data-reveal className="max-w-[560px] text-lg leading-[1.65] text-white/75 md:text-[19px]" style={{ '--i': 1 } as React.CSSProperties}>
+          {block.body}
+        </p>
         <a
-          className="inline-flex min-h-11 items-center gap-4 bg-white px-7 py-4 text-[17px] font-bold text-[#0a2939] transition hover:bg-[#ff7657]"
+          className="group inline-flex min-h-11 items-center gap-4 bg-white px-7 py-4 text-[17px] font-bold text-[#0a2939] transition hover:bg-[#ff7657]"
+          data-reveal
           href={block.buttonHref}
+          style={{ '--i': 2 } as React.CSSProperties}
         >
-          {block.buttonLabel} <Arrow className="size-5" />
+          {block.buttonLabel} <Arrow className="size-5 transition group-hover:translate-x-1" />
         </a>
       </Container>
     </section>

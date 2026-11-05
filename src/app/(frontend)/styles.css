@@ -106,3 +106,184 @@
 .skip-link:focus {
   transform: translateY(0);
 }
+
+/* ------------------------------------------------------------------------------------
+   Motion. One easing curve, transform/opacity only, nothing that shifts layout.
+   Everything here switches off under prefers-reduced-motion (bottom of file).
+   ------------------------------------------------------------------------------------ */
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hero entrance: headline lines rise out of a mask, then body, buttons and the square.
+   The text never starts transparent, so it still counts as painted for page-speed (LCP). */
+.hero-line {
+  display: block;
+  overflow: hidden;
+  padding: 0 0.12em 0.1em 0;
+  margin-bottom: -0.1em;
+}
+.hero-line > span {
+  display: block;
+}
+.js .hero-line > span {
+  animation: hero-rise 1000ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 140ms + 80ms);
+}
+.js .hero-fade {
+  animation: fade-up 900ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 140ms + 260ms);
+}
+.js .hero-square {
+  animation: square-in 1400ms var(--ease-out) both;
+  animation-delay: 200ms;
+}
+@keyframes hero-rise {
+  from { transform: translateY(105%); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+}
+@keyframes square-in {
+  from { opacity: 0; transform: translate(18%, 18%); }
+}
+
+/* Scroll reveals (see Reveal.tsx). Hidden only after the script has run. */
+.reveal-on [data-reveal]:not([data-in]) {
+  opacity: 0;
+  transform: translateY(28px);
+}
+.reveal-on [data-reveal] {
+  transition:
+    opacity 800ms var(--ease-out),
+    transform 900ms var(--ease-out),
+    background-color 150ms ease,
+    border-color 150ms ease;
+  transition-delay: calc(var(--i, 0) * 110ms);
+}
+/* Hover transitions shouldn't wait for the stagger once a card is shown. */
+.reveal-on [data-reveal][data-in]:hover {
+  transition-delay: 0ms;
+}
+
+/* How we work: each step's coral rule draws across, one after another. */
+.step {
+  position: relative;
+}
+.step::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: #ff7657;
+  transform-origin: left;
+}
+.reveal-on .step:not([data-in])::before {
+  transform: scaleX(0);
+}
+.reveal-on .step::before {
+  transition: transform 1000ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 160ms + 200ms);
+}
+
+/* Service cards: a coral bar sweeps along the top edge on hover. */
+.service-card {
+  position: relative;
+}
+.service-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px -1px auto -1px;
+  height: 3px;
+  background: #ff7657;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 500ms var(--ease-out);
+}
+.service-card:hover::before,
+.service-card:focus-visible::before {
+  transform: scaleX(1);
+}
+
+/* Engagement cards lift slightly on hover. */
+.reveal-on .offer-card[data-in]:hover,
+.offer-card:hover {
+  transform: translateY(-4px);
+}
+.offer-card {
+  transition: transform 400ms var(--ease-out), box-shadow 400ms var(--ease-out);
+}
+.offer-card:hover {
+  box-shadow: 0 18px 40px -24px rgba(10, 41, 57, 0.45);
+}
+
+/* Coral squares drift with scroll, where the browser supports scroll-driven animation. */
+@supports (animation-timeline: view()) {
+  .drift {
+    animation: drift-up linear both;
+    animation-timeline: view();
+    animation-range: cover;
+  }
+  .drift-down {
+    animation-name: drift-down;
+  }
+  /* The hero square runs its entrance first; its drift lives on the wrapper section. */
+  .js .hero-square.drift {
+    animation:
+      square-in 1400ms var(--ease-out) 200ms both,
+      drift-up linear both;
+    animation-timeline: auto, view();
+    animation-range: normal, cover;
+  }
+}
+@keyframes drift-up {
+  from { translate: 0 6rem; }
+  to { translate: 0 -6rem; }
+}
+@keyframes drift-down {
+  from { translate: 0 -5rem; }
+  to { translate: 0 5rem; }
+}
+
+/* FAQ: answers open smoothly where supported, and fade in everywhere. */
+@supports selector(::details-content) {
+  details[data-faq] {
+    interpolate-size: allow-keywords;
+  }
+  details[data-faq]::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition:
+      block-size 450ms var(--ease-out),
+      content-visibility 450ms allow-discrete;
+  }
+  details[data-faq][open]::details-content {
+    block-size: auto;
+  }
+}
+details[data-faq][open] .faq-answer {
+  animation: fade-up 500ms var(--ease-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .hero-line > span,
+  .js .hero-fade,
+  .js .hero-square,
+  .drift,
+  details[data-faq][open] .faq-answer {
+    animation: none !important;
+  }
+  .reveal-on [data-reveal]:not([data-in]),
+  .reveal-on .step:not([data-in])::before {
+    opacity: 1;
+    transform: none;
+  }
+  .service-card::before,
+  .offer-card,
+  details[data-faq]::details-content {
+    transition: none !important;
+  }
+  .offer-card:hover {
+    transform: none;
+  }
+}

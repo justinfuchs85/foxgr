@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import { SmoothScroll } from './SmoothScroll'
+import { Reveal } from './Reveal'
 import { Tracking } from './Tracking'
 import { SITE } from '@/lib/site'
 import './styles.css'
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
         <SmoothScroll />
         <Tracking />
+        <Reveal />
         <a className="skip-link" href="#root">
           Skip to content
         </a>
