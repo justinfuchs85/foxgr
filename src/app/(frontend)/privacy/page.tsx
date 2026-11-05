@@ -3,6 +3,8 @@ import { Footer, Header } from '../HomepageView'
 import { Container, Label, serif } from '../ui'
 import { getServicePageNavigation } from '@/lib/service-pages'
 import { SITE, pageMetadata } from '@/lib/site'
+import { getConsentSettings } from '@/lib/consent-settings'
+import type { ConsentConfig } from '@/lib/consent'
 
 export const revalidate = 3600
 
@@ -17,14 +19,20 @@ export const metadata: Metadata = {
   }),
 }
 
-const sections: { id: string; heading: string; body: React.ReactNode }[] = [
+const buildSections = (c: ConsentConfig): { id: string; heading: string; body: React.ReactNode }[] => [
   {
     id: 'summary',
     heading: 'The short version',
     body: (
       <ul>
         <li>We collect what you send us through the contact form, and only use it to reply.</li>
-        <li>Analytics cookies are off until you allow them. We don’t run advertising or sell personal information.</li>
+        <li>
+          {c.mode === 'opt-in'
+            ? 'Analytics cookies are off until you allow them.'
+            : 'Analytics cookies are on unless you decline them or your browser sends a privacy signal.'}{' '}
+          {c.marketing ? 'Marketing cookies are only used if you allow them.' : 'We don’t run advertising.'} We don’t sell
+          personal information.
+        </li>
         <li>You can ask us to see or delete anything we hold about you by emailing {SITE.email}.</li>
       </ul>
     ),
@@ -39,7 +47,7 @@ const sections: { id: string; heading: string; body: React.ReactNode }[] = [
           role, the topic you pick and your message. We also note which page you sent it from.
         </p>
         <p>
-          <strong>Analytics, with your permission.</strong> If you allow analytics cookies, Google Analytics records
+          <strong>Analytics{c.mode === 'opt-in' ? ', with your permission' : ''}.</strong> When analytics cookies are allowed, Google Analytics records
           how the site is used: pages viewed, links and buttons clicked, approximate location (city level), device and
           browser type, and how you arrived. We use this in aggregate to improve the site, not to identify you.
         </p>
@@ -56,18 +64,34 @@ const sections: { id: string; heading: string; body: React.ReactNode }[] = [
     body: (
       <>
         <p>
-          The site uses Google Tag Manager to load Google Analytics, with Google Consent Mode. Until you choose
-          “Allow analytics”, analytics cookies are not set. If you decline, Google’s tags may still send limited
+          The site uses Google Tag Manager to load Google Analytics, with Google Consent Mode.{' '}
+          {c.mode === 'opt-in'
+            ? 'Until you allow analytics, analytics cookies are not set.'
+            : 'Analytics cookies are set unless you decline them in the banner or Cookie settings.'}{' '}
+          If analytics is declined, Google’s tags may still send limited
           signals without cookies (for example, that a page was viewed), which Google uses to model overall traffic and
           which can’t be used to recognize you on later visits.
         </p>
         <p>
-          We honor browser privacy signals. If your browser sends Global Privacy Control or Do Not Track, analytics
-          cookies stay off and we don’t ask; if you switch a signal on later, it overrides an earlier “allow”. You can
-          still choose to allow analytics through “Cookie settings”. We store your choice in your browser so we don’t
-          ask on every visit, and you can change it any time with “Cookie settings” at the bottom of every page.
+          {c.honorGpc || c.honorDnt ? (
+            <>
+              We honor browser privacy signals (
+              {[c.honorGpc && 'Global Privacy Control', c.honorDnt && 'Do Not Track'].filter(Boolean).join(' and ')}). If
+              your browser sends one, analytics{c.marketing ? ' and marketing' : ''} cookies stay off and we don’t ask; if you
+              switch a signal on later, it overrides an earlier “allow”. You can still choose to allow cookies through
+              “Cookie settings”.{' '}
+            </>
+          ) : null}
+          We store your choice in your browser for up to {Math.round(c.maxAgeDays / 30.4)} months, then ask again. You can
+          change it any time with “Cookie settings” at the bottom of every page.
+          {c.log &&
+            ' We keep an anonymous record of each choice (a random ID stored in your browser, the choice, the date and your browser type) as proof of consent. It contains no name, email or IP address.'}
         </p>
-        <p>We don’t use advertising cookies, remarketing tags or cross-site tracking.</p>
+        {c.marketing ? (
+          <p>Advertising and remarketing tags only run if you allow the Marketing category.</p>
+        ) : (
+          <p>We don’t use advertising cookies, remarketing tags or cross-site tracking.</p>
+        )}
       </>
     ),
   },
@@ -149,7 +173,11 @@ const sections: { id: string; heading: string; body: React.ReactNode }[] = [
 ]
 
 export default async function PrivacyPage() {
-  const navigation = await getServicePageNavigation().catch(() => [])
+  const [navigation, { config }] = await Promise.all([
+    getServicePageNavigation().catch(() => []),
+    getConsentSettings(),
+  ])
+  const sections = buildSections(config)
   return (
     <main className="bg-white text-[#0a2939]">
       <Header servicePages={navigation} />

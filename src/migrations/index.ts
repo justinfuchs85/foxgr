@@ -11,6 +11,7 @@ import * as migration_20261104_225600_seo_defaults from './20261104_225600_seo_d
 import * as migration_20261105_000154_faqs from './20261105_000154_faqs';
 import * as migration_20261105_000300_faq_content from './20261105_000300_faq_content';
 import * as migration_20261105_145943_inquiries from './20261105_145943_inquiries';
+import * as migration_20261105_154936_consent_management from './20261105_154936_consent_management';
 
 export const migrations = [
   {
@@ -76,6 +77,11 @@ export const migrations = [
   {
     up: migration_20261105_145943_inquiries.up,
     down: migration_20261105_145943_inquiries.down,
-    name: '20261105_145943_inquiries'
+    name: '20261105_145943_inquiries',
+  },
+  {
+    up: migration_20261105_154936_consent_management.up,
+    down: migration_20261105_154936_consent_management.down,
+    name: '20261105_154936_consent_management'
   },
 ];

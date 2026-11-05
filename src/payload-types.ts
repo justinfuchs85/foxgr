@@ -89,6 +89,7 @@ export interface Config {
     testimonials: Testimonial;
     'service-pages': ServicePage;
     inquiries: Inquiry;
+    'consent-records': ConsentRecord;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -107,6 +108,7 @@ export interface Config {
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     'service-pages': ServicePagesSelect<false> | ServicePagesSelect<true>;
     inquiries: InquiriesSelect<false> | InquiriesSelect<true>;
+    'consent-records': ConsentRecordsSelect<false> | ConsentRecordsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -119,9 +121,11 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     homepage: Homepage;
+    'consent-settings': ConsentSetting;
   };
   globalsSelect: {
     homepage: HomepageSelect<false> | HomepageSelect<true>;
+    'consent-settings': ConsentSettingsSelect<false> | ConsentSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -502,6 +506,37 @@ export interface Inquiry {
   createdAt: string;
 }
 /**
+ * Every choice made in the cookie banner, plus changes caused by browser privacy signals. Records are anonymous and read-only.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "consent-records".
+ */
+export interface ConsentRecord {
+  id: number;
+  consentId: string;
+  analytics: 'granted' | 'denied';
+  marketing?: ('granted' | 'denied' | 'n/a') | null;
+  source: 'banner' | 'browser_signal';
+  signal?: ('none' | 'gpc' | 'dnt') | null;
+  mode?: string | null;
+  policyVersion?: string | null;
+  page?: string | null;
+  /**
+   * Browser family only, e.g. "Chrome on macOS".
+   */
+  browser?: string | null;
+  createdBy?: {
+    relationTo: 'admins';
+    value: number | Admin;
+  } | null;
+  updatedBy?: {
+    relationTo: 'admins';
+    value: number | Admin;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -564,6 +599,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'inquiries';
         value: number | Inquiry;
+      } | null)
+    | ({
+        relationTo: 'consent-records';
+        value: number | ConsentRecord;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -879,6 +918,25 @@ export interface InquiriesSelect<T extends boolean = true> {
   status?: T;
   page?: T;
   notified?: T;
+  createdBy?: T;
+  updatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "consent-records_select".
+ */
+export interface ConsentRecordsSelect<T extends boolean = true> {
+  consentId?: T;
+  analytics?: T;
+  marketing?: T;
+  source?: T;
+  signal?: T;
+  mode?: T;
+  policyVersion?: T;
+  page?: T;
+  browser?: T;
   createdBy?: T;
   updatedBy?: T;
   updatedAt?: T;
@@ -1266,6 +1324,65 @@ export interface Cta {
   blockType: 'cta';
 }
 /**
+ * Controls the cookie banner and how analytics consent works on the site. Every visitor choice is logged in Consent Records.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "consent-settings".
+ */
+export interface ConsentSetting {
+  id: number;
+  /**
+   * Turn off only if the site runs no analytics. When off, consent stays at the default below and no banner appears.
+   */
+  enabled?: boolean | null;
+  mode: 'opt-in' | 'opt-out';
+  /**
+   * Legally required in California and several other states. Leave on.
+   */
+  honorGpc?: boolean | null;
+  /**
+   * Older signal. Not legally required, but respectful.
+   */
+  honorDnt?: boolean | null;
+  maxAgeMonths: number;
+  /**
+   * Change this (e.g. to today’s date) when the privacy policy or categories change materially. Every visitor is asked again.
+   */
+  policyVersion: string;
+  /**
+   * Adds a "Marketing" category to the banner (Google ad_storage, ad_user_data, ad_personalization). Leave off unless you add ad pixels such as LinkedIn Insight or Meta. Marketing is always opt-in.
+   */
+  marketingEnabled?: boolean | null;
+  /**
+   * Saves an anonymous record (random ID, choice, time, signal, policy version) in Consent Records. No names, emails or IP addresses.
+   */
+  logChoices?: boolean | null;
+  message: string;
+  /**
+   * Shown when a visitor with a privacy signal opens Cookie settings. {signal} is replaced with its name.
+   */
+  signalMessage: string;
+  acceptLabel: string;
+  declineLabel: string;
+  /**
+   * Only shown with Marketing on.
+   */
+  customizeLabel: string;
+  policyLinkLabel: string;
+  analyticsDescription: string;
+  marketingDescription?: string | null;
+  createdBy?: {
+    relationTo: 'admins';
+    value: number | Admin;
+  } | null;
+  updatedBy?: {
+    relationTo: 'admins';
+    value: number | Admin;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "homepage_select".
  */
@@ -1464,6 +1581,33 @@ export interface HomepageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "consent-settings_select".
+ */
+export interface ConsentSettingsSelect<T extends boolean = true> {
+  enabled?: T;
+  mode?: T;
+  honorGpc?: T;
+  honorDnt?: T;
+  maxAgeMonths?: T;
+  policyVersion?: T;
+  marketingEnabled?: T;
+  logChoices?: T;
+  message?: T;
+  signalMessage?: T;
+  acceptLabel?: T;
+  declineLabel?: T;
+  customizeLabel?: T;
+  policyLinkLabel?: T;
+  analyticsDescription?: T;
+  marketingDescription?: T;
+  createdBy?: T;
+  updatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "welcome_widget".
  */
 export interface WelcomeWidget {
@@ -1499,7 +1643,8 @@ export interface CollectionQueryWidget {
       | 'insights'
       | 'testimonials'
       | 'service-pages'
-      | 'inquiries';
+      | 'inquiries'
+      | 'consent-records';
     where?:
       | {
           [k: string]: unknown;
@@ -1533,6 +1678,7 @@ export interface ActivityWidget {
           | 'testimonials'
           | 'service-pages'
           | 'inquiries'
+          | 'consent-records'
         )[]
       | null;
   };

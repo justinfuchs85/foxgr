@@ -1,13 +1,17 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { useEffect, useId, useRef, useState } from 'react'
 import {
   CONSENT_EVENT,
+  CONSENT_ID_KEY,
   CONSENT_KEY,
-  effectiveConsent,
-  privacySignal,
-  readConsent,
+  consentSignals,
+  decide,
+  readSignal,
   type Choice,
+  type ConsentConfig,
+  type ConsentCopy,
   type PrivacySignal,
 } from '@/lib/consent'
 
@@ -16,59 +20,106 @@ const SIGNAL_NAME: Record<Exclude<PrivacySignal, null>, string> = {
   dnt: 'Do Not Track',
 }
 
-function sendUpdate(choice: Choice, source: 'banner' | 'browser_signal', signal: PrivacySignal) {
+type State = { analytics: Choice; marketing: Choice }
+type Source = 'banner' | 'browser_signal'
+
+function consentId() {
+  try {
+    let id = localStorage.getItem(CONSENT_ID_KEY)
+    if (!id) {
+      id = crypto.randomUUID?.() ?? `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`
+      localStorage.setItem(CONSENT_ID_KEY, id)
+    }
+    return id
+  } catch {
+    return 'unavailable'
+  }
+}
+
+function sendUpdate(next: State, source: Source, signal: PrivacySignal) {
   window.dataLayer = window.dataLayer || []
   // gtag() pushes the arguments object, which is what Consent Mode expects.
   const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag
-  gtag?.('consent', 'update', { analytics_storage: choice })
+  gtag?.('consent', 'update', consentSignals(next.analytics, next.marketing))
   window.dataLayer.push({
     event: 'consent_update',
-    analytics_consent: choice,
+    analytics_consent: next.analytics,
+    marketing_consent: next.marketing,
     consent_source: source,
     privacy_signal: signal ?? 'none',
   })
 }
 
+function logChoice(config: ConsentConfig, next: State, source: Source, signal: PrivacySignal, page: string) {
+  if (!config.log) return
+  const body = JSON.stringify({
+    id: consentId(),
+    analytics: next.analytics,
+    marketing: config.marketing ? next.marketing : 'n/a',
+    source,
+    signal: signal ?? 'none',
+    page,
+  })
+  try {
+    if (!navigator.sendBeacon?.('/next/consent', new Blob([body], { type: 'application/json' }))) {
+      void fetch('/next/consent', { method: 'POST', body, keepalive: true, headers: { 'Content-Type': 'application/json' } })
+    }
+  } catch {}
+}
+
 /**
- * Asks before analytics cookies are set, and listens for browser privacy signals.
+ * Cookie banner driven by Privacy → Consent Settings in the CMS. Listens for browser
+ * privacy signals, follows choices made in other tabs, and logs choices to Consent Records.
  * Rules live in src/lib/consent.ts. "Cookie settings" in the footer reopens it.
  */
-export function ConsentBanner() {
+export function ConsentBanner({ config, copy }: { config: ConsentConfig; copy: ConsentCopy }) {
+  const id = useId()
+  const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const [customizing, setCustomizing] = useState(false)
   const [signal, setSignal] = useState<PrivacySignal>(null)
-  const applied = useRef<Choice | null>(null)
+  const [draft, setDraft] = useState<State>({ analytics: 'denied', marketing: 'denied' })
+  const applied = useRef<State | null>(null)
+  const pageRef = useRef(pathname)
+  pageRef.current = pathname
 
   useEffect(() => {
-    const sig = privacySignal()
-    const stored = readConsent()
-    setSignal(sig)
-    applied.current = effectiveConsent(stored, sig) // what the <head> script already set
-    if (!stored && !sig) setOpen(true)
+    const first = decide(config)
+    setSignal(first.signal)
+    applied.current = { analytics: first.analytics, marketing: first.marketing } // set by the <head> script
+    setDraft(applied.current)
+    if (first.askNeeded) setOpen(true)
 
-    // Signals can change mid-visit (a privacy extension toggled, a setting changed in
-    // another tab, a page restored from the back/forward cache). Re-check when the page
-    // becomes visible again and update Google's tags if the answer changed.
+    const sync = (source: Source) => {
+      const d = decide(config)
+      setSignal(d.signal)
+      const next = { analytics: d.analytics, marketing: d.marketing }
+      const prev = applied.current
+      if (!prev || prev.analytics !== next.analytics || prev.marketing !== next.marketing) {
+        applied.current = next
+        sendUpdate(next, source, d.signal)
+        if (source === 'browser_signal') logChoice(config, next, source, d.signal, pageRef.current)
+      }
+      return d
+    }
+
+    // Signals can change mid-visit (an extension toggled, a setting changed, a page
+    // restored from the back/forward cache): re-check whenever the page is visible again.
     const recheck = () => {
       if (document.visibilityState !== 'visible') return
-      const now = privacySignal()
-      setSignal(now)
-      const next = effectiveConsent(readConsent(), now)
-      if (next !== applied.current) {
-        applied.current = next
-        sendUpdate(next, 'browser_signal', now)
-      }
-      if (now) setOpen(false)
+      const d = sync('browser_signal')
+      if (d.signal) setOpen(false)
     }
-    const reopen = () => setOpen(true)
-    // Choice made in another tab: follow it here too.
+    // A choice made in another tab applies here too.
     const onStorage = (e: StorageEvent) => {
       if (e.key !== CONSENT_KEY) return
-      const next = effectiveConsent(readConsent(), privacySignal())
-      if (next !== applied.current) {
-        applied.current = next
-        sendUpdate(next, 'banner', privacySignal())
-      }
+      sync('banner')
       setOpen(false)
+    }
+    const reopen = () => {
+      setDraft(applied.current ?? { analytics: 'denied', marketing: 'denied' })
+      setCustomizing(config.marketing)
+      setOpen(true)
     }
 
     document.addEventListener('visibilitychange', recheck)
@@ -83,56 +134,101 @@ export function ConsentBanner() {
       window.removeEventListener('storage', onStorage)
       window.removeEventListener(CONSENT_EVENT, reopen)
     }
-  }, [])
+  }, [config])
 
   if (!open) return null
 
-  const choose = (choice: Choice) => {
-    const sig = privacySignal()
+  const save = (next: State) => {
+    const sig = readSignal(config)
     try {
-      localStorage.setItem(CONSENT_KEY, JSON.stringify({ v: choice, t: Date.now(), sig }))
+      localStorage.setItem(
+        CONSENT_KEY,
+        JSON.stringify({ v: next.analytics, m: next.marketing, t: Date.now(), sig, ver: config.version }),
+      )
     } catch {}
-    applied.current = choice
-    sendUpdate(choice, 'banner', sig)
+    applied.current = next
+    sendUpdate(next, 'banner', sig)
+    logChoice(config, next, 'banner', sig, pathname)
     setOpen(false)
+    setCustomizing(false)
   }
+
+  const all: State = { analytics: 'granted', marketing: config.marketing ? 'granted' : 'denied' }
+  const none: State = { analytics: 'denied', marketing: 'denied' }
+  const btn = 'min-h-11 px-5 text-sm font-bold transition'
+  const secondary = `${btn} border border-[#0a2939]/25 hover:border-[#0a2939]`
+  const primary = `${btn} bg-[#0a2939] text-white hover:bg-[#ff7657] hover:text-[#0a2939]`
+
+  const toggle = (key: keyof State, label: string, description: string) => (
+    <label className="flex cursor-pointer items-start gap-4 border-t border-[#0a2939]/10 py-4" htmlFor={`${id}-${key}`}>
+      <input
+        checked={draft[key] === 'granted'}
+        className="mt-1 size-5 shrink-0 accent-[#0a2939]"
+        id={`${id}-${key}`}
+        onChange={(e) => setDraft({ ...draft, [key]: e.target.checked ? 'granted' : 'denied' })}
+        type="checkbox"
+      />
+      <span>
+        <span className="block font-bold">{label}</span>
+        <span className="block text-sm leading-[1.5] text-[#49636e]">{description}</span>
+      </span>
+    </label>
+  )
 
   return (
     <div
       aria-label="Cookie preferences"
       aria-live="polite"
-      className="consent-banner fixed inset-x-3 bottom-3 z-[70] mx-auto max-w-[760px] border border-[#0a2939]/15 bg-white p-5 text-[#0a2939] shadow-[0_24px_60px_-20px_rgba(10,41,57,0.45)] sm:inset-x-6 sm:bottom-6 md:p-6"
+      className="fixed inset-x-3 bottom-3 z-[70] mx-auto max-w-[760px] border border-[#0a2939]/15 bg-white p-5 text-[#0a2939] shadow-[0_24px_60px_-20px_rgba(10,41,57,0.45)] sm:inset-x-6 sm:bottom-6 md:p-6"
       role="region"
     >
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
+      <div className={customizing ? 'grid gap-4' : 'flex flex-col gap-4 md:flex-row md:items-center md:gap-8'}>
         <p className="text-[15px] leading-[1.55] text-[#31505e]">
-          {signal ? (
-            <>
-              Your browser is sending a {SIGNAL_NAME[signal]} signal, so analytics cookies are off. You can still
-              allow them for this site.{' '}
-            </>
-          ) : (
-            <>We’d like to use analytics cookies to understand which pages are useful. No advertising, no selling data. </>
-          )}
+          {signal ? copy.signalMessage.replace('{signal}', SIGNAL_NAME[signal]) : copy.message}{' '}
           <a className="font-bold text-[#b74730] underline underline-offset-4" href="/privacy#cookies">
-            Privacy policy
+            {copy.policyLinkLabel}
           </a>
         </p>
-        <div className="flex shrink-0 gap-3">
-          <button
-            className="min-h-11 border border-[#0a2939]/25 px-5 text-sm font-bold transition hover:border-[#0a2939]"
-            onClick={() => choose('denied')}
-            type="button"
-          >
-            {signal ? 'Keep off' : 'No thanks'}
-          </button>
-          <button
-            className="min-h-11 bg-[#0a2939] px-5 text-sm font-bold text-white transition hover:bg-[#ff7657] hover:text-[#0a2939]"
-            onClick={() => choose('granted')}
-            type="button"
-          >
-            Allow analytics
-          </button>
+
+        {customizing && (
+          <div className="border-b border-[#0a2939]/10">
+            <div className="flex items-start gap-4 border-t border-[#0a2939]/10 py-4">
+              <input checked className="mt-1 size-5 shrink-0 accent-[#0a2939]" disabled readOnly type="checkbox" />
+              <span>
+                <span className="block font-bold">Necessary</span>
+                <span className="block text-sm leading-[1.5] text-[#49636e]">Keeps the site working and remembers this choice. Always on.</span>
+              </span>
+            </div>
+            {toggle('analytics', 'Analytics', copy.analyticsDescription)}
+            {config.marketing && toggle('marketing', 'Marketing', copy.marketingDescription)}
+          </div>
+        )}
+
+        <div className="flex shrink-0 flex-wrap gap-3">
+          {customizing ? (
+            <>
+              <button className={secondary} onClick={() => save(none)} type="button">
+                {copy.declineLabel}
+              </button>
+              <button className={primary} onClick={() => save(draft)} type="button">
+                Save choices
+              </button>
+            </>
+          ) : (
+            <>
+              <button className={secondary} onClick={() => save(none)} type="button">
+                {copy.declineLabel}
+              </button>
+              {config.marketing && (
+                <button className={secondary} onClick={() => setCustomizing(true)} type="button">
+                  {copy.customizeLabel}
+                </button>
+              )}
+              <button className={primary} onClick={() => save(all)} type="button">
+                {config.marketing ? 'Allow all' : copy.acceptLabel}
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

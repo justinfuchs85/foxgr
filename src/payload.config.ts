@@ -15,6 +15,8 @@ import { Insights } from './collections/Insights'
 import { Testimonials } from './collections/Testimonials'
 import { ServicePages } from './collections/ServicePages'
 import { Inquiries } from './collections/Inquiries'
+import { ConsentRecords } from './collections/ConsentRecords'
+import { ConsentSettings } from './globals/ConsentSettings'
 import { Homepage } from './globals/Homepage'
 
 const filename = fileURLToPath(import.meta.url)
@@ -46,8 +48,9 @@ export default buildConfig({
     Testimonials,
     ServicePages,
     Inquiries,
+    ConsentRecords,
   ],
-  globals: [Homepage],
+  globals: [Homepage, ConsentSettings],
   editor: lexicalEditor(),
   db: postgresAdapter({
     // Own schema so this site can share a Supabase project with other apps.
