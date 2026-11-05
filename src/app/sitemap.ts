@@ -22,6 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           changeFrequency: 'monthly' as const,
           priority: p.featured === false ? 0.6 : 0.8,
         })),
+      { url: absoluteUrl('/privacy'), changeFrequency: 'yearly', priority: 0.2 },
     ]
   } catch {
     // No database at build time: still publish the homepage.

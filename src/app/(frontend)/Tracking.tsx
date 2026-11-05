@@ -17,6 +17,7 @@ import { useEffect } from 'react'
  *   nav_click         other header / footer navigation
  *   section_view      a key section reaches mid-screen, once per page view + section_name
  *   faq_open          an FAQ question is expanded                          + faq_question
+ *   generate_lead     the contact form was sent (pushed by ContactForm.tsx) + inquiry_topic
  *
  * Optional markup: data-track-location="..." names a region, data-track-offer="..." an offer.
  */

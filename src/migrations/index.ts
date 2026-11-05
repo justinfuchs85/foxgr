@@ -10,6 +10,7 @@ import * as migration_20261104_225546_seo_fields from './20261104_225546_seo_fie
 import * as migration_20261104_225600_seo_defaults from './20261104_225600_seo_defaults';
 import * as migration_20261105_000154_faqs from './20261105_000154_faqs';
 import * as migration_20261105_000300_faq_content from './20261105_000300_faq_content';
+import * as migration_20261105_145943_inquiries from './20261105_145943_inquiries';
 
 export const migrations = [
   {
@@ -65,11 +66,16 @@ export const migrations = [
   {
     up: migration_20261105_000154_faqs.up,
     down: migration_20261105_000154_faqs.down,
-    name: '20261105_000154_faqs'
+    name: '20261105_000154_faqs',
   },
   {
     up: migration_20261105_000300_faq_content.up,
     down: migration_20261105_000300_faq_content.down,
     name: '20261105_000300_faq_content',
+  },
+  {
+    up: migration_20261105_145943_inquiries.up,
+    down: migration_20261105_145943_inquiries.down,
+    name: '20261105_145943_inquiries'
   },
 ];

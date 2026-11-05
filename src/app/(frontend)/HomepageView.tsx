@@ -1,6 +1,7 @@
 'use client'
 
 import { useLivePreview } from '@payloadcms/live-preview-react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import type {
@@ -22,6 +23,8 @@ import type { HomepageContent } from '@/lib/homepage-content'
 import type { ServiceNavItem } from '@/lib/service-pages'
 import { AnimatedStats } from './AnimatedStats'
 import { FaqSection } from './FaqSection'
+import { ContactForm } from './ContactForm'
+import { CookieSettingsButton } from './ConsentBanner'
 import { Arrow, Container, Label, serif } from './ui'
 
 const spacingClasses = {
@@ -48,13 +51,49 @@ const formatDate = (date: string) =>
     timeZone: 'UTC',
   }).format(new Date(date))
 
+/**
+ * Sticky header: transparent over the hero, hides while reading down the page, and comes
+ * back (solid, condensed) the moment you scroll up. Stays put while a menu is open.
+ */
+function useHeaderState() {
+  const [state, setState] = useState<'top' | 'shown' | 'hidden'>('top')
+  useEffect(() => {
+    let last = window.scrollY
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const y = window.scrollY
+      // Keep it visible while a menu is open or a keyboard user is tabbing through it.
+      const active = document.activeElement
+      const menuOpen =
+        !!document.querySelector('.site-header details[open]') ||
+        (!!active?.closest('.site-header') && active.matches(':focus-visible'))
+      if (y < 80) setState('top')
+      else if (menuOpen || y < last - 4) setState('shown')
+      else if (y > last + 4) setState('hidden')
+      last = y
+    }
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(frame)
+    }
+  }, [])
+  return state
+}
+
 export function Header({ servicePages: allPages = [] }: { servicePages?: ServiceNavItem[] }) {
   // The menu lists the practice areas; other pages stay reachable from the footer and links.
   const servicePages = allPages.filter((page) => page.featured !== false)
+  const state = useHeaderState()
   return (
-    <header className="absolute inset-x-0 top-0 z-50 border-b border-white/12 text-white">
-      <div className="mx-auto flex h-24 max-w-[1200px] items-center justify-between gap-6 px-5 md:px-8">
-        <Link className="relative h-16 w-16 shrink-0" href="/" aria-label="Fox Consulting Group home">
+    <header className="site-header fixed inset-x-0 top-0 z-50 border-b text-white" data-state={state}>
+      <div className="site-header-bar mx-auto flex max-w-[1200px] items-center justify-between gap-6 px-5 md:px-8">
+        <Link className="site-header-logo relative shrink-0" href="/" aria-label="Fox Consulting Group home">
           <Image
             alt="Fox Consulting Group"
             className="object-contain"
@@ -456,23 +495,22 @@ function EngagementsSection({ block }: { block: Engagements }) {
   )
 }
 
-function CtaSection({ block }: { block: Cta }) {
+function CtaSection({ block, content }: { block: Cta; content: HomepageContent }) {
   return (
     <section id="contact" className={`relative overflow-hidden bg-[#0a2939] text-white ${spacing(block.spacing)}`}>
       <div aria-hidden="true" className="drift drift-down absolute -top-60 -left-36 size-72 bg-[#ff7657]/90 md:size-[20rem]" />
-      <Container className="relative flex flex-col items-start gap-8">
-        <h2 data-reveal className={`max-w-4xl ${serif} text-6xl leading-[0.92] tracking-[-0.04em] md:text-8xl`}>{block.heading}</h2>
-        <p data-reveal className="max-w-[560px] text-lg leading-[1.65] text-white/75 md:text-[19px]" style={{ '--i': 1 } as React.CSSProperties}>
-          {block.body}
-        </p>
-        <a
-          className="group inline-flex min-h-11 items-center gap-4 bg-white px-7 py-4 text-[17px] font-bold text-[#0a2939] transition hover:bg-[#ff7657]"
-          data-reveal
-          href={block.buttonHref}
-          style={{ '--i': 2 } as React.CSSProperties}
-        >
-          {block.buttonLabel} <Arrow className="size-5 transition group-hover:translate-x-1" />
-        </a>
+      <Container className="relative grid items-start gap-x-16 gap-y-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
+        <div data-reveal>
+          {block.label && <Label inverse>{block.label}</Label>}
+          <h2 className={`${serif} text-6xl leading-[0.92] tracking-[-0.04em] md:text-8xl`}>{block.heading}</h2>
+          <p className="mt-8 max-w-[520px] text-lg leading-[1.65] text-white/75 md:text-[19px]">{block.body}</p>
+        </div>
+        <div data-reveal style={{ '--i': 1 } as React.CSSProperties}>
+          <ContactForm
+            submitLabel="Start the conversation"
+            topics={content.servicePages.map((page) => page.navigationLabel)}
+          />
+        </div>
       </Container>
     </section>
   )
@@ -522,29 +560,69 @@ function InsightsSection({ block, content }: { block: Insights; content: Homepag
   )
 }
 
-export function Footer() {
+export function Footer({ servicePages = [] }: { servicePages?: ServiceNavItem[] }) {
+  const practiceAreas = servicePages.filter((page) => page.featured !== false)
+  const otherWays = servicePages.filter((page) => page.featured === false)
+  const heading = 'mb-4 text-xs font-bold tracking-[0.16em] text-white/45 uppercase'
+  const link = 'block py-1.5 transition hover:text-white'
   return (
-    <footer className="bg-[#071d29] text-white/70">
-      <Container className="flex flex-col gap-6 py-10 text-sm md:flex-row md:items-center md:justify-between">
-        <Link className="relative h-14 w-14 shrink-0" href="/" aria-label="Fox Consulting Group home">
-          <Image alt="Fox Consulting Group" className="object-contain" fill sizes="56px" src="/brand/fox-logo-white.webp" />
-        </Link>
-        <div className="flex flex-wrap gap-6">
-          <Link className="hover:text-white" href="/what-we-do/on-demand-digital-consulting">
-            On-demand sessions
+    <footer className="bg-[#071d29] text-sm text-white/70">
+      <Container className="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+        <div>
+          <Link className="relative block h-14 w-14" href="/" aria-label="Fox Consulting Group home">
+            <Image alt="Fox Consulting Group" className="object-contain" fill sizes="56px" src="/brand/fox-logo-white.webp" />
           </Link>
-          <Link className="hover:text-white" href="/what-we-do/content-strategy-partnership">
-            For agencies and dev partners
+          <p className="mt-5 max-w-[260px] leading-[1.6]">
+            Strategy, operations, technology and analytics consulting for marketing leaders.
+          </p>
+        </div>
+        <nav aria-label="Practice areas">
+          <p className={heading}>What we do</p>
+          {practiceAreas.map((page) => (
+            <Link className={link} href={`/what-we-do/${page.slug}`} key={page.slug}>
+              {page.navigationLabel}
+            </Link>
+          ))}
+        </nav>
+        <nav aria-label="Ways to work together">
+          <p className={heading}>Work with us</p>
+          {otherWays.map((page) => (
+            <Link className={link} href={`/what-we-do/${page.slug}`} key={page.slug}>
+              {page.navigationLabel}
+            </Link>
+          ))}
+          <Link className={link} href="/#engage">
+            Engagement models
           </Link>
-          <a className="hover:text-white" href="https://www.linkedin.com/company/fox-digital-consulting-group">
+          <Link className={link} href="/#faq">
+            FAQ
+          </Link>
+        </nav>
+        <div>
+          <p className={heading}>Contact</p>
+          <a className={link} href="mailto:hello@foxgr.com">
+            hello@foxgr.com
+          </a>
+          <p className="py-1.5">Grand Rapids, Michigan</p>
+          <a className={link} href="https://www.linkedin.com/company/fox-digital-consulting-group">
             LinkedIn
           </a>
-          <a className="hover:text-white" href="https://www.instagram.com/foxconsultinggroup/">
+          <a className={link} href="https://www.instagram.com/foxconsultinggroup/">
             Instagram
           </a>
         </div>
-        <p>© {new Date().getFullYear()} Fox Consulting Group</p>
       </Container>
+      <div className="border-t border-white/10">
+        <Container className="flex flex-col gap-3 py-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Fox Consulting Group</p>
+          <div className="flex gap-6">
+            <Link className="transition hover:text-white" href="/privacy">
+              Privacy policy
+            </Link>
+            <CookieSettingsButton className="cursor-pointer transition hover:text-white" />
+          </div>
+        </Container>
+      </div>
     </footer>
   )
 }
@@ -597,7 +675,7 @@ export function HomepageView({
                 />
               )
             case 'cta':
-              return <CtaSection block={block} key={key} />
+              return <CtaSection block={block} content={initialContent} key={key} />
             case 'imageBreak':
               return <ImageBreakSection block={block} key={key} />
             case 'insights':
@@ -616,7 +694,7 @@ export function HomepageView({
           </Container>
         </section>
       )}
-      <Footer />
+      <Footer servicePages={initialContent.servicePages} />
     </main>
   )
 }

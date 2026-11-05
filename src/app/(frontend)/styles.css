@@ -240,9 +240,10 @@
   from { translate: 0 6rem; }
   to { translate: 0 -6rem; }
 }
+/* Range kept small enough that the square never reaches the section's text. */
 @keyframes drift-down {
-  from { translate: 0 -5rem; }
-  to { translate: 0 5rem; }
+  from { translate: 0 -4rem; }
+  to { translate: 0 1rem; }
 }
 
 /* FAQ: answers open smoothly where supported, and fade in everywhere. */
@@ -286,4 +287,78 @@ details[data-faq][open] .faq-answer {
   .offer-card:hover {
     transform: none;
   }
+}
+
+/* Sticky header (see useHeaderState in HomepageView.tsx). */
+.site-header {
+  border-color: rgba(255, 255, 255, 0.12);
+  transition:
+    transform 450ms var(--ease-out),
+    background-color 300ms ease,
+    border-color 300ms ease,
+    box-shadow 300ms ease;
+}
+.site-header-bar {
+  height: 6rem;
+  transition: height 300ms var(--ease-out);
+}
+.site-header-logo {
+  width: 4rem;
+  height: 4rem;
+  transition: width 300ms var(--ease-out), height 300ms var(--ease-out);
+}
+.site-header:not([data-state="top"]) {
+  background: rgba(10, 41, 57, 0.94);
+  border-color: transparent;
+  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.6);
+  backdrop-filter: saturate(140%) blur(10px);
+}
+.site-header:not([data-state="top"]) .site-header-bar {
+  height: 4.25rem;
+}
+.site-header:not([data-state="top"]) .site-header-logo {
+  width: 3rem;
+  height: 3rem;
+}
+.site-header[data-state="hidden"] {
+  transform: translateY(-100%);
+}
+/* Anchored sections clear the condensed header. */
+section[id] {
+  scroll-margin-top: 4.25rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .site-header-bar,
+  .site-header-logo {
+    transition: none;
+  }
+}
+
+/* Long-form text (privacy policy). */
+.prose-policy {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: #31505e;
+}
+.prose-policy p,
+.prose-policy ul {
+  margin-bottom: 1rem;
+}
+.prose-policy ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.prose-policy li {
+  margin-bottom: 0.4rem;
+}
+.prose-policy strong,
+.prose-policy h2 {
+  color: #0a2939;
+}
+.prose-policy a {
+  color: #b74730;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }

@@ -88,6 +88,7 @@ export interface Config {
     insights: Insight;
     testimonials: Testimonial;
     'service-pages': ServicePage;
+    inquiries: Inquiry;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -105,6 +106,7 @@ export interface Config {
     insights: InsightsSelect<false> | InsightsSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     'service-pages': ServicePagesSelect<false> | ServicePagesSelect<true>;
+    inquiries: InquiriesSelect<false> | InquiriesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -466,6 +468,40 @@ export interface ServicePage {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * Messages sent through the contact form on the website, newest first.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiries".
+ */
+export interface Inquiry {
+  id: number;
+  name: string;
+  email: string;
+  company?: string | null;
+  role?: string | null;
+  topic?: string | null;
+  message: string;
+  status?: ('new' | 'replied' | 'closed' | 'spam') | null;
+  /**
+   * Page the form was sent from.
+   */
+  page?: string | null;
+  /**
+   * An email alert was sent.
+   */
+  notified?: boolean | null;
+  createdBy?: {
+    relationTo: 'admins';
+    value: number | Admin;
+  } | null;
+  updatedBy?: {
+    relationTo: 'admins';
+    value: number | Admin;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -524,6 +560,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'service-pages';
         value: number | ServicePage;
+      } | null)
+    | ({
+        relationTo: 'inquiries';
+        value: number | Inquiry;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -824,6 +864,25 @@ export interface ServicePagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiries_select".
+ */
+export interface InquiriesSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  company?: T;
+  role?: T;
+  topic?: T;
+  message?: T;
+  status?: T;
+  page?: T;
+  notified?: T;
+  createdBy?: T;
+  updatedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1439,7 +1498,8 @@ export interface CollectionQueryWidget {
       | 'case-studies'
       | 'insights'
       | 'testimonials'
-      | 'service-pages';
+      | 'service-pages'
+      | 'inquiries';
     where?:
       | {
           [k: string]: unknown;
@@ -1472,6 +1532,7 @@ export interface ActivityWidget {
           | 'insights'
           | 'testimonials'
           | 'service-pages'
+          | 'inquiries'
         )[]
       | null;
   };

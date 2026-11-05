@@ -7,6 +7,7 @@ import type { ServiceNavItem } from '@/lib/service-pages'
 import { Footer, Header } from '../../HomepageView'
 import { Arrow, Container, Label, serif } from '../../ui'
 import { FaqSection } from '../../FaqSection'
+import { ContactForm } from '../../ContactForm'
 
 export function ServicePageView({
   initialData,
@@ -167,18 +168,18 @@ export function ServicePageView({
 
       {/* CTA */}
       <section id="contact" className="relative overflow-hidden bg-[#0a2939] py-24 text-white md:py-32">
-        <div aria-hidden="true" className="absolute -top-60 -left-36 size-72 bg-[#ff7657]/90 md:size-[20rem]" />
-        <Container className="relative flex flex-col items-start gap-8">
-          <h2 className={`max-w-4xl ${serif} text-6xl leading-[0.92] tracking-[-0.04em] md:text-8xl`}>
-            {service.cta.heading}
-          </h2>
-          <p className="max-w-[560px] text-lg leading-[1.65] text-white/75 md:text-[19px]">{service.cta.body}</p>
-          <a
-            className="inline-flex min-h-11 items-center gap-4 bg-white px-7 py-4 text-[17px] font-bold text-[#0a2939] transition hover:bg-[#ff7657]"
-            href="mailto:hello@foxgr.com"
-          >
-            {service.cta.buttonLabel} <Arrow className="size-5" />
-          </a>
+        <div aria-hidden="true" className="drift drift-down absolute -top-60 -left-36 size-72 bg-[#ff7657]/90 md:size-[20rem]" />
+        <Container className="relative grid items-start gap-x-16 gap-y-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
+          <div>
+            <Label inverse>Start a conversation</Label>
+            <h2 className={`${serif} text-6xl leading-[0.92] tracking-[-0.04em] md:text-8xl`}>{service.cta.heading}</h2>
+            <p className="mt-8 max-w-[520px] text-lg leading-[1.65] text-white/75 md:text-[19px]">{service.cta.body}</p>
+          </div>
+          <ContactForm
+            defaultTopic={service.navigationLabel}
+            submitLabel={service.cta.buttonLabel}
+            topics={navigation.map((item) => item.navigationLabel)}
+          />
         </Container>
       </section>
 
@@ -200,7 +201,7 @@ export function ServicePageView({
         </Link>
       )}
 
-      <Footer />
+      <Footer servicePages={navigation} />
     </main>
   )
 

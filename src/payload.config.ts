@@ -14,6 +14,7 @@ import { CaseStudies } from './collections/CaseStudies'
 import { Insights } from './collections/Insights'
 import { Testimonials } from './collections/Testimonials'
 import { ServicePages } from './collections/ServicePages'
+import { Inquiries } from './collections/Inquiries'
 import { Homepage } from './globals/Homepage'
 
 const filename = fileURLToPath(import.meta.url)
@@ -44,6 +45,7 @@ export default buildConfig({
     Insights,
     Testimonials,
     ServicePages,
+    Inquiries,
   ],
   globals: [Homepage],
   editor: lexicalEditor(),
