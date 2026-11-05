@@ -21,6 +21,7 @@ import type {
 import type { HomepageContent } from '@/lib/homepage-content'
 import type { ServiceNavItem } from '@/lib/service-pages'
 import { AnimatedStats } from './AnimatedStats'
+import { FaqSection } from './FaqSection'
 import { Arrow, Container, Label, serif } from './ui'
 
 const spacingClasses = {
@@ -549,6 +550,16 @@ export function HomepageView({
               return <AboutSection block={block} key={key} />
             case 'engagements':
               return <EngagementsSection block={block} key={key} />
+            case 'faq':
+              return (
+                <FaqSection
+                  className={spacing(block.spacing)}
+                  heading={block.heading}
+                  items={block.faqs ?? []}
+                  key={key}
+                  label={block.label}
+                />
+              )
             case 'cta':
               return <CtaSection block={block} key={key} />
             case 'imageBreak':

@@ -159,6 +159,38 @@
         "spacing": "standard"
       },
       {
+        "blockType": "faq",
+        "label": "FAQ",
+        "heading": "Common questions.",
+        "faqs": [
+          {
+            "question": "What does Fox Consulting Group do?",
+            "answer": "We help marketing leaders fix the infrastructure behind their marketing: digital strategy, marketing operations and governance, marketing technology, and analytics and measurement. The deliverable is a working system your team owns, not a slide deck."
+          },
+          {
+            "question": "Who do you work with?",
+            "answer": "Marketing managers, directors and C-level leaders, often in organizations with multiple brands or business units. Past clients include Altair, Corewell Health, Gordon Food Service and Allstate Identity Protection."
+          },
+          {
+            "question": "How does an engagement usually start?",
+            "answer": "Most start with an operating model diagnostic: four to six weeks at a fixed fee, for one business unit or your central team. You leave with a governance model, a KPI dictionary and a sequenced roadmap."
+          },
+          {
+            "question": "How is pricing structured?",
+            "answer": "There are three ways to work together. The diagnostic is a fixed fee agreed up front. The advisory retainer runs in six-month terms, billed monthly for capped hours. Focused sessions are priced per session."
+          },
+          {
+            "question": "Who will we actually work with?",
+            "answer": "You work directly with founder Justin Fuchs, who brings nearly 20 years in marketing strategy, analytics and operations, with a small bench of trusted specialists when the work calls for it."
+          },
+          {
+            "question": "Will we become dependent on a consultant?",
+            "answer": "No. The work is designed to leave your team more capable. Many clients keep us on as an advisor, but the systems, documentation and roadmap are yours."
+          }
+        ],
+        "spacing": "standard"
+      },
+      {
         "blockType": "cta",
         "label": "Bring us the hard part",
         "heading": "Let’s talk through the problem.",
@@ -368,7 +400,25 @@
       "meta": {
         "title": "Digital Strategy Consulting for Marketing Leaders",
         "description": "Digital strategy consulting that connects business priorities to channels, technology and measurement, so marketing runs as one program instead of disconnected projects."
-      }
+      },
+      "faqs": [
+        {
+          "question": "What does a digital strategy consultant actually do?",
+          "answer": "We define the role digital should play in business growth, then connect your goals to the right channels, audiences and measurable outcomes. The result is a practical operating roadmap that ties strategy to the people, process and technology that carry it out."
+        },
+        {
+          "question": "What do we have at the end of a digital strategy engagement?",
+          "answer": "A shared definition of what digital marketing should accomplish, a prioritized set of opportunities instead of an endless tactics list, clear channel roles and ownership, and a roadmap your team can run."
+        },
+        {
+          "question": "How is this different from hiring an agency?",
+          "answer": "Agencies typically execute campaigns. We work on the strategy and operating model behind them, so the campaigns your team and agencies run are pointed at the right goals and measured the same way."
+        },
+        {
+          "question": "How long does a digital strategy engagement take?",
+          "answer": "Most engagements start with a four-to-six-week diagnostic at a fixed fee. From there, many clients keep us on as an advisor while the roadmap is put into practice."
+        }
+      ]
     },
     {
       "order": 2,
@@ -436,7 +486,25 @@
       "meta": {
         "title": "Marketing Operations & Governance Consulting",
         "description": "Marketing operations consulting: team structure, workflows and governance that let marketing scale across brands and business units without everything routing through one person."
-      }
+      },
+      "faqs": [
+        {
+          "question": "What is a marketing operating model?",
+          "answer": "It defines how marketing work gets done: what a central team owns, what each brand or business unit owns, and how decisions, requests and approvals move between them. Common models are centralized, federated and hub-and-spoke."
+        },
+        {
+          "question": "How do we know we need marketing governance?",
+          "answer": "Typical signs are every team building its own tools, definitions and approval steps, leaders spending more time reconciling than deciding, and too much work routing through one overworked person. These problems grow as you add brands, regions and business units."
+        },
+        {
+          "question": "What does marketing governance cover?",
+          "answer": "Standards for who can publish, launch, buy and access what across every website, social account and platform the organization runs, plus the intake and prioritization process for new work."
+        },
+        {
+          "question": "Will a new operating model force every team into the same process?",
+          "answer": "No. The goal is shared standards where they matter, such as definitions, access and approvals, while each team keeps the flexibility it needs to do its own work."
+        }
+      ]
     },
     {
       "order": 3,
@@ -504,7 +572,25 @@
       "meta": {
         "title": "MarTech Strategy, Selection & Implementation",
         "description": "Marketing technology consulting to choose, implement and govern your MarTech stack, so the platforms serve the strategy instead of the other way around."
-      }
+      },
+      "faqs": [
+        {
+          "question": "What does a MarTech stack assessment include?",
+          "answer": "An inventory of the platforms you own, what each one costs, how they connect to each other and how much of each is actually used. It shows where tools overlap, where integrations are fragile and where licenses are going unused."
+        },
+        {
+          "question": "Which marketing platforms do you help select?",
+          "answer": "CRM, CMS, marketing automation, consent management and analytics platforms. Selection starts with your requirements and documented evaluation criteria, then vendors are scored against them."
+        },
+        {
+          "question": "Do you work with our IT team?",
+          "answer": "Yes. We translate business needs into technical requirements and keep vendors, IT and marketing aligned through launch, so the platform that goes live is one the team will actually adopt."
+        },
+        {
+          "question": "Can you help reduce what we spend on marketing software?",
+          "answer": "Often, yes. Consolidating overlapping tools and finding a contract structure that fits how your organization buys are both part of the work."
+        }
+      ]
     },
     {
       "order": 4,
@@ -576,7 +662,25 @@
       "meta": {
         "title": "Marketing Analytics & GA4 Measurement Consulting",
         "description": "Marketing analytics consulting: KPI frameworks, GA4 and Google Tag Manager, privacy-first consent and dashboards your team trusts and actually uses."
-      }
+      },
+      "faqs": [
+        {
+          "question": "Can you audit our Google Analytics 4 setup?",
+          "answer": "Yes. A GA4 audit looks for duplicated events, unclear conversions and reports nobody trusts, then we plan and implement fixes in GA4 and Google Tag Manager with naming, ownership and testing documented."
+        },
+        {
+          "question": "What is a KPI framework?",
+          "answer": "It connects business goals to the specific metrics, events and conversions that show progress, with one agreed definition for each KPI, so every team reports the same number the same way."
+        },
+        {
+          "question": "What is privacy-first measurement?",
+          "answer": "Analytics designed around consent from the start, so it stays useful as consent rules and browser changes reduce what can be tracked. We also evaluate alternatives such as Piwik PRO and Matomo against your risk profile."
+        },
+        {
+          "question": "Which reporting and dashboard tools do you use?",
+          "answer": "Mostly Looker Studio and Power BI, focused on reports the people using them can understand. We also automate recurring data wrangling with AI-assisted reporting, so analysts spend their time on interpretation."
+        }
+      ]
     },
     {
       "order": 5,
@@ -640,7 +744,25 @@
       "meta": {
         "title": "On-Demand Digital Marketing Consulting Sessions",
         "description": "Senior, objective guidance for one digital marketing decision: pressure-test a plan, platform choice or measurement question without a full engagement."
-      }
+      },
+      "faqs": [
+        {
+          "question": "What is an on-demand consulting session?",
+          "answer": "A focused session on one digital marketing decision: pressure-testing a plan, diagnosing a problem or deciding the next move, with senior, objective guidance and no long engagement."
+        },
+        {
+          "question": "What can I bring to a session?",
+          "answer": "A strategy, roadmap or recommendation you want reviewed, an analytics or reporting question, a marketing technology decision, or a team and prioritization challenge."
+        },
+        {
+          "question": "Do I need a long-term contract?",
+          "answer": "No. Sessions are priced per session, with no long-term engagement required. If the work grows, a diagnostic or advisory retainer is available."
+        },
+        {
+          "question": "Are sessions confidential?",
+          "answer": "Yes. Many leaders use sessions as a confidential thought partnership for organizational, team or prioritization challenges."
+        }
+      ]
     },
     {
       "order": 6,
@@ -708,7 +830,25 @@
       "meta": {
         "title": "Content Strategy Partner for Web Development Teams",
         "description": "Content strategy and UX leadership for agencies and development teams, so website projects get the content they need without becoming a content agency."
-      }
+      },
+      "faqs": [
+        {
+          "question": "Who is the content strategy partnership for?",
+          "answer": "Web development teams and agencies whose projects need content strategy, messaging, information architecture or migration planning that sits outside their core role."
+        },
+        {
+          "question": "When should content strategy join a website project?",
+          "answer": "Early, before templates harden. Information architecture, page hierarchy and content models shape the design and build, so late content decisions are where surprises happen."
+        },
+        {
+          "question": "What does the content strategy partnership cover?",
+          "answer": "Content discovery, information architecture, page-level content strategy for key page types and conversion journeys, and governance and migration planning for what to keep, rewrite, retire and maintain after launch."
+        },
+        {
+          "question": "How does Fox work alongside our team and our client?",
+          "answer": "We join the project as a complementary partner: your team stays focused on the build, and the client gets the content leadership they need, without you expanding your core team."
+        }
+      ]
     }
   ]
 }

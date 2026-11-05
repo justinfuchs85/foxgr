@@ -10,6 +10,25 @@ const WEBSITE_ID = `${SITE.url}/#website`
 type Block = Homepage['sections'][number]
 type AboutBlock = Extract<Block, { blockType: 'about' }>
 type EngagementsBlock = Extract<Block, { blockType: 'engagements' }>
+type FaqBlock = Extract<Block, { blockType: 'faq' }>
+type Faq = { question: string; answer: string }
+
+function faqPage(pageUrl: string, faqs?: Faq[] | null): Json[] {
+  if (!faqs?.length) return []
+  return [
+    {
+      '@type': 'FAQPage',
+      '@id': `${pageUrl}#faq`,
+      url: pageUrl,
+      isPartOf: { '@id': WEBSITE_ID },
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    },
+  ]
+}
 
 function organization(services: ServicePage[], about?: AboutBlock, engagements?: EngagementsBlock): Json {
   return {
@@ -84,6 +103,7 @@ function website(): Json {
 export function homepageJsonLd(homepage: Homepage, services: ServicePage[]): Json {
   const about = homepage.sections?.find((s): s is AboutBlock => s.blockType === 'about')
   const engagements = homepage.sections?.find((s): s is EngagementsBlock => s.blockType === 'engagements')
+  const faq = homepage.sections?.find((s): s is FaqBlock => s.blockType === 'faq')
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -99,6 +119,7 @@ export function homepageJsonLd(homepage: Homepage, services: ServicePage[]): Jso
         isPartOf: { '@id': WEBSITE_ID },
         about: { '@id': ORG_ID },
       },
+      ...faqPage(absoluteUrl('/'), faq?.faqs),
     ],
   }
 }
@@ -148,6 +169,7 @@ export function servicePageJsonLd(page: ServicePage): Json {
           { '@type': 'ListItem', position: 3, name: page.navigationLabel, item: url },
         ],
       },
+      ...faqPage(url, page.faqs),
     ],
   }
 }

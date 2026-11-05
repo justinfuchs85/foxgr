@@ -8,6 +8,8 @@ import * as migration_20261104_190000_remove_aptiv from './20261104_190000_remov
 import * as migration_20261104_191000_practice_areas from './20261104_191000_practice_areas';
 import * as migration_20261104_225546_seo_fields from './20261104_225546_seo_fields';
 import * as migration_20261104_225600_seo_defaults from './20261104_225600_seo_defaults';
+import * as migration_20261105_000154_faqs from './20261105_000154_faqs';
+import * as migration_20261105_000300_faq_content from './20261105_000300_faq_content';
 
 export const migrations = [
   {
@@ -53,11 +55,21 @@ export const migrations = [
   {
     up: migration_20261104_225546_seo_fields.up,
     down: migration_20261104_225546_seo_fields.down,
-    name: '20261104_225546_seo_fields'
+    name: '20261104_225546_seo_fields',
   },
   {
     up: migration_20261104_225600_seo_defaults.up,
     down: migration_20261104_225600_seo_defaults.down,
     name: '20261104_225600_seo_defaults',
+  },
+  {
+    up: migration_20261105_000154_faqs.up,
+    down: migration_20261105_000154_faqs.down,
+    name: '20261105_000154_faqs'
+  },
+  {
+    up: migration_20261105_000300_faq_content.up,
+    down: migration_20261105_000300_faq_content.down,
+    name: '20261105_000300_faq_content',
   },
 ];

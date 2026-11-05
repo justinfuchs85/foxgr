@@ -431,6 +431,16 @@ export interface ServicePage {
    */
   featured?: boolean | null;
   /**
+   * Real questions prospects ask, answered in two to four plain sentences. These are what AI assistants and search results quote most.
+   */
+  faqs?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
    * How this page appears in Google, AI answers and link previews. Leave blank to use the page title and summary.
    */
   meta?: {
@@ -796,6 +806,13 @@ export interface ServicePagesSelect<T extends boolean = true> {
       };
   order?: T;
   featured?: T;
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
   meta?:
     | T
     | {
@@ -876,7 +893,18 @@ export interface Homepage {
    * Drag sections to reorder them. Each section exposes only design-safe layout options.
    */
   sections: (
-    Hero | Intro | ImageBreak | Services | CaseStudies | Testimonial1 | Insights | Approach | About | Engagements | Cta
+    | Hero
+    | Intro
+    | ImageBreak
+    | Services
+    | CaseStudies
+    | Testimonial1
+    | Insights
+    | Approach
+    | About
+    | Engagements
+    | Faq
+    | Cta
   )[];
   /**
    * How this page appears in Google, AI answers and link previews. Leave blank to use the page title and summary.
@@ -1139,6 +1167,29 @@ export interface Engagements {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Faq".
+ */
+export interface Faq {
+  label: string;
+  heading: string;
+  /**
+   * Real questions prospects ask, answered in two to four plain sentences. These are what AI assistants and search results quote most.
+   */
+  faqs: {
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
+  /**
+   * Controls the vertical breathing room around this section.
+   */
+  spacing?: ('compact' | 'standard' | 'generous') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faq';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Cta".
  */
 export interface Cta {
@@ -1305,6 +1356,22 @@ export interface HomepageSelect<T extends boolean = true> {
                     linkLabel?: T;
                     linkHref?: T;
                     highlight?: T;
+                    id?: T;
+                  };
+              spacing?: T;
+              id?: T;
+              blockName?: T;
+            };
+        faq?:
+          | T
+          | {
+              label?: T;
+              heading?: T;
+              faqs?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
                     id?: T;
                   };
               spacing?: T;

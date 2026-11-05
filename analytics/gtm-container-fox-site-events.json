@@ -196,6 +196,21 @@
                     "value": "{{DLV - section_name}}"
                   }
                 ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "faq_question"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{DLV - faq_question}}"
+                  }
+                ]
               }
             ]
           }
@@ -234,7 +249,7 @@
               {
                 "type": "TEMPLATE",
                 "key": "arg1",
-                "value": "^(contact_click|cta_click|service_click|engagement_click|social_click|nav_click|section_view)$"
+                "value": "^(contact_click|cta_click|service_click|engagement_click|social_click|nav_click|section_view|faq_open)$"
               }
             ]
           }
@@ -455,6 +470,31 @@
             "type": "TEMPLATE",
             "key": "name",
             "value": "section_name"
+          }
+        ]
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "10",
+        "name": "DLV - faq_question",
+        "type": "v",
+        "parentFolderId": "1",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "faq_question"
           }
         ]
       }

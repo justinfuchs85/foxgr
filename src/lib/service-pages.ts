@@ -25,7 +25,7 @@ export const getServicePageNavigation = unstable_cache(
 export async function getServicePageBySlug(slug: string) {
   return unstable_cache(
     () => findBySlug('service-pages', slug),
-    ['service-page-v3', slug],
+    ['service-page-v4', slug],
     { tags: [SERVICE_PAGES_TAG, `service-page:${slug}`] },
   )()
 }
@@ -57,6 +57,6 @@ export const getPublishedServicePages = unstable_cache(
     })
     return result.docs
   },
-  ['service-pages-full-v1'],
+  ['service-pages-full-v2'],
   { tags: [SERVICE_PAGES_TAG] },
 )

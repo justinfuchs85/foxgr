@@ -16,6 +16,7 @@ import { useEffect } from 'react'
  *   social_click      LinkedIn / Instagram                  + social_network
  *   nav_click         other header / footer navigation
  *   section_view      a key section reaches mid-screen, once per page view + section_name
+ *   faq_open          an FAQ question is expanded                          + faq_question
  *
  * Optional markup: data-track-location="..." names a region, data-track-offer="..." an offer.
  */
@@ -28,7 +29,7 @@ declare global {
   }
 }
 
-const TRACKED_SECTIONS = ['services', 'work', 'approach', 'about', 'engage', 'contact', 'capabilities']
+const TRACKED_SECTIONS = ['services', 'work', 'approach', 'about', 'engage', 'faq', 'contact', 'capabilities']
 
 function push(data: DataLayerEvent) {
   window.dataLayer = window.dataLayer || []
@@ -117,6 +118,22 @@ export function Tracking() {
     }
     document.addEventListener('click', onClick, { capture: true })
     return () => document.removeEventListener('click', onClick, { capture: true })
+  }, [])
+
+  // FAQ opens. "toggle" doesn't bubble, so listen in the capture phase.
+  useEffect(() => {
+    const onToggle = (e: Event) => {
+      const el = e.target as HTMLDetailsElement
+      if (!(el instanceof HTMLDetailsElement) || !el.open || !el.hasAttribute('data-faq')) return
+      push({
+        event: 'faq_open',
+        faq_question: el.querySelector('summary')?.textContent?.trim().slice(0, 100),
+        cta_location: locationOf(el),
+        page_type: pageType(window.location.pathname),
+      })
+    }
+    document.addEventListener('toggle', onToggle, { capture: true })
+    return () => document.removeEventListener('toggle', onToggle, { capture: true })
   }, [])
 
   // Section views: re-armed on every route change.

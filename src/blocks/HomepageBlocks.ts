@@ -1,4 +1,5 @@
 import type { Block, Field } from 'payload'
+import { faqItemsField } from '@/fields/faqs'
 
 const sectionOptions = (): Field[] => [
   {
@@ -306,6 +307,17 @@ export const EngagementsBlock: Block = {
   ],
 }
 
+const FaqBlock: Block = {
+  slug: 'faq',
+  labels: { singular: 'FAQ', plural: 'FAQs' },
+  fields: [
+    { name: 'label', type: 'text', required: true, defaultValue: 'FAQ' },
+    { name: 'heading', type: 'text', required: true, defaultValue: 'Common questions.' },
+    { ...faqItemsField(), required: true, minRows: 1 } as Field,
+    ...sectionOptions(),
+  ],
+}
+
 export const homepageBlocks = [
   HeroBlock,
   IntroBlock,
@@ -317,5 +329,6 @@ export const homepageBlocks = [
   ApproachBlock,
   AboutBlock,
   EngagementsBlock,
+  FaqBlock,
   CtaBlock,
 ]

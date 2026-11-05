@@ -31,6 +31,10 @@ function servicePageMarkdown(p: ServicePage) {
     out.push('', '### What clients are left with', '')
     for (const o of p.outcomes) out.push(`- ${o.text}`)
   }
+  if (p.faqs?.length) {
+    out.push('', '### Frequently asked questions', '')
+    for (const f of p.faqs) out.push(`**${f.question}**`, clean(f.answer), '')
+  }
   return out.join('\n')
 }
 
@@ -41,6 +45,7 @@ export async function buildLlmsTxt({ full }: { full: boolean }) {
   const about = find(homepage, 'about')
   const approach = find(homepage, 'approach')
   const engagements = find(homepage, 'engagements')
+  const faq = find(homepage, 'faq')
   const core = pages.filter((p) => p.featured !== false)
   const other = pages.filter((p) => p.featured === false)
   const link = (p: ServicePage) =>
@@ -89,6 +94,11 @@ export async function buildLlmsTxt({ full }: { full: boolean }) {
   }
 
   if (about?.body) out.push('## About', '', clean(about.body), '')
+
+  if (faq?.faqs?.length) {
+    out.push('## Frequently asked questions', '')
+    for (const f of faq.faqs) out.push(`**${f.question}**`, clean(f.answer), '')
+  }
 
   out.push(
     '## Contact',

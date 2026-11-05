@@ -6,6 +6,7 @@ import type { ServicePage } from '@/payload-types'
 import type { ServiceNavItem } from '@/lib/service-pages'
 import { Footer, Header } from '../../HomepageView'
 import { Arrow, Container, Label, serif } from '../../ui'
+import { FaqSection } from '../../FaqSection'
 
 export function ServicePageView({
   initialData,
@@ -160,6 +161,9 @@ export function ServicePageView({
           </Container>
         </section>
       )}
+
+      {/* FAQ */}
+      <FaqSection heading="Questions we hear often." items={service.faqs ?? []} />
 
       {/* CTA */}
       <section id="contact" className="relative overflow-hidden bg-[#0a2939] py-24 text-white md:py-32">
