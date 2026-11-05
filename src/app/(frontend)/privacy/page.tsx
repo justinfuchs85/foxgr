@@ -62,8 +62,10 @@ const sections: { id: string; heading: string; body: React.ReactNode }[] = [
           which can’t be used to recognize you on later visits.
         </p>
         <p>
-          We honor the Global Privacy Control browser signal as a “no”. We store your choice in your browser so we
-          don’t ask on every visit, and you can change it any time with “Cookie settings” at the bottom of every page.
+          We honor browser privacy signals. If your browser sends Global Privacy Control or Do Not Track, analytics
+          cookies stay off and we don’t ask; if you switch a signal on later, it overrides an earlier “allow”. You can
+          still choose to allow analytics through “Cookie settings”. We store your choice in your browser so we don’t
+          ask on every visit, and you can change it any time with “Cookie settings” at the bottom of every page.
         </p>
         <p>We don’t use advertising cookies, remarketing tags or cross-site tracking.</p>
       </>
