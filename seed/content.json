@@ -9,6 +9,13 @@
       "height": 293
     },
     {
+      "key": "justinHeadshot",
+      "alt": "Justin Fuchs, founder of Fox Consulting Group",
+      "filename": "justin-fuchs-headshot.webp",
+      "width": 960,
+      "height": 1200
+    },
+    {
       "key": "foxMountains",
       "alt": "Layered blue mountain landscape",
       "filename": "fox-mountains-original.webp",
@@ -105,7 +112,7 @@
         "label": "Who we are",
         "heading": "Look for the system behind the symptom.",
         "body": "Fox Consulting Group is led by Justin Fuchs, who has spent nearly 20 years on the infrastructure side of marketing: strategy, analytics, platforms and the operating models that hold them together. Since 2016 the practice has delivered 30+ engagements for organizations including Altair, Corewell Health, Gordon Food Service and Allstate Identity Protection, and most clients have stayed five years or more.\n\nMost recently, Justin built a hub-and-spoke analytics function across 13 business units at a public manufacturer, taking reporting from months to days. He’s as comfortable presenting a roadmap to a segment president as he is debugging the tag manager himself. You work with him directly, with a small bench of trusted specialists when the work calls for it.",
-        "image": "@media:foxConsultant",
+        "image": "@media:justinHeadshot",
         "stats": [
           {
             "value": "30+",

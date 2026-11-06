@@ -12,6 +12,7 @@ import * as migration_20261105_000154_faqs from './20261105_000154_faqs';
 import * as migration_20261105_000300_faq_content from './20261105_000300_faq_content';
 import * as migration_20261105_145943_inquiries from './20261105_145943_inquiries';
 import * as migration_20261105_154936_consent_management from './20261105_154936_consent_management';
+import * as migration_20261106_153000_about_headshot from './20261106_153000_about_headshot';
 
 export const migrations = [
   {
@@ -83,5 +84,10 @@ export const migrations = [
     up: migration_20261105_154936_consent_management.up,
     down: migration_20261105_154936_consent_management.down,
     name: '20261105_154936_consent_management'
+  },
+  {
+    up: migration_20261106_153000_about_headshot.up,
+    down: migration_20261106_153000_about_headshot.down,
+    name: '20261106_153000_about_headshot',
   },
 ];

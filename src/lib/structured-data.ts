@@ -77,6 +77,9 @@ function organization(services: ServicePage[], about?: AboutBlock, engagements?:
 }
 
 function founder(about?: AboutBlock): Json {
+  const img = about?.image
+  const photo =
+    img && typeof img === 'object' && img.url && (img.height ?? 0) > (img.width ?? 0) ? img.url : undefined
   return {
     '@type': 'Person',
     '@id': PERSON_ID,
@@ -84,6 +87,7 @@ function founder(about?: AboutBlock): Json {
     jobTitle: about?.personTitle || SITE.founder.jobTitle,
     worksFor: { '@id': ORG_ID },
     knowsAbout: SITE.knowsAbout,
+    ...(photo ? { image: photo.startsWith('http') ? photo : absoluteUrl(photo) } : {}),
     ...(about?.linkedinUrl ? { sameAs: [about.linkedinUrl] } : {}),
   }
 }

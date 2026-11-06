@@ -1362,6 +1362,9 @@ export interface ConsentSetting {
    * Shown when a visitor with a privacy signal opens Cookie settings. {signal} is replaced with its name.
    */
   signalMessage: string;
+  /**
+   * Becomes “Allow all” when Marketing is on.
+   */
   acceptLabel: string;
   declineLabel: string;
   /**

@@ -404,22 +404,36 @@ function ApproachSection({ block }: { block: Approach }) {
 function AboutSection({ block }: { block: About }) {
   const image = isMedia(block.image) ? block.image : null
   const src = image?.url ?? '/brand/fox-consultant.webp'
+  // A portrait upload is a headshot: fill the frame. Anything else (the Fox) sits on the mint panel.
+  const isPhoto = !!image?.width && !!image?.height && image.height > image.width
 
   return (
     <section id="about" className={spacing(block.spacing)}>
       <Container className="flex flex-wrap items-start gap-x-16 gap-y-10">
         <figure className="min-w-0 flex-[0_1_340px]" data-reveal>
-          <div className="relative flex h-[340px] items-end justify-center bg-[#dce8e3]">
-            <div className="relative h-[267px] w-[300px]">
+          {isPhoto ? (
+            <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#dce8e3]">
               <Image
-                alt={image?.alt ?? 'The Fox Consultant illustration'}
-                className="object-contain object-bottom"
+                alt={image?.alt || 'Justin Fuchs'}
+                className="object-cover object-top"
                 fill
-                sizes="300px"
+                sizes="(min-width: 768px) 340px, 100vw"
                 src={src}
               />
             </div>
-          </div>
+          ) : (
+            <div className="relative flex h-[340px] items-end justify-center bg-[#dce8e3]">
+              <div className="relative h-[267px] w-[300px]">
+                <Image
+                  alt={image?.alt ?? 'The Fox Consultant illustration'}
+                  className="object-contain object-bottom"
+                  fill
+                  sizes="300px"
+                  src={src}
+                />
+              </div>
+            </div>
+          )}
           {block.personName && (
             <figcaption className="mt-4 border-t border-[#0a2939]/20 pt-4">
               <p className="font-bold">{block.personName}</p>
