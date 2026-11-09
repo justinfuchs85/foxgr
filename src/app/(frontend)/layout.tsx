@@ -34,6 +34,8 @@ export const metadata: Metadata = {
   title: { default: SITE.defaultTitle, template: `%s | ${SITE.name}` },
   description: SITE.description,
   applicationName: SITE.name,
+  // Standard platform marker read by tech detectors. No version number on purpose.
+  generator: 'Payload CMS',
   authors: [{ name: SITE.founder.name }],
   creator: SITE.name,
   publisher: SITE.name,

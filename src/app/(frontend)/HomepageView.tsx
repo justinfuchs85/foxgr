@@ -634,6 +634,15 @@ export function Footer({ servicePages = [] }: { servicePages?: ServiceNavItem[] 
               Privacy policy
             </Link>
             <CookieSettingsButton className="cursor-pointer transition hover:text-white" />
+            <a
+              className="transition hover:text-white"
+              data-built-with="payload"
+              href="https://payloadcms.com"
+              rel="noopener"
+              target="_blank"
+            >
+              Built with Payload
+            </a>
           </div>
         </Container>
       </div>

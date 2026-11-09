@@ -6,6 +6,17 @@ import { fileURLToPath } from 'url'
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const nextConfig: NextConfig = {
+  // Announce the stack so tech detectors (BuiltWith, Wappalyzer) can identify Payload.
+  // Next's default "X-Powered-By: Next.js" is replaced by the custom header below.
+  poweredByHeader: false,
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [{ key: 'X-Powered-By', value: 'Payload CMS, Next.js' }],
+      },
+    ]
+  },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
